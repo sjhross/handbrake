@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +8,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
- 
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
   :root {
     --bg:        #F5F2ED;
     --bg2:       #EDEAE4;
@@ -33,7 +34,7 @@
     --radius:    4px;
     --radius-lg: 8px;
   }
- 
+
   body {
     font-family: 'IBM Plex Sans', sans-serif;
     background: var(--bg);
@@ -41,7 +42,7 @@
     min-height: 100vh;
     padding: 0;
   }
- 
+
   /* HEADER */
   .site-header {
     background: var(--text);
@@ -96,14 +97,14 @@
   }
   .header-links a { color: #6A6560; text-decoration: none; }
   .header-links a:hover { color: #9A9590; }
- 
+
   /* MAIN CONTAINER */
   .container {
     max-width: 900px;
     margin: 0 auto;
     padding: 1.5rem 1rem 3rem;
   }
- 
+
   /* SECTION HEADER */
   .section-header {
     display: flex;
@@ -117,7 +118,7 @@
   }
   .section-title { font-size: 0.95rem; font-weight: 600; }
   .section-sub { font-size: 0.72rem; color: var(--text3); font-family: 'IBM Plex Mono', monospace; }
- 
+
   /* TABS */
   .tabs {
     display: flex;
@@ -139,7 +140,7 @@
   }
   .tab:hover { background: var(--bg2); color: var(--text); }
   .tab.on { background: var(--text); color: var(--bg); border-color: var(--text); }
- 
+
   /* SUMMARY CARDS */
   .cards {
     display: grid;
@@ -159,7 +160,7 @@
   .pos { color: var(--green); }
   .neg { color: var(--red); }
   .neu { color: var(--text2); }
- 
+
   /* BLOCKS */
   .blk {
     background: var(--bg);
@@ -180,12 +181,12 @@
   .blk-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
   .blk-sub { font-size: 0.72rem; color: var(--text2); margin-bottom: 0.6rem; }
   .blk-divider { border: none; border-top: 1px solid var(--border); margin: 0.85rem 0; }
- 
+
   /* CHART WRAPPERS */
   .chart-wrap { position: relative; width: 100%; height: 180px; }
   .chart-wrap-sm { position: relative; width: 100%; height: 145px; }
   .chart-wrap-radar { position: relative; width: 100%; height: 290px; }
- 
+
   /* LEGEND */
   .leg {
     display: flex;
@@ -197,7 +198,7 @@
   }
   .leg-item { display: flex; align-items: center; gap: 4px; }
   .leg-swatch { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
- 
+
   /* REF LEGEND */
   .ref-leg {
     display: flex;
@@ -213,7 +214,7 @@
   }
   .ref-leg-item { display: flex; align-items: center; gap: 5px; }
   .ref-line { width: 20px; height: 2px; display: inline-block; }
- 
+
   /* TIER CARDS */
   .tier-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1rem; }
   .tier-card { border-radius: var(--radius-lg); padding: 0.75rem 0.9rem; }
@@ -232,7 +233,7 @@
   .tier-card.good .tier-sub { color: var(--green); }
   .tier-card.ok   .tier-sub { color: var(--gold); }
   .tier-card.bad  .tier-sub { color: var(--red); }
- 
+
   /* SUMMARY NOTE */
   .note {
     font-size: 0.72rem;
@@ -244,13 +245,13 @@
     margin-bottom: 0.85rem;
     line-height: 1.5;
   }
- 
+
   /* THREAT STAT CARDS */
   .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 0.75rem; }
   .stat-card { background: var(--bg2); border-radius: var(--radius-lg); padding: 0.65rem 0.8rem; }
   .stat-card-label { font-size: 0.64rem; color: var(--text3); margin-bottom: 2px; font-family: 'IBM Plex Mono', monospace; }
   .stat-card-value { font-size: 1.2rem; font-weight: 600; }
- 
+
   /* FOOTER */
   .site-footer {
     text-align: center;
@@ -263,7 +264,7 @@
   }
   .site-footer a { color: var(--text2); text-decoration: none; }
   .site-footer a:hover { color: var(--text); }
- 
+
   /* RESPONSIVE */
   @media (max-width: 500px) {
     .cards { grid-template-columns: repeat(2, 1fr); }
@@ -273,7 +274,7 @@
 </style>
 </head>
 <body>
- 
+
 <header class="site-header">
   <div class="site-header-inner">
     <div class="logo-wrap">
@@ -289,14 +290,14 @@
     </div>
   </div>
 </header>
- 
+
 <div class="container">
- 
+
   <div class="section-header">
     <span class="section-title">Richmond gameplan tracker — 2026</span>
     <span class="section-sub">2 games played · R1 Carlton (Bad) · R2 Gold Coast (Good)</span>
   </div>
- 
+
   <!-- TABS -->
   <div class="tabs">
     <div class="tab on" onclick="sv('ov')">Overview</div>
@@ -306,7 +307,7 @@
     <div class="tab" onclick="sv('co')">Control/chaos</div>
     <div class="tab" onclick="sv('st')">Stoppages</div>
   </div>
- 
+
   <!-- OVERVIEW -->
   <div id="v-ov">
     <div class="cards" id="ov-cards"></div>
@@ -316,7 +317,7 @@
       <div class="chart-wrap-radar"><canvas id="radar"></canvas></div>
     </div>
   </div>
- 
+
   <!-- KICK THREAT -->
   <div id="v-tr" style="display:none">
     <div class="blk">
@@ -332,27 +333,27 @@
       </div>
     </div>
   </div>
- 
+
   <!-- CHAIN QUALITY -->
   <div id="v-ch" style="display:none"><div id="ch-c"></div></div>
- 
+
   <!-- SCORING -->
   <div id="v-sc" style="display:none"><div id="sc-c"></div></div>
- 
+
   <!-- CONTROL/CHAOS -->
   <div id="v-co" style="display:none"><div id="co-c"></div></div>
- 
+
   <!-- STOPPAGES -->
   <div id="v-st" style="display:none"><div id="st-c"></div></div>
- 
+
 </div>
- 
+
 <footer class="site-footer">
   <strong style="color:var(--text2);">The Handbrake</strong> &nbsp;·&nbsp;
   <a href="https://substack.com/sjhross">substack.com/sjhross</a> &nbsp;·&nbsp;
   data: <a href="https://wheeloratings.com">wheelo</a>
 </footer>
- 
+
 <script>
 // ─── COLOURS ────────────────────────────────────────────────────────────────
 const C = {
@@ -365,7 +366,7 @@ const C = {
   gc:     'rgba(0,0,0,0.06)',
   tc:     '#8A8580',
 };
- 
+
 // ─── 2025 PER-GAME DATA ──────────────────────────────────────────────────────
 const G25 = [
   {r:1, o:'Carl', t:'OK',   D50:13.1, xCT:47.4, CTS:13.2, ptT:55,  CI:-40, pcCP:84, xSR:20.8,  ptS:21, ptCB:7},
@@ -392,14 +393,14 @@ const G25 = [
   {r:23,o:'NM',   t:'Bad',  D50:5.3,  xCT:43.1, CTS:19.8, ptT:40,  CI:-15, pcCP:68, xSR:6.2,   ptS:47, ptCB:25},
   {r:24,o:'Geel', t:'Good', D50:31.0, xCT:37.4, CTS:18.8, ptT:35,  CI:10,  pcCP:80, xSR:-6.8,  ptS:22, ptCB:7},
 ];
- 
+
 // ─── 2026 PER-GAME DATA ──────────────────────────────────────────────────────
 // UPDATE THIS ARRAY EACH ROUND — add one object per game
 const G26 = [
   {r:1, o:'Carl', t:'Bad',  D50:31.20, xCT:51.30, CTS:23.20, ptT:54, CI:12.0, pcCP:84, xSR:-13.40, ptS:8,  ptCB:6,  tr:8.624,  sl:7.32},
   {r:2, o:'GC',   t:'Good', D50:6.40,  xCT:35.90, CTS:14.20, ptT:44, CI:7.0,  pcCP:60, xSR:7.50,   ptS:10, ptCB:1,  tr:-7.312, sl:4.55},
 ];
- 
+
 // ─── REFERENCE VALUES ────────────────────────────────────────────────────────
 // r25rich = 2025 Richmond season avg
 // r25lg   = 2025 league avg
@@ -416,7 +417,7 @@ const REF = {
   ptCB: { r25rich:7.22,  r25lg:11.40, r26lg:11.60 },
   tr:   { r25rich:-0.63, r25lg:-0.63, r26lg:2.54  },
 };
- 
+
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 const fa  = (v,d=1) => v==null ? '—' : (+v).toFixed(d);
 const fm  = (v,d=1) => v==null ? '—' : (v>=0?'+':'')+v.toFixed(d);
@@ -424,9 +425,9 @@ const avg = arr => arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : null;
 const oa26 = f => { const v=G26.filter(g=>g[f]!=null).map(g=>g[f]); return v.length?avg(v):null; };
 const ta26 = (f,t) => { const v=G26.filter(g=>g.t===t&&g[f]!=null).map(g=>g[f]); return v.length?avg(v):null; };
 const r26avg = f => oa26(f);
- 
+
 const TC = { Good: C.good, OK: C.ok, Bad: C.bad };
- 
+
 function sv(v) {
   ['ov','tr','ch','sc','co','st'].forEach(n => {
     document.getElementById('v-'+n).style.display = n===v ? '' : 'none';
@@ -435,18 +436,18 @@ function sv(v) {
     t.classList.toggle('on', ['ov','tr','ch','sc','co','st'][i]===v);
   });
 }
- 
+
 // ─── REF LEGEND HTML ─────────────────────────────────────────────────────────
 const refLeg25 = `<div class="ref-leg">
   <span class="ref-leg-item"><span class="ref-line" style="background:${C.red};opacity:0.8;"></span>Richmond 2025 avg</span>
   <span class="ref-leg-item"><span class="ref-line" style="background:${C.grey};opacity:0.6;"></span>League 2025 avg</span>
 </div>`;
- 
+
 const refLeg26 = `<div class="ref-leg">
   <span class="ref-leg-item"><span class="ref-line" style="background:${C.red};opacity:0.8;"></span>Richmond 2026 avg (running)</span>
   <span class="ref-leg-item"><span class="ref-line" style="background:${C.grey};opacity:0.6;"></span>League 2026 avg (live)</span>
 </div>`;
- 
+
 // ─── OVERVIEW ────────────────────────────────────────────────────────────────
 function buildOv() {
   const defs = [
@@ -475,7 +476,7 @@ function buildOv() {
     </div>`;
   });
 }
- 
+
 function buildRadar() {
   const fs = ['D50','xCT','CTS','ptT','CI','pcCP','xSR','ptS','ptCB','tr'];
   const ls = ['D50→F50','xChainTO','ChainScore','PtsTO','ControlIdx','PostClearCP','xScoreRtg','PtsStop','PtsCB','ThreatRtg'];
@@ -498,7 +499,7 @@ function buildRadar() {
   const dR25  = fs.map(f => nm(REF[f].r25rich, f));
   const dLg26 = fs.map(f => nm(REF[f].r26lg,   f));
   const d26   = fs.map(f => { const a=oa26(f); return a!=null?nm(a,f):0; });
- 
+
   new Chart(document.getElementById('radar'), {
     type: 'radar',
     data: { labels: ls, datasets: [
@@ -512,7 +513,7 @@ function buildRadar() {
     }
   });
 }
- 
+
 // ─── THREAT RATING ───────────────────────────────────────────────────────────
 function buildTr() {
   const a = oa26('tr');
@@ -548,7 +549,7 @@ function buildTr() {
     }
   });
 }
- 
+
 // ─── PAIRED BAR CHARTS ───────────────────────────────────────────────────────
 function makePair(cont, cfg) {
   const {title, sub, field, dec, isCI} = cfg;
@@ -571,10 +572,10 @@ function makePair(cont, cfg) {
   </div>
   <div class="tier-row" id="pt-${field}"></div>`;
 }
- 
+
 function renderPair(field, dec, isCI) {
   const ref = REF[field];
- 
+
   // 2025 chart
   const c25 = document.getElementById('p25-'+field);
   if (c25) {
@@ -593,7 +594,7 @@ function renderPair(field, dec, isCI) {
       }
     });
   }
- 
+
   // 2026 chart
   const c26 = document.getElementById('p26-'+field);
   if (c26 && G26.length) {
@@ -611,7 +612,7 @@ function renderPair(field, dec, isCI) {
       }
     });
   }
- 
+
   // tier cards
   const te = document.getElementById('pt-'+field);
   if (te) {
@@ -619,15 +620,15 @@ function renderPair(field, dec, isCI) {
       const cur=ta26(field,t), n=G26.filter(g=>g.t===t).length;
       const diff=cur!=null?cur-ref.r25rich:null;
       te.innerHTML += `<div class="tier-card ${cl}">
-        <div class="tier-label">vs ${t}</div>
-        <div class="tier-value">${fa(ref.r25rich,dec)}</div>
-        <div class="tier-sub">Rich25 avg · lg25: ${fa(ref.r25lg,dec)} · lg26: ${fa(ref.r26lg,dec)}</div>
-        <div class="tier-sub" style="margin-top:3px;">2026 (${n}g): ${cur!=null?fa(cur,dec)+(diff>=0?' ▲':' ▼')+Math.abs(diff).toFixed(dec):'no games yet'}</div>
+        <div class="tier-label">vs ${t} — 2026 (${n}g)</div>
+        <div class="tier-value">${cur!=null?fa(cur,dec):'—'}</div>
+        <div class="tier-sub">${cur!=null?(diff>=0?'▲':'▼')+Math.abs(diff).toFixed(dec)+' vs Rich25 avg ('+fa(ref.r25rich,dec)+')':'no games yet'}</div>
+        <div class="tier-sub" style="margin-top:2px;">lg25: ${fa(ref.r25lg,dec)} · lg26: ${fa(ref.r26lg,dec)}</div>
       </div>`;
     });
   }
 }
- 
+
 // ─── TAB CONFIGS ─────────────────────────────────────────────────────────────
 const TABS = {
   ch: [
@@ -648,13 +649,13 @@ const TABS = {
     { title:'Points from centre bounce',   sub:'Points scored from centre bounce chains specifically',                    field:'ptCB',dec:0 },
   ],
 };
- 
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 ['ch','sc','co','st'].forEach(tab => {
   const el = document.getElementById(tab+'-c');
   if (el) TABS[tab].forEach(cfg => makePair(el, cfg));
 });
- 
+
 buildOv();
 buildRadar();
 buildTr();
