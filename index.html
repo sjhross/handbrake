@@ -282,7 +282,7 @@
       <span class="logo-sub">Richmond FC · data-informed · fan media · sjhross</span>
     </div>
     <div class="header-right">
-      <span class="meta">2026 season tracker · updated after each round</span>
+      <span class="meta">2026 season tracker · R3 league avgs updated · Richmond R3 pending</span>
       <div class="header-links">
         <a href="https://substack.com/sjhross">substack</a>
         <a href="https://wheeloratings.com">wheelo</a>
@@ -295,7 +295,7 @@
 
   <div class="section-header">
     <span class="section-title">Richmond gameplan tracker — 2026</span>
-    <span class="section-sub">2 games played · R1 Carlton (Bad) · R2 Gold Coast (Good)</span>
+    <span class="section-sub">2 games played · R1 Carlton (Bad) · R2 Gold Coast (Good) · R3 Fremantle pending</span>
   </div>
 
   <!-- TABS -->
@@ -313,7 +313,7 @@
     <div class="cards" id="ov-cards"></div>
     <div class="blk">
       <div class="blk-title">Season at a glance</div>
-      <div class="blk-sub">Green = 2026 Richmond avg (2g) · Red dashed = 2025 Richmond season avg · Grey dashed = 2026 league avg (live)</div>
+      <div class="blk-sub">Green = 2026 Richmond avg (2g) · Red dashed = 2025 Richmond season avg · Grey dashed = 2026 league avg (R3, 18 teams)</div>
       <div class="chart-wrap-radar"><canvas id="radar"></canvas></div>
     </div>
   </div>
@@ -406,16 +406,16 @@ const G26 = [
 // r25lg   = 2025 league avg
 // r26lg   = 2026 league avg (live — update weekly)
 const REF = {
-  D50:  { r25rich:21.08, r25lg:23.30, r26lg:23.10 },
-  xCT:  { r25rich:39.23, r25lg:44.00, r26lg:48.10 },
-  CTS:  { r25rich:17.78, r25lg:20.80, r26lg:22.70 },
-  ptT:  { r25rich:34.61, r25lg:46.60, r26lg:55.70 },
-  CI:   { r25rich:5.96,  r25lg:1.20,  r26lg:8.70  },
-  pcCP: { r25rich:72.70, r25lg:79.60, r26lg:75.60 },
-  xSR:  { r25rich:-0.65, r25lg:0.08,  r26lg:0.92  },
-  ptS:  { r25rich:24.04, r25lg:33.80, r26lg:33.10 },
-  ptCB: { r25rich:7.22,  r25lg:11.40, r26lg:11.60 },
-  tr:   { r25rich:-0.63, r25lg:-0.63, r26lg:2.54  },
+  D50:  { r25rich:21.08, r25lg:23.30, r26lg:23.07 },
+  xCT:  { r25rich:39.23, r25lg:44.00, r26lg:48.26 },
+  CTS:  { r25rich:17.78, r25lg:20.80, r26lg:22.60 },
+  ptT:  { r25rich:34.61, r25lg:46.60, r26lg:56.12 },
+  CI:   { r25rich:5.96,  r25lg:1.20,  r26lg:7.83  },
+  pcCP: { r25rich:72.70, r25lg:79.60, r26lg:81.12 },
+  xSR:  { r25rich:-0.65, r25lg:0.08,  r26lg:1.97  },
+  ptS:  { r25rich:24.04, r25lg:33.80, r26lg:33.21 },
+  ptCB: { r25rich:7.22,  r25lg:11.40, r26lg:10.91 },
+  tr:   { r25rich:-0.63, r25lg:-0.63, r26lg:3.00  },
 };
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
