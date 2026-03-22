@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>rfcramble — 2026 Richmond Season Tracker</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #F5F2ED;
+    --bg2:       #EDEAE4;
+    --bg3:       #E4E0D8;
+    --border:    #D5D0C8;
+    --border2:   #C8C3BA;
+    --text:      #1A1814;
+    --text2:     #5A5550;
+    --text3:     #8A8580;
+    --red:       #C13B2A;
+    --red-light: #F5EAE8;
+    --green:     #1D7A5F;
+    --green-light:#E3F2ED;
+    --gold:      #8A6A1A;
+    --gold-light:#F5EDDA;
+    --blue:      #2A5FA8;
+    --blue-light:#E3EBF8;
+    --accent:    #C13B2A;
+    --gc:        rgba(0,0,0,0.06);
+    --tc:        #8A8580;
+    --radius:    4px;
+    --radius-lg: 8px;
+  }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--text);
+    color: var(--bg);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .site-header .logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--bg);
+    text-decoration: none;
+  }
+  .site-header .logo span { color: var(--accent); }
+  .site-header .meta {
+    font-size: 0.72rem;
+    color: #9A9590;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* MAIN CONTAINER */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title { font-size: 0.95rem; font-weight: 600; }
+  .section-sub { font-size: 0.72rem; color: var(--text3); font-family: 'IBM Plex Mono', monospace; }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .tab {
+    padding: 5px 14px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: var(--bg);
+    color: var(--text2);
+    transition: all 0.15s;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .tab:hover { background: var(--bg2); color: var(--text); }
+  .tab.on { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+  /* SUMMARY CARDS */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+    margin-bottom: 1.25rem;
+  }
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 0.75rem 0.9rem;
+  }
+  .card-label { font-size: 0.68rem; color: var(--text3); margin-bottom: 3px; font-family: 'IBM Plex Mono', monospace; line-height: 1.3; }
+  .card-value { font-size: 1.3rem; font-weight: 600; line-height: 1; margin-bottom: 2px; }
+  .card-delta { font-size: 0.68rem; }
+  .pos { color: var(--green); }
+  .neg { color: var(--red); }
+  .neu { color: var(--text2); }
+
+  /* BLOCKS */
+  .blk {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.85rem;
+  }
+  .blk-eyebrow {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text3);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 3px;
+  }
+  .blk-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
+  .blk-sub { font-size: 0.72rem; color: var(--text2); margin-bottom: 0.6rem; }
+  .blk-divider { border: none; border-top: 1px solid var(--border); margin: 0.85rem 0; }
+
+  /* CHART WRAPPERS */
+  .chart-wrap { position: relative; width: 100%; height: 180px; }
+  .chart-wrap-sm { position: relative; width: 100%; height: 145px; }
+  .chart-wrap-radar { position: relative; width: 100%; height: 290px; }
+
+  /* LEGEND */
+  .leg {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.68rem;
+    color: var(--text2);
+    margin-bottom: 0.45rem;
+  }
+  .leg-item { display: flex; align-items: center; gap: 4px; }
+  .leg-swatch { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+
+  /* REF LEGEND */
+  .ref-leg {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 0.68rem;
+    color: var(--text2);
+    margin-bottom: 0.55rem;
+    padding: 0.4rem 0.7rem;
+    background: var(--bg2);
+    border-radius: var(--radius);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .ref-leg-item { display: flex; align-items: center; gap: 5px; }
+  .ref-line { width: 20px; height: 2px; display: inline-block; }
+
+  /* TIER CARDS */
+  .tier-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1rem; }
+  .tier-card { border-radius: var(--radius-lg); padding: 0.75rem 0.9rem; }
+  .tier-card.good { background: var(--green-light); }
+  .tier-card.ok   { background: var(--gold-light); }
+  .tier-card.bad  { background: var(--red-light); }
+  .tier-label { font-size: 0.68rem; font-weight: 600; margin-bottom: 2px; font-family: 'IBM Plex Mono', monospace; }
+  .tier-card.good .tier-label { color: var(--green); }
+  .tier-card.ok   .tier-label { color: var(--gold); }
+  .tier-card.bad  .tier-label { color: var(--red); }
+  .tier-value { font-size: 1.45rem; font-weight: 600; line-height: 1.1; }
+  .tier-card.good .tier-value { color: var(--green); }
+  .tier-card.ok   .tier-value { color: var(--gold); }
+  .tier-card.bad  .tier-value { color: var(--red); }
+  .tier-sub { font-size: 0.64rem; margin-top: 2px; }
+  .tier-card.good .tier-sub { color: var(--green); }
+  .tier-card.ok   .tier-sub { color: var(--gold); }
+  .tier-card.bad  .tier-sub { color: var(--red); }
+
+  /* SUMMARY NOTE */
+  .note {
+    font-size: 0.72rem;
+    color: var(--text2);
+    font-style: italic;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg2);
+    border-radius: var(--radius);
+    margin-bottom: 0.85rem;
+    line-height: 1.5;
+  }
+
+  /* THREAT STAT CARDS */
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 0.75rem; }
+  .stat-card { background: var(--bg2); border-radius: var(--radius-lg); padding: 0.65rem 0.8rem; }
+  .stat-card-label { font-size: 0.64rem; color: var(--text3); margin-bottom: 2px; font-family: 'IBM Plex Mono', monospace; }
+  .stat-card-value { font-size: 1.2rem; font-weight: 600; }
+
+  /* FOOTER */
+  .site-footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.68rem;
+    color: var(--text3);
+    font-family: 'IBM Plex Mono', monospace;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+  .site-footer a { color: var(--text2); text-decoration: none; }
+  .site-footer a:hover { color: var(--text); }
+
+  /* RESPONSIVE */
+  @media (max-width: 500px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .tier-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="https://rfcramble.blogspot.com">rf<span>cramble</span></a>
+  <span class="meta">2026 season tracker · updated after each round</span>
+</header>
+
+<div class="container">
+
+  <div class="section-header">
+    <span class="section-title">Richmond gameplan tracker — 2026</span>
+    <span class="section-sub">2 games played · R1 Carlton (Bad) · R2 Gold Coast (Good)</span>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab on" onclick="sv('ov')">Overview</div>
+    <div class="tab" onclick="sv('tr')">Kick threat</div>
+    <div class="tab" onclick="sv('ch')">Chain quality</div>
+    <div class="tab" onclick="sv('sc')">Scoring</div>
+    <div class="tab" onclick="sv('co')">Control/chaos</div>
+    <div class="tab" onclick="sv('st')">Stoppages</div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div id="v-ov">
+    <div class="cards" id="ov-cards"></div>
+    <div class="blk">
+      <div class="blk-title">Season at a glance</div>
+      <div class="blk-sub">Green = 2026 Richmond avg (2g) · Red dashed = 2025 Richmond season avg · Grey dashed = 2026 league avg (live)</div>
+      <div class="chart-wrap-radar"><canvas id="radar"></canvas></div>
+    </div>
+  </div>
+
+  <!-- KICK THREAT -->
+  <div id="v-tr" style="display:none">
+    <div class="blk">
+      <div class="blk-title">ThreatRating — 2026 running tracker</div>
+      <div class="blk-sub">Season-level metric only. Back-calculated from weekly Wheelhouse exports.</div>
+      <div class="stat-grid" id="tr-cards"></div>
+      <div class="note" id="tr-note"></div>
+      <div class="tier-row" id="tr-tiers"></div>
+      <div class="blk" style="margin:0;border:1px solid var(--border);">
+        <div class="blk-title">ThreatRating — 2026 cumulative by tier</div>
+        <div class="blk-sub">Red dashed = Richmond 2025 avg (−0.63) · Grey dashed = 2026 league avg (+2.54)</div>
+        <div class="chart-wrap"><canvas id="tr-chart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAIN QUALITY -->
+  <div id="v-ch" style="display:none"><div id="ch-c"></div></div>
+
+  <!-- SCORING -->
+  <div id="v-sc" style="display:none"><div id="sc-c"></div></div>
+
+  <!-- CONTROL/CHAOS -->
+  <div id="v-co" style="display:none"><div id="co-c"></div></div>
+
+  <!-- STOPPAGES -->
+  <div id="v-st" style="display:none"><div id="st-c"></div></div>
+
+</div>
+
+<footer class="site-footer">
+  <a href="https://rfcramble.blogspot.com">rfcramble.blogspot.com</a> &nbsp;·&nbsp;
+  data: <a href="https://wheeloratings.com">wheeloratings.com</a> &nbsp;·&nbsp;
+  <a href="https://www.onepercenters.net.au/">one percenters</a>
+</footer>
+
+<script>
+// ─── COLOURS ────────────────────────────────────────────────────────────────
+const C = {
+  good:   '#2A5FA8',
+  ok:     '#8A6A1A',
+  bad:    '#1D7A5F',
+  red:    '#C13B2A',
+  grey:   '#8A8580',
+  green:  '#1D7A5F',
+  gc:     'rgba(0,0,0,0.06)',
+  tc:     '#8A8580',
+};
+
+// ─── 2025 PER-GAME DATA ──────────────────────────────────────────────────────
+const G25 = [
+  {r:1, o:'Carl', t:'OK',   D50:13.1, xCT:47.4, CTS:13.2, ptT:55,  CI:-40, pcCP:84, xSR:20.8,  ptS:21, ptCB:7},
+  {r:2, o:'Port', t:'Bad',  D50:24.3, xCT:31.3, CTS:23.0, ptT:32,  CI:-10, pcCP:65, xSR:-3.4,  ptS:35, ptCB:4},
+  {r:3, o:'St K', t:'OK',   D50:18.4, xCT:29.7, CTS:19.6, ptT:27,  CI:53,  pcCP:63, xSR:-3.2,  ptS:25, ptCB:16},
+  {r:4, o:'Bris', t:'Good', D50:20.9, xCT:30.7, CTS:25.0, ptT:55,  CI:4,   pcCP:67, xSR:7.6,   ptS:29, ptCB:1},
+  {r:5, o:'Frem', t:'OK',   D50:17.3, xCT:31.9, CTS:12.2, ptT:20,  CI:32,  pcCP:58, xSR:5.1,   ptS:21, ptCB:19},
+  {r:6, o:'GC',   t:'Good', D50:20.8, xCT:46.1, CTS:18.3, ptT:52,  CI:0,   pcCP:84, xSR:14.9,  ptS:28, ptCB:13},
+  {r:7, o:'Melb', t:'Bad',  D50:12.5, xCT:42.6, CTS:16.8, ptT:28,  CI:24,  pcCP:59, xSR:-7.6,  ptS:35, ptCB:1},
+  {r:8, o:'Haw',  t:'Good', D50:24.2, xCT:37.8, CTS:16.5, ptT:25,  CI:34,  pcCP:55, xSR:-17.0, ptS:19, ptCB:13},
+  {r:9, o:'WC',   t:'Bad',  D50:33.3, xCT:49.9, CTS:21.8, ptT:64,  CI:-26, pcCP:89, xSR:-6.1,  ptS:11, ptCB:6},
+  {r:10,o:'NM',   t:'Bad',  D50:15.4, xCT:42.9, CTS:19.2, ptT:32,  CI:-21, pcCP:82, xSR:3.8,   ptS:36, ptCB:0},
+  {r:11,o:'Ess',  t:'Bad',  D50:28.9, xCT:49.2, CTS:16.1, ptT:31,  CI:-1,  pcCP:82, xSR:8.1,   ptS:14, ptCB:6},
+  {r:12,o:'GWS',  t:'OK',   D50:17.9, xCT:45.8, CTS:22.0, ptT:44,  CI:-14, pcCP:92, xSR:-6.1,  ptS:33, ptCB:14},
+  {r:13,o:'Syd',  t:'OK',   D50:17.0, xCT:36.3, CTS:15.2, ptT:14,  CI:9,   pcCP:65, xSR:-21.0, ptS:22, ptCB:6},
+  {r:15,o:'WB',   t:'OK',   D50:8.1,  xCT:42.0, CTS:16.3, ptT:29,  CI:3,   pcCP:73, xSR:-14.9, ptS:21, ptCB:7},
+  {r:16,o:'Adel', t:'Good', D50:9.8,  xCT:31.6, CTS:13.1, ptT:27,  CI:-6,  pcCP:61, xSR:14.1,  ptS:15, ptCB:7},
+  {r:17,o:'Geel', t:'Good', D50:30.6, xCT:30.1, CTS:17.3, ptT:21,  CI:8,   pcCP:66, xSR:-1.9,  ptS:13, ptCB:0},
+  {r:18,o:'Ess',  t:'Bad',  D50:26.1, xCT:43.3, CTS:14.7, ptT:14,  CI:28,  pcCP:76, xSR:5.7,   ptS:26, ptCB:6},
+  {r:19,o:'WC',   t:'Bad',  D50:32.6, xCT:38.5, CTS:25.3, ptT:76,  CI:25,  pcCP:78, xSR:8.8,   ptS:28, ptCB:1},
+  {r:20,o:'Coll', t:'Good', D50:25.0, xCT:40.2, CTS:15.7, ptT:30,  CI:0,   pcCP:91, xSR:-4.4,  ptS:25, ptCB:6},
+  {r:21,o:'GC',   t:'Good', D50:23.8, xCT:36.7, CTS:13.0, ptT:16,  CI:22,  pcCP:61, xSR:-26.2, ptS:6,  ptCB:1},
+  {r:22,o:'St K', t:'OK',   D50:28.6, xCT:37.9, CTS:16.0, ptT:29,  CI:18,  pcCP:73, xSR:8.6,   ptS:21, ptCB:0},
+  {r:23,o:'NM',   t:'Bad',  D50:5.3,  xCT:43.1, CTS:19.8, ptT:40,  CI:-15, pcCP:68, xSR:6.2,   ptS:47, ptCB:25},
+  {r:24,o:'Geel', t:'Good', D50:31.0, xCT:37.4, CTS:18.8, ptT:35,  CI:10,  pcCP:80, xSR:-6.8,  ptS:22, ptCB:7},
+];
+
+// ─── 2026 PER-GAME DATA ──────────────────────────────────────────────────────
+// UPDATE THIS ARRAY EACH ROUND — add one object per game
+const G26 = [
+  {r:1, o:'Carl', t:'Bad',  D50:31.20, xCT:51.30, CTS:23.20, ptT:54, CI:12.0, pcCP:84, xSR:-13.40, ptS:8,  ptCB:6,  tr:8.624,  sl:7.32},
+  {r:2, o:'GC',   t:'Good', D50:6.40,  xCT:35.90, CTS:14.20, ptT:44, CI:7.0,  pcCP:60, xSR:7.50,   ptS:10, ptCB:1,  tr:-7.312, sl:4.55},
+];
+
+// ─── REFERENCE VALUES ────────────────────────────────────────────────────────
+// r25rich = 2025 Richmond season avg
+// r25lg   = 2025 league avg
+// r26lg   = 2026 league avg (live — update weekly)
+const REF = {
+  D50:  { r25rich:21.08, r25lg:23.30, r26lg:23.10 },
+  xCT:  { r25rich:39.23, r25lg:44.00, r26lg:48.10 },
+  CTS:  { r25rich:17.78, r25lg:20.80, r26lg:22.70 },
+  ptT:  { r25rich:34.61, r25lg:46.60, r26lg:55.70 },
+  CI:   { r25rich:5.96,  r25lg:1.20,  r26lg:8.70  },
+  pcCP: { r25rich:72.70, r25lg:79.60, r26lg:75.60 },
+  xSR:  { r25rich:-0.65, r25lg:0.08,  r26lg:0.92  },
+  ptS:  { r25rich:24.04, r25lg:33.80, r26lg:33.10 },
+  ptCB: { r25rich:7.22,  r25lg:11.40, r26lg:11.60 },
+  tr:   { r25rich:-0.63, r25lg:-0.63, r26lg:2.54  },
+};
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+const fa  = (v,d=1) => v==null ? '—' : (+v).toFixed(d);
+const fm  = (v,d=1) => v==null ? '—' : (v>=0?'+':'')+v.toFixed(d);
+const avg = arr => arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : null;
+const oa26 = f => { const v=G26.filter(g=>g[f]!=null).map(g=>g[f]); return v.length?avg(v):null; };
+const ta26 = (f,t) => { const v=G26.filter(g=>g.t===t&&g[f]!=null).map(g=>g[f]); return v.length?avg(v):null; };
+const r26avg = f => oa26(f);
+
+const TC = { Good: C.good, OK: C.ok, Bad: C.bad };
+
+function sv(v) {
+  ['ov','tr','ch','sc','co','st'].forEach(n => {
+    document.getElementById('v-'+n).style.display = n===v ? '' : 'none';
+  });
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    t.classList.toggle('on', ['ov','tr','ch','sc','co','st'][i]===v);
+  });
+}
+
+// ─── REF LEGEND HTML ─────────────────────────────────────────────────────────
+const refLeg25 = `<div class="ref-leg">
+  <span class="ref-leg-item"><span class="ref-line" style="background:${C.red};opacity:0.8;"></span>Richmond 2025 avg</span>
+  <span class="ref-leg-item"><span class="ref-line" style="background:${C.grey};opacity:0.6;"></span>League 2025 avg</span>
+</div>`;
+
+const refLeg26 = `<div class="ref-leg">
+  <span class="ref-leg-item"><span class="ref-line" style="background:${C.red};opacity:0.8;"></span>Richmond 2026 avg (running)</span>
+  <span class="ref-leg-item"><span class="ref-line" style="background:${C.grey};opacity:0.6;"></span>League 2026 avg (live)</span>
+</div>`;
+
+// ─── OVERVIEW ────────────────────────────────────────────────────────────────
+function buildOv() {
+  const defs = [
+    {l:'ThreatRating',      f:'tr',   d:2},
+    {l:'D50→F50 %',         f:'D50',  d:1},
+    {l:'xChain turnover',   f:'xCT',  d:1},
+    {l:'Chain to score %',  f:'CTS',  d:1},
+    {l:'Pts from turnover', f:'ptT',  d:0},
+    {l:'Control index',     f:'CI',   d:1},
+    {l:'Post-clear CP',     f:'pcCP', d:0},
+    {l:'xScore rating',     f:'xSR',  d:1},
+    {l:'Pts from stoppage', f:'ptS',  d:0},
+    {l:'Pts ctr bounce',    f:'ptCB', d:0},
+  ];
+  const el = document.getElementById('ov-cards');
+  defs.forEach(s => {
+    const a = oa26(s.f);
+    const b = REF[s.f].r25rich;
+    const d = a!=null ? a-b : null;
+    const cl = d==null?'neu':d>=0?'pos':'neg';
+    const arrow = d==null?'':d>=0?'▲':'▼';
+    el.innerHTML += `<div class="card">
+      <div class="card-label">${s.l}</div>
+      <div class="card-value ${cl}">${a!=null?fa(a,s.d):'—'}</div>
+      <div class="card-delta ${cl}">${d!=null?arrow+Math.abs(d).toFixed(s.d)+' vs 2025':''}</div>
+    </div>`;
+  });
+}
+
+function buildRadar() {
+  const fs = ['D50','xCT','CTS','ptT','CI','pcCP','xSR','ptS','ptCB','tr'];
+  const ls = ['D50→F50','xChainTO','ChainScore','PtsTO','ControlIdx','PostClearCP','xScoreRtg','PtsStop','PtsCB','ThreatRtg'];
+  const aV = {
+    D50:  [...G25.map(g=>g.D50),  REF.D50.r25lg,  REF.D50.r26lg],
+    xCT:  [...G25.map(g=>g.xCT),  REF.xCT.r25lg,  REF.xCT.r26lg],
+    CTS:  [...G25.map(g=>g.CTS),  REF.CTS.r25lg,  REF.CTS.r26lg],
+    ptT:  [...G25.map(g=>g.ptT),  REF.ptT.r25lg,  REF.ptT.r26lg],
+    CI:   [...G25.map(g=>g.CI),   REF.CI.r25lg,   REF.CI.r26lg],
+    pcCP: [...G25.map(g=>g.pcCP), REF.pcCP.r25lg, REF.pcCP.r26lg],
+    xSR:  [...G25.map(g=>g.xSR),  REF.xSR.r25lg,  REF.xSR.r26lg],
+    ptS:  [...G25.map(g=>g.ptS),  REF.ptS.r25lg,  REF.ptS.r26lg],
+    ptCB: [...G25.map(g=>g.ptCB), REF.ptCB.r25lg, REF.ptCB.r26lg],
+    tr:   [-7.312, 8.624, REF.tr.r25rich, REF.tr.r26lg],
+  };
+  const nm = (v,f) => {
+    const a=aV[f], mn=Math.min(...a), mx=Math.max(...a);
+    return mx===mn ? 50 : Math.max(0,Math.min(100,((v-mn)/(mx-mn))*100));
+  };
+  const dR25  = fs.map(f => nm(REF[f].r25rich, f));
+  const dLg26 = fs.map(f => nm(REF[f].r26lg,   f));
+  const d26   = fs.map(f => { const a=oa26(f); return a!=null?nm(a,f):0; });
+
+  new Chart(document.getElementById('radar'), {
+    type: 'radar',
+    data: { labels: ls, datasets: [
+      { label:'2025 Richmond season avg', data:dR25,  borderColor:C.red+'90',   backgroundColor:C.red+'10',   borderWidth:1.5, pointRadius:2, pointBackgroundColor:C.red },
+      { label:'2026 league avg (live)',   data:dLg26, borderColor:C.grey+'80',  backgroundColor:C.grey+'10',  borderWidth:1.5, pointRadius:2, pointBackgroundColor:C.grey },
+      { label:'2026 Richmond avg (2g)',   data:d26,   borderColor:C.green,      backgroundColor:C.green+'20', borderWidth:2,   pointRadius:3, pointBackgroundColor:C.green },
+    ]},
+    options: { responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:true, position:'bottom', labels:{ color:C.tc, font:{size:10}, boxWidth:10, padding:12 }}},
+      scales:{ r:{ ticks:{display:false}, grid:{color:C.gc}, pointLabels:{color:C.tc, font:{size:10}}, min:0, max:100 }}
+    }
+  });
+}
+
+// ─── THREAT RATING ───────────────────────────────────────────────────────────
+function buildTr() {
+  const a = oa26('tr');
+  document.getElementById('tr-cards').innerHTML = `
+    <div class="stat-card"><div class="stat-card-label">2026 avg (2g)</div><div class="stat-card-value ${a>=0?'pos':'neg'}">${fm(a,2)}</div></div>
+    <div class="stat-card"><div class="stat-card-label">2025 Richmond avg</div><div class="stat-card-value neg">−0.63</div></div>
+    <div class="stat-card"><div class="stat-card-label">2026 league avg</div><div class="stat-card-value pos">+2.54</div></div>
+    <div class="stat-card"><div class="stat-card-label">vs 2026 league</div><div class="stat-card-value ${a>=2.54?'pos':'neg'}">${fm(a-2.54,2)}</div></div>`;
+  document.getElementById('tr-note').textContent =
+    'R1 vs Carlton (Bad): +8.62. R2 vs Gold Coast (Good): −7.31 — a sharp reversal consistent with 2025\'s pattern against good sides. Two-game average: +0.66. League avg through R2: +2.54, up significantly on 2025 (+1.04), consistent with the new rules pushing more open football.';
+  const tc2 = document.getElementById('tr-tiers');
+  [['Good','good'],['OK','ok'],['Bad','bad']].forEach(([t,cl]) => {
+    const cur=ta26('tr',t), n=G26.filter(g=>g.t===t&&g.tr!=null).length;
+    tc2.innerHTML += `<div class="tier-card ${cl}"><div class="tier-label">vs ${t} — 2026</div><div class="tier-value">${cur!=null?fm(cur,2):'—'}</div><div class="tier-sub">${n}g · Rich25: −0.63 · lg26: +2.54</div></div>`;
+  });
+  const trs=[['Good',C.good],['OK',C.ok],['Bad',C.bad]];
+  const ds = trs.map(([t,col]) => {
+    const gs=G26.filter(g=>g.t===t&&g.tr!=null);
+    let s=0;
+    return { label:`vs ${t}`, data:gs.map((g,j)=>{s+=g.tr;return{x:`R${g.r}`,y:+(s/(j+1)).toFixed(2)};}),
+      borderColor:col, backgroundColor:col+'30', borderWidth:2, pointRadius:5, fill:false, tension:0.3 };
+  });
+  ds.push({ label:'Richmond 2025 avg', data:G26.map(g=>({x:`R${g.r}`,y:-0.63})),
+    borderColor:C.red+'90', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false });
+  ds.push({ label:'League 2026 avg',   data:G26.map(g=>({x:`R${g.r}`,y:2.54})),
+    borderColor:C.grey+'80', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false });
+  new Chart(document.getElementById('tr-chart'), {
+    type:'line', data:{datasets:ds},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ display:true, position:'bottom', labels:{color:C.tc,font:{size:10},boxWidth:8,padding:10}}},
+      scales:{ x:{type:'category',ticks:{color:C.tc,font:{size:11}},grid:{color:C.gc}},
+               y:{ticks:{color:C.tc,font:{size:10},callback:v=>(v>=0?'+':'')+v.toFixed(1)},grid:{color:C.gc}}}
+    }
+  });
+}
+
+// ─── PAIRED BAR CHARTS ───────────────────────────────────────────────────────
+function makePair(cont, cfg) {
+  const {title, sub, field, dec, isCI} = cfg;
+  cont.innerHTML += `<div class="blk">
+    <div class="blk-eyebrow">2025 — full season</div>
+    <div class="blk-title">${title}</div>
+    <div class="blk-sub">${sub}</div>
+    <div class="leg">
+      <span class="leg-item"><span class="leg-swatch" style="background:${C.good};"></span>Good</span>
+      <span class="leg-item"><span class="leg-swatch" style="background:${C.ok};"></span>OK</span>
+      <span class="leg-item"><span class="leg-swatch" style="background:${C.bad};"></span>Bad</span>
+    </div>
+    ${refLeg25}
+    <div class="chart-wrap"><canvas id="p25-${field}"></canvas></div>
+    <hr class="blk-divider">
+    <div class="blk-eyebrow">2026 — building</div>
+    <div class="blk-sub">Bar colour = opponent tier.</div>
+    ${refLeg26}
+    <div class="chart-wrap-sm"><canvas id="p26-${field}"></canvas></div>
+  </div>
+  <div class="tier-row" id="pt-${field}"></div>`;
+}
+
+function renderPair(field, dec, isCI) {
+  const ref = REF[field];
+
+  // 2025 chart
+  const c25 = document.getElementById('p25-'+field);
+  if (c25) {
+    const bgC = isCI ? G25.map(g=>g[field]>=0?C.bad+'55':C.red+'55') : G25.map(g=>(TC[g.t]||C.grey)+'55');
+    const bdC = isCI ? G25.map(g=>g[field]>=0?C.bad:C.red)            : G25.map(g=>TC[g.t]||C.grey);
+    new Chart(c25, { type:'bar',
+      data:{ labels:G25.map(g=>`R${g.r}`), datasets:[
+        { data:G25.map(g=>g[field]), backgroundColor:bgC, borderColor:bdC, borderWidth:1, borderRadius:2, barPercentage:0.75 },
+        { type:'line', data:G25.map(()=>ref.r25rich), borderColor:C.red+'90',  borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false },
+        { type:'line', data:G25.map(()=>ref.r25lg),   borderColor:C.grey+'70', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false },
+      ]},
+      options:{ responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` R${G25[c.dataIndex]?.r} vs ${G25[c.dataIndex]?.o} (${G25[c.dataIndex]?.t}): ${c.parsed.y.toFixed(dec)}`}}},
+        scales:{ x:{ticks:{color:C.tc,font:{size:10},maxRotation:0},grid:{color:C.gc}},
+                 y:{ticks:{color:C.tc,font:{size:10},callback:isCI?v=>(v>=0?'+':'')+v:v=>v},grid:{color:C.gc}}}
+      }
+    });
+  }
+
+  // 2026 chart
+  const c26 = document.getElementById('p26-'+field);
+  if (c26 && G26.length) {
+    const rich26 = r26avg(field);
+    new Chart(c26, { type:'bar',
+      data:{ labels:G26.map(g=>`R${g.r} ${g.o}`), datasets:[
+        { data:G26.map(g=>g[field]), backgroundColor:G26.map(g=>(TC[g.t]||C.grey)+'55'), borderColor:G26.map(g=>TC[g.t]||C.grey), borderWidth:2, borderRadius:3, barThickness:36 },
+        { type:'line', data:G26.map(()=>rich26),    borderColor:C.red+'90',  borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false },
+        { type:'line', data:G26.map(()=>ref.r26lg), borderColor:C.grey+'70', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false },
+      ]},
+      options:{ responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` R${G26[c.dataIndex]?.r} vs ${G26[c.dataIndex]?.o} (${G26[c.dataIndex]?.t}): ${c.parsed.y.toFixed(dec)}`}}},
+        scales:{ x:{ticks:{color:C.tc,font:{size:11}},grid:{color:C.gc}},
+                 y:{ticks:{color:C.tc,font:{size:10},callback:isCI?v=>(v>=0?'+':'')+v:v=>v},grid:{color:C.gc}}}
+      }
+    });
+  }
+
+  // tier cards
+  const te = document.getElementById('pt-'+field);
+  if (te) {
+    [['Good','good'],['OK','ok'],['Bad','bad']].forEach(([t,cl]) => {
+      const cur=ta26(field,t), n=G26.filter(g=>g.t===t).length;
+      const diff=cur!=null?cur-ref.r25rich:null;
+      te.innerHTML += `<div class="tier-card ${cl}">
+        <div class="tier-label">vs ${t}</div>
+        <div class="tier-value">${fa(ref.r25rich,dec)}</div>
+        <div class="tier-sub">Rich25 avg · lg25: ${fa(ref.r25lg,dec)} · lg26: ${fa(ref.r26lg,dec)}</div>
+        <div class="tier-sub" style="margin-top:3px;">2026 (${n}g): ${cur!=null?fa(cur,dec)+(diff>=0?' ▲':' ▼')+Math.abs(diff).toFixed(dec):'no games yet'}</div>
+      </div>`;
+    });
+  }
+}
+
+// ─── TAB CONFIGS ─────────────────────────────────────────────────────────────
+const TABS = {
+  ch: [
+    { title:'D50 to F50 %',                sub:'How often ball movement makes it from defensive 50 to forward 50',          field:'D50', dec:1 },
+    { title:'xChain score from turnover',  sub:'Expected scoring threat generated from turnover chains',                   field:'xCT', dec:1 },
+    { title:'Chain to score %',            sub:'Proportion of all possession chains that ended in a score',                field:'CTS', dec:1 },
+  ],
+  sc: [
+    { title:'xScore rating',               sub:'Shot quality vs expectation — are shots coming from good positions?',      field:'xSR', dec:1 },
+    { title:'Points from turnover',        sub:'Actual points scored from turnover chains',                                field:'ptT', dec:0 },
+  ],
+  co: [
+    { title:'Control index (marks − GBGs)',sub:'Positive = controlled ball-winning. Negative = scrapping.',               field:'CI',  dec:1, isCI:true },
+    { title:'Post-clearance contested poss',sub:'System execution after stoppages — requires gameplan familiarity',       field:'pcCP',dec:0 },
+  ],
+  st: [
+    { title:'Points from stoppage',        sub:'Points scored directly from stoppage chains',                             field:'ptS', dec:0 },
+    { title:'Points from centre bounce',   sub:'Points scored from centre bounce chains specifically',                    field:'ptCB',dec:0 },
+  ],
+};
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+['ch','sc','co','st'].forEach(tab => {
+  const el = document.getElementById(tab+'-c');
+  if (el) TABS[tab].forEach(cfg => makePair(el, cfg));
+});
+
+buildOv();
+buildRadar();
+buildTr();
+['ch','sc','co','st'].forEach(tab => TABS[tab].forEach(cfg => renderPair(cfg.field, cfg.dec, cfg.isCI||false)));
+</script>
+</body>
+</html>
