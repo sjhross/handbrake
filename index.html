@@ -396,7 +396,7 @@
       <div class="tier-row" id="tr-tiers"></div>
       <div class="blk" style="margin:0;border:1px solid var(--border);">
         <div class="blk-title">ThreatRating — 2026 cumulative by tier</div>
-        <div class="blk-sub">Red dashed = Richmond 2025 avg (−0.63) · Grey dashed = 2026 league avg (+2.27)</div>
+        <div class="blk-sub">Bars = individual game TR coloured by tier · Lines = running tier average · Dashed = 2025 Richmond avg (−0.63) and 2026 league avg (+2.27)</div>
         <div class="chart-wrap"><canvas id="tr-chart"></canvas></div>
       </div>
     </div>
@@ -883,23 +883,41 @@ function buildTr() {
     const cur=ta26('tr',t), n=G26.filter(g=>g.t===t&&g.tr!=null).length;
     tc2.innerHTML += `<div class="tier-card ${cl}"><div class="tier-label">vs ${t} — 2026</div><div class="tier-value">${cur!=null?fm(cur,2):'—'}</div><div class="tier-sub">${n}g · Rich25: −0.63 · lg26: +2.27</div></div>`;
   });
-  const trs=[['Good',C.good],['OK',C.ok],['Bad',C.bad]];
-  const ds = trs.map(([t,col]) => {
-    const gs=G26.filter(g=>g.t===t&&g.tr!=null);
-    let s=0;
-    return { label:`vs ${t}`, data:gs.map((g,j)=>{s+=g.tr;return{x:`R${g.r}`,y:+(s/(j+1)).toFixed(2)};}),
-      borderColor:col, backgroundColor:col+'30', borderWidth:2, pointRadius:5, fill:false, tension:0.3 };
-  });
-  ds.push({ label:'Richmond 2025 avg', data:G26.map(g=>({x:`R${g.r}`,y:-0.63})),
-    borderColor:C.red+'90', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false });
-  ds.push({ label:'League 2026 avg',   data:G26.map(g=>({x:`R${g.r}`,y:2.27})),
-    borderColor:C.grey+'80', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false });
+  // Bar per game coloured by tier, running avg line per tier
+  const trLabels = G26.filter(g=>g.tr!=null).map(g=>`R${g.r} ${g.o}`);
+  const trVals   = G26.filter(g=>g.tr!=null).map(g=>g.tr);
+  const trTiers  = G26.filter(g=>g.tr!=null).map(g=>g.t);
+  const trBg     = trTiers.map(t=>t==='Good'?C.good+'99':t==='OK'?C.ok+'99':C.bad+'99');
+  const trBdr    = trTiers.map(t=>t==='Good'?C.good:t==='OK'?C.ok:C.bad);
+
+  // Running averages per tier as separate line datasets
+  function runningAvg(tier) {
+    let s=0, n=0;
+    return G26.filter(g=>g.tr!=null).map(g=>{
+      if(g.t===tier){ s+=g.tr; n++; return +(s/n).toFixed(2); }
+      return null;
+    });
+  }
+
   new Chart(document.getElementById('tr-chart'), {
-    type:'line', data:{datasets:ds},
+    type:'bar',
+    data:{
+      labels: trLabels,
+      datasets:[
+        { label:'Game TR', data:trVals, backgroundColor:trBg, borderColor:trBdr, borderWidth:1.5, borderRadius:3, order:2 },
+        { type:'line', label:'vs Good avg', data:runningAvg('Good'), borderColor:C.good, backgroundColor:'transparent', borderWidth:2, pointRadius:3, pointBackgroundColor:C.good, spanGaps:false, order:1 },
+        { type:'line', label:'vs OK avg',   data:runningAvg('OK'),   borderColor:C.ok,   backgroundColor:'transparent', borderWidth:2, pointRadius:3, pointBackgroundColor:C.ok,   spanGaps:false, order:1 },
+        { type:'line', label:'vs Bad avg',  data:runningAvg('Bad'),  borderColor:C.bad,  backgroundColor:'transparent', borderWidth:2, pointRadius:3, pointBackgroundColor:C.bad,  spanGaps:false, order:1 },
+        { type:'line', label:'Rich 2025 avg', data:trVals.map(()=>-0.63), borderColor:C.red+'90', borderDash:[4,3], borderWidth:1.5, pointRadius:0, order:3 },
+        { type:'line', label:'League 2026 avg', data:trVals.map(()=>2.27), borderColor:C.grey+'80', borderDash:[4,3], borderWidth:1.5, pointRadius:0, order:3 },
+      ]
+    },
     options:{ responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{ display:true, position:'bottom', labels:{color:C.tc,font:{size:10},boxWidth:8,padding:10}}},
-      scales:{ x:{type:'category',ticks:{color:C.tc,font:{size:11}},grid:{color:C.gc}},
-               y:{ticks:{color:C.tc,font:{size:10},callback:v=>(v>=0?'+':'')+v.toFixed(1)},grid:{color:C.gc}}}
+      scales:{
+        x:{ticks:{color:C.tc,font:{size:10},maxRotation:45,minRotation:30},grid:{color:C.gc}},
+        y:{ticks:{color:C.tc,font:{size:10},callback:v=>(v>=0?'+':'')+v.toFixed(1)},grid:{color:C.gc}}
+      }
     }
   });
 }
