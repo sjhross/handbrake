@@ -1072,11 +1072,10 @@ function buildTr() {
 
 // ─── PAIRED BAR CHARTS ───────────────────────────────────────────────────────
 function makePair(cont, cfg) {
-  const {title, sub, field, dec, isCI} = cfg;
-  cont.innerHTML += `<div class="blk">
-    <div class="blk-eyebrow">2025 — full season</div>
-    <div class="blk-title">${title}</div>
-    <div class="blk-sub">${sub}</div>
+  const {title, sub, field, dec, isCI, no2025} = cfg;
+  const top2025 = no2025
+    ? `<div class="note" style="margin-bottom:0.5rem;">2025 per-game data not available for this metric. 2025 Richmond season average: ${REF[field]?.r25rich ?? '—'}.</div>`
+    : `<div class="blk-eyebrow">2025 — full season</div>
     <div class="leg">
       <span class="leg-item"><span class="leg-swatch" style="background:${C.good};"></span>Good</span>
       <span class="leg-item"><span class="leg-swatch" style="background:${C.ok};"></span>OK</span>
@@ -1084,7 +1083,11 @@ function makePair(cont, cfg) {
     </div>
     ${refLeg25}
     <div class="chart-wrap"><canvas id="p25-${field}"></canvas></div>
-    <hr class="blk-divider">
+    <hr class="blk-divider">`;
+  cont.innerHTML += `<div class="blk">
+    <div class="blk-title">${title}</div>
+    <div class="blk-sub">${sub}</div>
+    ${top2025}
     <div class="blk-eyebrow">2026 — building</div>
     <div class="blk-sub">Bar colour = opponent tier.</div>
     ${refLeg26}
@@ -1163,7 +1166,7 @@ const TABS = {
   co: [
     { title:'Control index (marks − GBGs)',sub:'Positive = controlled ball-winning. Negative = scrapping.',               field:'CI',  dec:1, isCI:true },
     { title:'Post-clearance contested poss',sub:'System execution after stoppages — requires gameplan familiarity',       field:'pcCP',dec:0 },
-    { title:'Handball metres gained',      sub:'Territory generated through handball — proxy for short-game effectiveness and how much defensive pressure is being absorbed', field:'hbm', dec:0 },
+    { title:'Handball metres gained',      sub:'Territory generated through handball — proxy for short-game effectiveness and how much defensive pressure is being absorbed', field:'hbm', dec:0, no2025:true },
   ],
   st: [
     { title:'Points from stoppage',        sub:'Points scored directly from stoppage chains',                             field:'ptS', dec:0 },
