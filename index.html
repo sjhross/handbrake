@@ -270,24 +270,6 @@
     .stat-grid { grid-template-columns: repeat(2, 1fr); }
     .tier-row { grid-template-columns: 1fr; }
   }
-  /* CHART PERMALINK MODE (?chart=KEY) — see router at end of main script */
-  body.chart-solo .tabs,
-  body.chart-solo .section-header { display: none; }
-  .solo-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .solo-bar a { color: var(--text2); text-decoration: none; }
-  .solo-bar a:hover { color: var(--text); }
-  .solo-bar span { color: var(--text3); }
 </style>
 </head>
 <body>
@@ -295,13 +277,13 @@
 <header class="site-header">
   <div class="site-header-inner">
     <div class="logo-wrap">
-      <a class="logo" href="https://substack.com/sjhross">The <em>Handbrake</em></a>
+      <a class="logo" href="https://sjhross.substack.com/">The <em>Handbrake</em></a>
       <span class="logo-sub">Richmond FC · data-informed · fan media · sjhross</span>
     </div>
     <div class="header-right">
-      <span class="meta">2026 season tracker · 12 games played · updated R12</span>
+      <span class="meta">2026 season tracker · 13 games played · updated R14</span>
       <div class="header-links">
-        <a href="https://substack.com/sjhross">substack</a>
+        <a href="https://sjhross.substack.com/">substack</a>
         <a href="https://wheeloratings.com">wheelo</a>
       </div>
     </div>
@@ -312,7 +294,7 @@
 
   <div class="section-header">
     <span class="section-title">Richmond gameplan tracker — 2026</span>
-    <span class="section-sub">12 games played · R1 Carlton (Bad) · R2 Gold Coast (Good) · R3 Fremantle (OK) · R4 Port Adelaide (Bad) · R5 GWS (OK) · R6 North Melbourne (Bad) · R7 Melbourne (OK) · R8 West Coast (Bad) · R9 Adelaide (Good) · R10 St Kilda (OK) · R11 Essendon (Bad) · R12 Sydney (OK) ✓</span>
+    <span class="section-sub">13 games played · R1 Carlton (Bad) · R2 Gold Coast (Good) · R3 Fremantle (OK) · R4 Port Adelaide (Bad) · R5 GWS (OK) · R6 North Melbourne (Bad) · R7 Melbourne (OK) · R8 West Coast (Bad) · R9 Adelaide (Good) · R10 St Kilda (OK) · R11 Essendon (Bad) · R12 Sydney (OK) · R13 Bye · R14 Brisbane (Good) ✓</span>
   </div>
 
   <!-- TABS -->
@@ -325,7 +307,7 @@
     <div class="tab" onclick="sv('st')">Stoppages</div>
   <div class="tab" onclick="sv('atk')">Attacking</div>
   <div class="tab" onclick="sv('def')">Defensive</div>
-  <div class="tab" onclick="sv('cmp')">Rebuild comparison</div>
+  <div class="tab" onclick="sv('qt')">Quarters</div>
   </div>
 
   <!-- OVERVIEW -->
@@ -333,7 +315,7 @@
     <div class="cards" id="ov-cards"></div>
     <div class="blk">
       <div class="blk-title">Season at a glance</div>
-      <div class="blk-sub">Green = 2026 Richmond avg (3g) · Red dashed = 2025 Richmond season avg · Grey dashed = 2026 league avg (live)</div>
+      <div class="blk-sub">Green = 2026 Richmond avg (13g) · Red dashed = 2025 Richmond season avg · Grey dashed = 2026 league avg (live)</div>
       <div class="chart-wrap-radar"><canvas id="radar"></canvas></div>
     </div>
   </div>
@@ -344,7 +326,7 @@
     <div class="blk">
       <div class="blk-title">Attacking scoreboard — 2026</div>
       <div class="blk-sub">Season totals. xTotal = expected points from shot positions (xScore per shot × shots). Diff = actual minus expected. xRating = shot quality vs expectation per shot. Launch% = score launches as % of disposals. Click any column to re-sort.</div>
-      <div class="note" style="margin-bottom:0.85rem;">Twelve games. Tom Lynch now leads xTotal (96.4) from 7 games but is −17.4 against expectation — the most concerning differential. Seth Campbell and Steely Green are locked at 12 goals each; Campbell is essentially breakeven (+0.1), Green still −15.2. Sam Lalor (+11.9) and Noah Roberts-Thomson (+11.3) are the most efficient finishers against chance quality. Tim Taranto −13.8 from 10 games is a concerning trend for a midfielder taking 14 shots. Jacob Hopper 0 goals from 4 shots and −8.3 diff remains a problem.</div>
+      <div class="note" style="margin-bottom:0.85rem;">Thirteen games. Steely Green is back on top of the expected-points ledger (101.5) but his differential has widened to −15.5 (50% accuracy on 26 shots) — Brisbane's loose finishing didn't help. Tom Lynch's deficit has narrowed slightly to −17.4 from 7 games, still the worst on the board but his kick ThreatRating (+20.8/gm) remains the highest in the squad by a distance. Seth Campbell has slipped from breakeven to −2.6 across 30 shots. Mykelti Lefau (+6.6, 65% accuracy) remains the most reliable forward outperforming expectation. Sam Cumming (+10.1 from 7 games, 83% accuracy) and Sam Lalor (+11.9) continue to punch above their shot volume, and Noah Roberts-Thomson's three-game cameo (+11.3, 100% accuracy on 4 shots) is still the most eye-catching small-sample number on the board.</div>
       <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:0.76rem;font-family:'IBM Plex Sans',sans-serif;">
           <thead>
@@ -380,7 +362,7 @@
     <div class="blk">
       <div class="blk-title">Defensive scoreboard — 2026</div>
       <div class="blk-sub">Season totals. Win% = defensive one-on-one contests won (higher is better). Sorted by contest volume. Players with fewer than 3 defensive contests show win% as — but are included for intercept and pressure data. Click any column to re-sort.</div>
-      <div class="note" style="margin-bottom:0.85rem;">Twelve games. Ben Miller: 36 contests, 75.6% win rate, 52 intercepts — the defensive anchor. Nathan Broad now has 26 intercept marks from 11 games, among the best in the competition at that rate. Nick Vlastuin leads the squad with 65 intercepts total — remarkable for a defender in his role. Jayden Short leads rebound 50s (57) but still winning only 33% of direct contests — the same structural problem. Tyler Sonsie quietly accumulating 38 intercepts from midfield.</div>
+      <div class="note" style="margin-bottom:0.85rem;">Thirteen games. Ben Miller had a monster game against Brisbane — up to 45 contests (from 36) at a 77.8% win rate, with 56 intercepts and 87 spoils, both team-highs by a wide margin. Nathan Broad's intercept count has climbed to 61 (from 54) with an 85.7% win rate — arguably the most underrated defender in the side. Nick Vlastuin's intercepts are up to 71, comfortably the squad's highest rate, though his contest win rate sits at a modest 60%. Jayden Short's rebound 50 tally is up to 61 but his win rate (33.3%) remains the lowest of the regular backline — the same structural problem as ever.</div>
       <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:0.76rem;font-family:'IBM Plex Sans',sans-serif;">
           <thead>
@@ -415,7 +397,7 @@
       <div class="tier-row" id="tr-tiers"></div>
       <div class="blk" style="margin:0;border:1px solid var(--border);">
         <div class="blk-title">ThreatRating — 2026 cumulative by tier</div>
-        <div class="blk-sub">Red dashed = Richmond 2025 avg (−0.63) · Grey dashed = 2026 league avg (+2.16)</div>
+        <div class="blk-sub">Red dashed = Richmond 2025 avg (−0.63) · Grey dashed = 2026 league avg (+2.09)</div>
         <div class="chart-wrap"><canvas id="tr-chart"></canvas></div>
       </div>
     </div>
@@ -433,178 +415,28 @@
   <!-- STOPPAGES -->
   <div id="v-st" style="display:none"><div id="st-c"></div></div>
 
-  <!-- REBUILD COMPARISON -->
-  <div id="v-cmp" style="display:none; padding: 1.5rem 0;">
-
-    <div style="margin-bottom:1.5rem;">
-      <div style="font-size:0.85rem;font-weight:600;color:var(--text1);margin-bottom:0.25rem;">Richmond vs West Coast — first month</div>
-      <div style="font-size:0.72rem;color:var(--text3);font-family:'IBM Plex Mono',monospace;">7 games each · normalised to 0–100 across realistic ranges · higher = better on all axes</div>
+  <!-- QUARTERS -->
+  <div id="v-qt" style="display:none">
+    <div class="blk">
+      <div class="blk-title">Quarter-by-quarter — 2026</div>
+      <div class="blk-sub">Each game's four quarters split by margin. Stacked above zero = quarters won, below zero = quarters lost (or drawn at zero).</div>
+      <div class="stat-grid" id="qtr-cards"></div>
+      <div class="leg" id="qtr-leg" style="margin-bottom:0.5rem;"></div>
+      <div class="chart-wrap"><canvas id="qtr-chart"></canvas></div>
+      <div class="note" id="qtr-note"></div>
     </div>
-
-    <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:1rem;font-size:0.75rem;color:var(--text3);align-items:center;">
-      <span style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#C0392B;"></span><span style="color:var(--text2);font-weight:500;">Richmond</span> — 2x Bad · 2x OK · 1x Good · 2x Bad</span>
-      <span style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#1A6FA8;"></span><span style="color:var(--text2);font-weight:500;">West Coast</span> — 7 games · 2 wins</span>
-      <span style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:12px;height:3px;background:#888;margin-bottom:2px;"></span>League avg</span>
-    </div>
-
-    <div style="position:relative;width:100%;max-width:560px;margin:0 auto 2rem;">
-      <div style="position:relative;height:420px;">
-        <canvas id="cmpRadar"></canvas>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:1.5rem;">
-      <div class="card" style="padding:10px 12px;">
-        <div style="font-size:0.68rem;color:var(--text3);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.05em;">D50→F50 %</div>
-        <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:600;margin-bottom:3px;">
-          <span style="color:#C0392B;">Rich 17.7%</span><span style="color:#1A6FA8;">WC 17.4%</span>
-        </div>
-        <div style="font-size:0.68rem;color:var(--text3);">League avg 23.0%</div>
-      </div>
-      <div class="card" style="padding:10px 12px;">
-        <div style="font-size:0.68rem;color:var(--text3);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.05em;">Pts from stoppage</div>
-        <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:600;margin-bottom:3px;">
-          <span style="color:#C0392B;">Rich 20.7</span><span style="color:#1A6FA8;">WC 26.4</span>
-        </div>
-        <div style="font-size:0.68rem;color:var(--text3);">League avg 33.4</div>
-      </div>
-      <div class="card" style="padding:10px 12px;">
-        <div style="font-size:0.68rem;color:var(--text3);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.05em;">Pts from centre bounce</div>
-        <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:600;margin-bottom:3px;">
-          <span style="color:#C0392B;">Rich 8.3</span><span style="color:#1A6FA8;">WC 10.4</span>
-        </div>
-        <div style="font-size:0.68rem;color:var(--text3);">League avg 12.8</div>
-      </div>
-      <div class="card" style="padding:10px 12px;">
-        <div style="font-size:0.68rem;color:var(--text3);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.05em;">Control Index</div>
-        <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:600;margin-bottom:3px;">
-          <span style="color:#C0392B;">Rich −0.4</span><span style="color:#1A6FA8;">WC −4.3</span>
-        </div>
-        <div style="font-size:0.68rem;color:var(--text3);">League avg +8.1</div>
-      </div>
-      <div class="card" style="padding:10px 12px;">
-        <div style="font-size:0.68rem;color:var(--text3);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.05em;">xScoreRating</div>
-        <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:600;margin-bottom:3px;">
-          <span style="color:#C0392B;">Rich −6.8</span><span style="color:#1A6FA8;">WC −5.2</span>
-        </div>
-        <div style="font-size:0.68rem;color:var(--text3);">League avg +0.3</div>
-      </div>
-      <div class="card" style="padding:10px 12px;">
-        <div style="font-size:0.68rem;color:var(--text3);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.05em;">ThreatRating</div>
-        <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:600;margin-bottom:3px;">
-          <span style="color:#C0392B;">Rich −0.30</span><span style="color:#1A6FA8;">WC +0.21</span>
-        </div>
-        <div style="font-size:0.68rem;color:var(--text3);">League avg +2.54</div>
-      </div>
-    </div>
-
-    <div class="note" style="margin-top:0.5rem;">WC R4 vs Sydney (−128) included — a significant outlier but part of the picture.</div>
   </div>
 
 </div>
 
 <footer class="site-footer">
   <strong style="color:var(--text2);">The Handbrake</strong> &nbsp;·&nbsp;
-  <a href="https://substack.com/sjhross">substack.com/sjhross</a> &nbsp;·&nbsp;
+  <a href="https://sjhross.substack.com/">sjhross.substack.com</a> &nbsp;·&nbsp;
   data: <a href="https://wheeloratings.com">wheelo</a>
 </footer>
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-<script>
-(function() {
-  var labels = [
-    'D50→F50 %',
-    'Chain to score %',
-    'xChain turnover',
-    'Pts from turnover',
-    'Pts from stoppage',
-    'Pts centre bounce',
-    'Control Index',
-    'PostClear CP',
-    'xScoreRating',
-    'ThreatRating'
-  ];
-  var ranges = [
-    [5,35],[12,28],[30,65],[25,70],[5,55],[0,20],[-25,30],[60,95],[-20,20],[-8,8]
-  ];
-  var rich = [17.71,17.34,42.90,36.00,20.71,8.29,-0.43,75.57,-6.78,-0.298];
-  var wc   = [17.44,19.04,43.99,35.00,26.43,10.43,-4.29,77.00,-5.17,0.211];
-  var lg   = [23.00,22.08,46.97,52.21,33.44,12.77,8.07,81.49,0.25,2.54];
-
-  function norm(v,mn,mx){ return Math.min(100,Math.max(0,Math.round((v-mn)/(mx-mn)*100))); }
-
-  function buildRadar() {
-    var el = document.getElementById('cmpRadar');
-    if (!el || !window.Chart) return;
-    new Chart(el, {
-      type: 'radar',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: 'Richmond',
-            data: rich.map(function(v,i){ return norm(v,ranges[i][0],ranges[i][1]); }),
-            borderColor: '#C0392B',
-            backgroundColor: 'rgba(192,57,43,0.10)',
-            borderWidth: 2,
-            pointBackgroundColor: '#C0392B',
-            pointRadius: 3,
-          },
-          {
-            label: 'West Coast',
-            data: wc.map(function(v,i){ return norm(v,ranges[i][0],ranges[i][1]); }),
-            borderColor: '#1A6FA8',
-            backgroundColor: 'rgba(26,111,168,0.10)',
-            borderWidth: 2,
-            pointBackgroundColor: '#1A6FA8',
-            pointRadius: 3,
-          },
-          {
-            label: 'League avg',
-            data: lg.map(function(v,i){ return norm(v,ranges[i][0],ranges[i][1]); }),
-            borderColor: '#888780',
-            backgroundColor: 'rgba(136,135,128,0.0)',
-            borderWidth: 1.5,
-            borderDash: [4,3],
-            pointRadius: 0,
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: function(ctx) {
-                var raw = [rich,wc,lg][ctx.datasetIndex][ctx.dataIndex];
-                return ctx.dataset.label + ': ' + (raw % 1 === 0 ? raw : raw.toFixed(1));
-              }
-            }
-          }
-        },
-        scales: {
-          r: {
-            min: 0, max: 100,
-            ticks: { display: false, stepSize: 25 },
-            grid: { color: 'rgba(136,135,128,0.2)' },
-            angleLines: { color: 'rgba(136,135,128,0.2)' },
-            pointLabels: { font: { size: 11 }, color: '#5F5E5A' }
-          }
-        }
-      }
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', buildRadar);
-  } else {
-    buildRadar();
-  }
-})();
-</script>
-
 <script>
 // ─── COLOURS ────────────────────────────────────────────────────────────────
 const C = {
@@ -660,6 +492,25 @@ const G26 = [
   {r:10, o:'St K', t:'OK',   D50:12.80, xCT:29.90, CTS:18.30, ptT:40, CI:43.0,  pcCP:86, xSR:13.50,  ptS:33, ptCB:24, tr:null,   sl:null, hbm:342},
   {r:11, o:'Ess',  t:'Bad',  D50:29.70, xCT:42.20, CTS:23.50, ptT:30, CI:34.0,  pcCP:76, xSR:10.50,  ptS:40, ptCB:7,  tr:null,   sl:null, hbm:145},
   {r:12, o:'Syd',  t:'OK',   D50:13.50, xCT:38.00, CTS:14.70, ptT:29, CI:-19.0, pcCP:null,xSR:-1.10, ptS:27, ptCB:12, tr:-7.378, sl:4.94, hbm:92},
+  {r:14, o:'Bris', t:'Good', D50:25.00, xCT:56.60, CTS:17.20, ptT:54, CI:5.0,   pcCP:null,xSR:-13.90, ptS:25, ptCB:18, tr:2.548,  sl:5.67, hbm:195},
+];
+
+// ─── 2026 QUARTER-BY-QUARTER MARGINS ─────────────────────────────────────────
+// q = [Q1, Q2, Q3, Q4] margin for that quarter (Richmond points minus opponent points)
+const Q26 = [
+  {r:1,  o:'Carl', t:'Bad',  q:[-19,-8,14,9]},
+  {r:2,  o:'GC',   t:'Good', q:[0,-31,-9,-28]},
+  {r:3,  o:'Frem', t:'OK',   q:[-8,2,-38,-16]},
+  {r:4,  o:'Port', t:'Bad',  q:[-11,-4,-12,-15]},
+  {r:5,  o:'GWS',  t:'OK',   q:[-38,5,-4,-19]},
+  {r:6,  o:'NM',   t:'Bad',  q:[-20,-19,-17,-19]},
+  {r:7,  o:'Melb', t:'OK',   q:[-9,-12,-1,-32]},
+  {r:8,  o:'WC',   t:'Bad',  q:[7,3,-6,7]},
+  {r:9,  o:'Adel', t:'Good', q:[0,10,-33,-14]},
+  {r:10, o:'St K', t:'OK',   q:[-21,-5,-7,-3]},
+  {r:11, o:'Ess',  t:'Bad',  q:[15,0,-3,6]},
+  {r:12, o:'Syd',  t:'OK',   q:[-20,-31,-46,-17]},
+  {r:14, o:'Bris', t:'Good', q:[-3,0,-27,-5]},
 ];
 
 // ─── REFERENCE VALUES ────────────────────────────────────────────────────────
@@ -667,17 +518,17 @@ const G26 = [
 // r25lg   = 2025 league avg
 // r26lg   = 2026 league avg (live — update weekly)
 const REF = {
-  D50:  { r25rich:21.08, r25lg:23.30, r26lg:23.61 },
+  D50:  { r25rich:21.08, r25lg:23.30, r26lg:23.66 },
   xCT:  { r25rich:39.23, r25lg:44.00, r26lg:45.95 },
-  CTS:  { r25rich:17.78, r25lg:20.80, r26lg:22.13 },
+  CTS:  { r25rich:17.78, r25lg:20.80, r26lg:22.03 },
   ptT:  { r25rich:34.61, r25lg:46.60, r26lg:50.24 },
-  CI:   { r25rich:5.96,  r25lg:1.20,  r26lg:8.04  },
+  CI:   { r25rich:5.96,  r25lg:1.20,  r26lg:7.42  },
   pcCP: { r25rich:72.70, r25lg:79.60, r26lg:81.49 },
-  xSR:  { r25rich:-0.65, r25lg:0.08,  r26lg:0.99  },
-  ptS:  { r25rich:24.04, r25lg:33.80, r26lg:34.72 },
-  ptCB: { r25rich:7.22,  r25lg:11.40, r26lg:13.61 },
-  tr:   { r25rich:-0.63, r25lg:-0.63, r26lg:2.16  },
-  hbm:  { r25rich:142.9, r25lg:177.4, r26lg:322.1 },
+  xSR:  { r25rich:-0.65, r25lg:0.08,  r26lg:0.88  },
+  ptS:  { r25rich:24.04, r25lg:33.80, r26lg:34.48 },
+  ptCB: { r25rich:7.22,  r25lg:11.40, r26lg:13.40 },
+  tr:   { r25rich:-0.63, r25lg:-0.63, r26lg:2.09  },
+  hbm:  { r25rich:142.9, r25lg:177.4, r26lg:318.5 },
 };
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
@@ -691,11 +542,11 @@ const r26avg = f => oa26(f);
 const TC = { Good: C.good, OK: C.ok, Bad: C.bad };
 
 function sv(v) {
-  ['ov','tr','ch','sc','co','st','atk','def','cmp'].forEach(n => {
+  ['ov','tr','ch','sc','co','st','atk','def','qt'].forEach(n => {
     document.getElementById('v-'+n).style.display = n===v ? '' : 'none';
   });
   document.querySelectorAll('.tab').forEach((t,i) => {
-    t.classList.toggle('on', ['ov','tr','ch','sc','co','st','atk','def','cmp'][i]===v);
+    t.classList.toggle('on', ['ov','tr','ch','sc','co','st','atk','def','qt'][i]===v);
   });
 }
 
@@ -768,7 +619,7 @@ function buildRadar() {
     data: { labels: ls, datasets: [
       { label:'2025 Richmond season avg', data:dR25,  borderColor:C.red+'90',   backgroundColor:C.red+'10',   borderWidth:1.5, pointRadius:2, pointBackgroundColor:C.red },
       { label:'2026 league avg (live)',   data:dLg26, borderColor:C.grey+'80',  backgroundColor:C.grey+'10',  borderWidth:1.5, pointRadius:2, pointBackgroundColor:C.grey },
-      { label:'2026 Richmond avg (2g)',   data:d26,   borderColor:C.green,      backgroundColor:C.green+'20', borderWidth:2,   pointRadius:3, pointBackgroundColor:C.green },
+      { label:'2026 Richmond avg (13g)',  data:d26,   borderColor:C.green,      backgroundColor:C.green+'20', borderWidth:2,   pointRadius:3, pointBackgroundColor:C.green },
     ]},
     options: { responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{ display:true, position:'bottom', labels:{ color:C.tc, font:{size:10}, boxWidth:10, padding:12 }}},
@@ -783,14 +634,14 @@ function buildTr() {
   document.getElementById('tr-cards').innerHTML = `
     <div class="stat-card"><div class="stat-card-label">2026 avg (${G26.filter(g=>g.tr!=null).length}g)</div><div class="stat-card-value ${a>=0?'pos':'neg'}">${fm(a,2)}</div></div>
     <div class="stat-card"><div class="stat-card-label">2025 Richmond avg</div><div class="stat-card-value neg">−0.63</div></div>
-    <div class="stat-card"><div class="stat-card-label">2026 league avg</div><div class="stat-card-value pos">+2.16</div></div>
-    <div class="stat-card"><div class="stat-card-label">vs 2026 league</div><div class="stat-card-value ${a>=2.16?'pos':'neg'}">${fm(a-2.16,2)}</div></div>`;
+    <div class="stat-card"><div class="stat-card-label">2026 league avg</div><div class="stat-card-value pos">+2.09</div></div>
+    <div class="stat-card"><div class="stat-card-label">vs 2026 league</div><div class="stat-card-value ${a>=2.09?'pos':'neg'}">${fm(a-2.09,2)}</div></div>`;
   document.getElementById('tr-note').textContent =
-    'R1 vs Carlton (Bad): +8.62. R2 vs Gold Coast (Good): \u22127.31. R3 vs Fremantle (OK): \u22126.34. R4 vs Port Adelaide (Bad): +2.92. R5 vs GWS (OK): \u22126.57. R6 vs North Melbourne (Bad): +2.60. R7 vs Melbourne (OK): +4.00. R8 vs West Coast (Bad): +2.95. R12 vs Sydney (OK): \u22127.38 \u2014 the worst single-game reading of the season, matching the Gold Coast result. The tier split is hardening: +4.27 avg vs Bad sides, \u22124.07 vs OK, \u22127.31 vs Good. Twelve-game average: \u22120.72. League avg through R12: +2.16.';
+    'R1 vs Carlton (Bad): +8.62. R2 vs Gold Coast (Good): \u22127.31. R3 vs Fremantle (OK): \u22126.34. R4 vs Port Adelaide (Bad): +2.92. R5 vs GWS (OK): \u22126.57. R6 vs North Melbourne (Bad): +2.60. R7 vs Melbourne (OK): +4.00. R8 vs West Coast (Bad): +2.95. R12 vs Sydney (OK): \u22127.38 \u2014 the worst single-game reading of the season, matching the Gold Coast result. R14 vs Brisbane (Good): +2.55, back-calculated from the 12-game and 13-game season snapshots \u2014 the first positive reading against a Good side all year. The tier split: +4.27 avg vs Bad sides (4g), \u22124.07 vs OK (4g), \u22122.38 vs Good (2g). Ten-game average: \u22120.40. League avg through R14: +2.09. (R9\u2013R11 remain blank \u2014 no season-snapshot pair was captured for those rounds.)';
   const tc2 = document.getElementById('tr-tiers');
   [['Good','good'],['OK','ok'],['Bad','bad']].forEach(([t,cl]) => {
     const cur=ta26('tr',t), n=G26.filter(g=>g.t===t&&g.tr!=null).length;
-    tc2.innerHTML += `<div class="tier-card ${cl}"><div class="tier-label">vs ${t} — 2026</div><div class="tier-value">${cur!=null?fm(cur,2):'—'}</div><div class="tier-sub">${n}g · Rich25: −0.63 · lg26: +2.16</div></div>`;
+    tc2.innerHTML += `<div class="tier-card ${cl}"><div class="tier-label">vs ${t} — 2026</div><div class="tier-value">${cur!=null?fm(cur,2):'—'}</div><div class="tier-sub">${n}g · Rich25: −0.63 · lg26: +2.09</div></div>`;
   });
   const trs=[['Good',C.good],['OK',C.ok],['Bad',C.bad]];
   const ds = trs.map(([t,col]) => {
@@ -801,7 +652,7 @@ function buildTr() {
   });
   ds.push({ label:'Richmond 2025 avg', data:G26.map(g=>({x:`R${g.r}`,y:-0.63})),
     borderColor:C.red+'90', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false });
-  ds.push({ label:'League 2026 avg',   data:G26.map(g=>({x:`R${g.r}`,y:2.16})),
+  ds.push({ label:'League 2026 avg',   data:G26.map(g=>({x:`R${g.r}`,y:2.09})),
     borderColor:C.grey+'80', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false });
   new Chart(document.getElementById('tr-chart'), {
     type:'line', data:{datasets:ds},
@@ -811,6 +662,66 @@ function buildTr() {
                y:{ticks:{color:C.tc,font:{size:10},callback:v=>(v>=0?'+':'')+v.toFixed(1)},grid:{color:C.gc}}}
     }
   });
+}
+
+// ─── QUARTER-BY-QUARTER ──────────────────────────────────────────────────────
+const QC = { lb:'#C13B2A', lc:'#E8A864', dr:'#B8B3A8', wc:'#7FB069', wb:'#1D7A5F' };
+const QLABEL = { lb:'Lost by 20+', lc:'Lost by 1\u201319', dr:'Drawn', wc:'Won by 1\u201319', wb:'Won by 20+' };
+const qCat = m => m<=-20?'lb' : m<0?'lc' : m===0?'dr' : m<=19?'wc' : 'wb';
+
+function buildQtr() {
+  const counts = { lb:0, lc:0, dr:0, wc:0, wb:0 };
+  Q26.forEach(g => g.q.forEach(m => counts[qCat(m)]++));
+  const total = Q26.length * 4;
+
+  const cardsEl = document.getElementById('qtr-cards');
+  ['lb','lc','dr','wc','wb'].forEach(k => {
+    cardsEl.innerHTML += `<div class="stat-card">
+      <div class="stat-card-label">${QLABEL[k]}</div>
+      <div class="stat-card-value" style="color:${QC[k]}">${counts[k]}</div>
+      <div class="card-delta" style="color:${QC[k]}">${(counts[k]/total*100).toFixed(0)}% of quarters</div>
+    </div>`;
+  });
+
+  const legEl = document.getElementById('qtr-leg');
+  ['lb','lc','dr','wc','wb'].forEach(k => {
+    legEl.innerHTML += `<span class="leg-item"><span class="leg-swatch" style="background:${QC[k]};"></span>${QLABEL[k]}</span>`;
+  });
+
+  const datasets = [0,1,2,3].map(i => ({
+    label: `Q${i+1}`,
+    data: Q26.map(g => g.q[i]),
+    backgroundColor: Q26.map(g => QC[qCat(g.q[i])]),
+    borderColor: Q26.map(g => QC[qCat(g.q[i])]),
+    borderWidth: 1,
+    borderRadius: 2,
+    stack: 'q',
+    barThickness: 28,
+  }));
+
+  new Chart(document.getElementById('qtr-chart'), {
+    type: 'bar',
+    data: { labels: Q26.map(g => `R${g.r} ${g.o}`), datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: {
+          title: items => `${items[0].label} \u2014 ${items[0].dataset.label}`,
+          label: c => ` ${c.parsed.y>=0?'+':''}${c.parsed.y} (${QLABEL[qCat(c.parsed.y)]})`,
+        }}
+      },
+      scales: {
+        x: { stacked: true, ticks: { color:C.tc, font:{size:10} }, grid: { color:C.gc } },
+        y: { stacked: true, ticks: { color:C.tc, font:{size:10}, callback:v=>(v>=0?'+':'')+v }, grid: { color:C.gc } },
+      }
+    }
+  });
+
+  const big = Q26.flatMap((g,gi) => g.q.map((m,qi) => ({g,qi,m}))).filter(x=>x.m<=-20);
+  const worst = big.sort((a,b)=>a.m-b.m)[0];
+  document.getElementById('qtr-note').textContent =
+    `${total} quarters played. Richmond has not won a single quarter by 20+ points all season \u2014 the ceiling on good patches tops out at "won by 1\u201319", while ${counts.lb} quarters (${(counts.lb/total*100).toFixed(0)}%) have been lost by 20 or more. The worst single quarter: Q${worst.qi+1} vs ${worst.g.o} (R${worst.g.r}), ${worst.m}. ${counts.lc+counts.lb} of ${total} quarters (${((counts.lc+counts.lb)/total*100).toFixed(0)}%) have been losing quarters.`;
 }
 
 // ─── PAIRED BAR CHARTS ───────────────────────────────────────────────────────
@@ -827,7 +738,7 @@ function makePair(cont, cfg) {
     ${refLeg25}
     <div class="chart-wrap"><canvas id="p25-${field}"></canvas></div>
     <hr class="blk-divider">`;
-  cont.innerHTML += `<div class="blk" id="blk-${field}">
+  cont.innerHTML += `<div class="blk">
     <div class="blk-title">${title}</div>
     <div class="blk-sub">${sub}</div>
     ${top2025}
@@ -926,81 +837,89 @@ const TABS = {
 buildOv();
 buildRadar();
 buildTr();
+buildQtr();
 ['ch','sc','co','st'].forEach(tab => TABS[tab].forEach(cfg => renderPair(cfg.field, cfg.dec, cfg.isCI||false)));
 
 // ─── ATTACKING SCOREBOARD ────────────────────────────────────────────────────
 // UPDATE each round from afl-player-stats-YYYY.csv
 // UPDATE each round from afl-player-stats-YYYY.csv
 const ATK = [
+  {name:'Steely Green',games:13,shots:26,goals:13,beh:8,launches:8,launchPct:5.6,xPerShot:3.9,xRating:-0.6,actual:86,xTotal:101.5,diff:-15.5,acc:50,siAvg:4.8,tr:4.35},
   {name:'Tom Lynch',games:7,shots:28,goals:11,beh:13,launches:5,launchPct:7.5,xPerShot:3.44,xRating:-0.62,actual:79,xTotal:96.4,diff:-17.4,acc:39,siAvg:6.3,tr:20.81},
-  {name:'Steely Green',games:12,shots:24,goals:12,beh:7,launches:8,launchPct:6.1,xPerShot:3.92,xRating:-0.63,actual:79,xTotal:94.2,diff:-15.2,acc:50,siAvg:4.8,tr:5.10},
-  {name:'Seth Campbell',games:12,shots:29,goals:12,beh:11,launches:8,launchPct:4.5,xPerShot:2.86,xRating:0.00,actual:83,xTotal:82.9,diff:0.1,acc:41,siAvg:4.8,tr:3.09},
-  {name:'Mykelti Lefau',games:10,shots:17,goals:11,beh:5,launches:6,launchPct:7.5,xPerShot:3.79,xRating:0.39,actual:71,xTotal:64.4,diff:6.6,acc:65,siAvg:3.6,tr:1.62},
-  {name:'Liam Fawcett',games:5,shots:15,goals:8,beh:2,launches:2,launchPct:7.4,xPerShot:3.45,xRating:-0.12,actual:50,xTotal:51.8,diff:-1.8,acc:53,siAvg:2.6,tr:12.10},
+  {name:'Seth Campbell',games:13,shots:30,goals:12,beh:11,launches:12,launchPct:6.3,xPerShot:2.85,xRating:-0.09,actual:83,xTotal:85.6,diff:-2.6,acc:40,siAvg:4.9,tr:5.92},
+  {name:'Mykelti Lefau',games:11,shots:17,goals:11,beh:5,launches:6,launchPct:6.9,xPerShot:3.79,xRating:0.39,actual:71,xTotal:64.4,diff:6.6,acc:65,siAvg:3.5,tr:3.59},
+  {name:'Liam Fawcett',games:6,shots:18,goals:10,beh:3,launches:3,launchPct:9.1,xPerShot:3.27,xRating:0.23,actual:63,xTotal:58.9,diff:4.1,acc:56,siAvg:3.0,tr:16.69},
+  {name:'Tim Taranto',games:11,shots:17,goals:6,beh:8,launches:15,launchPct:5.8,xPerShot:3.16,xRating:-0.57,actual:44,xTotal:53.8,diff:-9.8,acc:35,siAvg:5.1,tr:0.75},
+  {name:'Noah Balta',games:12,shots:14,goals:6,beh:6,launches:12,launchPct:7.5,xPerShot:3.57,xRating:-0.64,actual:42,xTotal:50.0,diff:-8.0,acc:40,siAvg:3.2,tr:-3.37},
   {name:'Jonty Faull',games:10,shots:17,goals:7,beh:7,launches:1,launchPct:1.4,xPerShot:2.69,xRating:0.19,actual:49,xTotal:45.8,diff:3.2,acc:41,siAvg:3.2,tr:13.11},
-  {name:'Tim Taranto',games:10,shots:14,goals:4,beh:7,launches:14,launchPct:6.1,xPerShot:3.20,xRating:-0.98,actual:31,xTotal:44.8,diff:-13.8,acc:29,siAvg:5.0,tr:2.65},
-  {name:'Noah Balta',games:11,shots:12,goals:6,beh:5,launches:10,launchPct:6.9,xPerShot:3.51,xRating:-0.17,actual:41,xTotal:42.1,diff:-1.1,acc:46,siAvg:3.0,tr:-4.98},
+  {name:'Jasper Alger',games:4,shots:10,goals:7,beh:3,launches:0,launchPct:0.0,xPerShot:4.04,xRating:0.47,actual:45,xTotal:40.4,diff:4.6,acc:70,siAvg:3.5,tr:-10.51},
   {name:'Sam Lalor',games:7,shots:12,goals:8,beh:4,launches:5,launchPct:4.3,xPerShot:3.34,xRating:0.99,actual:52,xTotal:40.1,diff:11.9,acc:67,siAvg:4.9,tr:1.58},
+  {name:'Tyler Sonsie',games:11,shots:10,goals:4,beh:5,launches:9,launchPct:4.8,xPerShot:3.63,xRating:-0.73,actual:29,xTotal:36.3,diff:-7.3,acc:40,siAvg:3.9,tr:4.36},
   {name:'Jack Ross',games:12,shots:11,goals:4,beh:7,launches:19,launchPct:6.9,xPerShot:2.78,xRating:0.04,actual:31,xTotal:30.6,diff:0.4,acc:36,siAvg:5.5,tr:3.04},
-  {name:'Tyler Sonsie',games:10,shots:8,goals:3,beh:4,launches:8,launchPct:4.8,xPerShot:3.43,xRating:-0.68,actual:22,xTotal:27.5,diff:-5.5,acc:38,siAvg:3.5,tr:3.82},
-  {name:'Jayden Short',games:11,shots:7,goals:2,beh:4,launches:13,launchPct:4.7,xPerShot:2.40,xRating:-0.12,actual:16,xTotal:16.8,diff:-0.8,acc:29,siAvg:3.5,tr:-1.20},
-  {name:'Sam Cumming',games:6,shots:5,goals:4,beh:1,launches:7,launchPct:7.8,xPerShot:3.36,xRating:1.64,actual:25,xTotal:16.8,diff:8.2,acc:80,siAvg:3.5,tr:-3.67},
-  {name:'Jasper Alger',games:3,shots:5,goals:3,beh:2,launches:0,launchPct:0.0,xPerShot:3.25,xRating:0.75,actual:20,xTotal:16.3,diff:3.7,acc:60,siAvg:2.3,tr:-25.87},
+  {name:'Sam Cumming',games:7,shots:6,goals:5,beh:1,launches:7,launchPct:7.1,xPerShot:3.48,xRating:1.69,actual:31,xTotal:20.9,diff:10.1,acc:83,siAvg:3.4,tr:-1.69},
+  {name:'Jayden Short',games:12,shots:7,goals:2,beh:4,launches:13,launchPct:4.4,xPerShot:2.4,xRating:-0.12,actual:16,xTotal:16.8,diff:-0.8,acc:29,siAvg:3.8,tr:-0.28},
+  {name:'Maurice Rioli',games:7,shots:4,goals:1,beh:2,launches:6,launchPct:12.0,xPerShot:3.72,xRating:-1.72,actual:8,xTotal:14.9,diff:-6.9,acc:25,siAvg:2.6,tr:1.23},
+  {name:'James Trezise',games:9,shots:3,goals:1,beh:1,launches:12,launchPct:8.3,xPerShot:4.62,xRating:-2.28,actual:7,xTotal:13.9,diff:-6.9,acc:33,siAvg:3.0,tr:1.02},
+  {name:'Dion Prestia',games:9,shots:5,goals:1,beh:1,launches:16,launchPct:9.1,xPerShot:2.75,xRating:-1.35,actual:7,xTotal:13.8,diff:-6.8,acc:20,siAvg:4.2,tr:-4.6},
+  {name:'Jacob Hopper',games:12,shots:5,goals:0,beh:3,launches:13,launchPct:5.1,xPerShot:2.63,xRating:-2.03,actual:3,xTotal:13.2,diff:-10.2,acc:0,siAvg:3.6,tr:0.34},
   {name:'Noah Roberts-Thomson',games:3,shots:4,goals:4,beh:0,launches:0,launchPct:0.0,xPerShot:3.17,xRating:2.83,actual:24,xTotal:12.7,diff:11.3,acc:100,siAvg:1.7,tr:-13.54},
-  {name:'Maurice Rioli',games:6,shots:3,goals:1,beh:2,launches:5,launchPct:11.6,xPerShot:4.10,xRating:-1.44,actual:8,xTotal:12.3,diff:-4.3,acc:33,siAvg:2.5,tr:-4.26},
   {name:'Kane McAuliffe',games:6,shots:4,goals:2,beh:2,launches:8,launchPct:7.0,xPerShot:2.93,xRating:0.57,actual:14,xTotal:11.7,diff:2.3,acc:50,siAvg:4.2,tr:-2.17},
-  {name:'Nick Vlastuin',games:11,shots:3,goals:1,beh:2,launches:9,launchPct:5.3,xPerShot:3.88,xRating:-1.21,actual:8,xTotal:11.6,diff:-3.6,acc:33,siAvg:2.2,tr:-1.55},
-  {name:'Jacob Hopper',games:11,shots:4,goals:0,beh:3,launches:13,launchPct:5.4,xPerShot:2.83,xRating:-2.08,actual:3,xTotal:11.3,diff:-8.3,acc:0,siAvg:3.9,tr:1.14},
-  {name:'Dion Prestia',games:8,shots:4,goals:1,beh:1,launches:13,launchPct:8.8,xPerShot:2.55,xRating:-0.80,actual:7,xTotal:10.2,diff:-3.2,acc:25,siAvg:4.0,tr:-2.73},
+  {name:'Nick Vlastuin',games:12,shots:3,goals:1,beh:2,launches:10,launchPct:5.4,xPerShot:3.88,xRating:-1.21,actual:8,xTotal:11.6,diff:-3.6,acc:33,siAvg:2.2,tr:-1.43},
   {name:'Tom Burton',games:5,shots:2,goals:0,beh:2,launches:4,launchPct:7.5,xPerShot:3.77,xRating:-2.77,actual:2,xTotal:7.5,diff:-5.5,acc:0,siAvg:2.6,tr:-1.09},
   {name:'Harry Armstrong',games:3,shots:2,goals:1,beh:1,launches:0,launchPct:0.0,xPerShot:3.63,xRating:-0.13,actual:7,xTotal:7.3,diff:-0.3,acc:50,siAvg:1.3,tr:-31.46},
   {name:'Hugo Ralphsmith',games:5,shots:4,goals:2,beh:1,launches:1,launchPct:1.4,xPerShot:1.77,xRating:1.48,actual:13,xTotal:7.1,diff:5.9,acc:50,siAvg:2.6,tr:2.59},
-  {name:'Sam Grlj',games:11,shots:3,goals:0,beh:1,launches:4,launchPct:2.3,xPerShot:2.22,xRating:-1.89,actual:1,xTotal:6.7,diff:-5.7,acc:0,siAvg:2.0,tr:0.45},
-  {name:'Sam Banks',games:7,shots:1,goals:1,beh:0,launches:4,launchPct:3.5,xPerShot:5.84,xRating:0.16,actual:6,xTotal:5.8,diff:0.2,acc:100,siAvg:2.0,tr:-8.64},
-  {name:'Campbell Gray',games:9,shots:1,goals:1,beh:0,launches:3,launchPct:5.1,xPerShot:5.40,xRating:0.60,actual:6,xTotal:5.4,diff:0.6,acc:100,siAvg:1.2,tr:8.02},
+  {name:'Sam Grlj',games:12,shots:3,goals:0,beh:1,launches:5,launchPct:2.6,xPerShot:2.22,xRating:-1.89,actual:1,xTotal:6.7,diff:-5.7,acc:0,siAvg:2.2,tr:1.16},
+  {name:'Sam Banks',games:8,shots:1,goals:1,beh:0,launches:4,launchPct:2.9,xPerShot:5.84,xRating:0.16,actual:6,xTotal:5.8,diff:0.2,acc:100,siAvg:1.9,tr:-9.72},
+  {name:'Campbell Gray',games:9,shots:1,goals:1,beh:0,launches:3,launchPct:5.1,xPerShot:5.4,xRating:0.6,actual:6,xTotal:5.4,diff:0.6,acc:100,siAvg:1.2,tr:8.02},
   {name:'Rhyan Mansell',games:1,shots:3,goals:2,beh:0,launches:0,launchPct:0.0,xPerShot:1.77,xRating:2.23,actual:12,xTotal:5.3,diff:6.7,acc:67,siAvg:7.0,tr:7.08},
-  {name:'Oliver Hayes-Brown',games:6,shots:1,goals:1,beh:0,launches:9,launchPct:15.3,xPerShot:2.87,xRating:3.13,actual:6,xTotal:2.9,diff:3.1,acc:100,siAvg:2.5,tr:-12.45},
-  {name:'Tom Brown',games:7,shots:1,goals:0,beh:0,launches:3,launchPct:3.3,xPerShot:1.96,xRating:-1.96,actual:0,xTotal:2.0,diff:-2.0,acc:0,siAvg:1.4,tr:-5.50},
+  {name:'Oliver Hayes-Brown',games:7,shots:1,goals:1,beh:0,launches:10,launchPct:14.5,xPerShot:2.87,xRating:3.13,actual:6,xTotal:2.9,diff:3.1,acc:100,siAvg:2.4,tr:-15.35},
+  {name:'Tom Brown',games:8,shots:1,goals:0,beh:0,launches:3,launchPct:2.8,xPerShot:1.96,xRating:-1.96,actual:0,xTotal:2.0,diff:-2.0,acc:0,siAvg:1.5,tr:-4.23},
   {name:'Samson Ryan',games:3,shots:1,goals:0,beh:0,launches:4,launchPct:16.0,xPerShot:0.72,xRating:-0.72,actual:0,xTotal:0.7,diff:-0.7,acc:0,siAvg:1.7,tr:-15.07},
-  {name:'Ben Miller',games:12,shots:0,goals:0,beh:0,launches:10,launchPct:5.8,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:1.8,tr:1.02},
-  {name:'James Trezise',games:8,shots:0,goals:0,beh:0,launches:12,launchPct:9.4,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:2.9,tr:0.18},
+  {name:'Ben Miller',games:13,shots:0,goals:0,beh:0,launches:11,launchPct:6.0,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:2.0,tr:1.8},
+  {name:'Kye Annand',games:1,shots:0,goals:0,beh:0,launches:1,launchPct:7.1,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:2.0,tr:2.15},
   {name:'Luke Trainor',games:7,shots:0,goals:0,beh:0,launches:3,launchPct:2.8,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:1.1,tr:-5.64},
-  {name:'Nathan Broad',games:11,shots:0,goals:0,beh:0,launches:9,launchPct:6.1,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:1.9,tr:5.28},
-  {name:'Patrick Retschko',games:7,shots:0,goals:0,beh:0,launches:2,launchPct:1.6,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:2.9,tr:1.00},
+  {name:'Nathan Broad',games:12,shots:0,goals:0,beh:0,launches:10,launchPct:6.1,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:2.0,tr:4.09},
+  {name:'Patrick Retschko',games:8,shots:0,goals:0,beh:0,launches:3,launchPct:2.1,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:2.9,tr:-0.08},
   {name:'Toby Nankervis',games:2,shots:0,goals:0,beh:0,launches:3,launchPct:8.8,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:2.5,tr:-8.75},
 ];
 const DEF = [
-  {name:'Ben Miller',games:12,position:'Key Defender',contests:36,winPct:75.6,intercepts:52,iMarks:19,reb50:58,spoils:80},
-  {name:'Noah Balta',games:11,position:'Key Defender',contests:22,winPct:81.0,intercepts:39,iMarks:18,reb50:27,spoils:22},
-  {name:'Nick Vlastuin',games:11,position:'Gen. Defender',contests:11,winPct:60.0,intercepts:65,iMarks:12,reb50:45,spoils:11},
-  {name:'Nathan Broad',games:11,position:'Gen. Defender',contests:11,winPct:81.8,intercepts:54,iMarks:26,reb50:32,spoils:48},
-  {name:'Luke Trainor',games:7,position:'Gen. Defender',contests:14,winPct:63.6,intercepts:23,iMarks:7,reb50:27,spoils:21},
-  {name:'Samson Ryan',games:3,position:'Ruck',contests:6,winPct:80.0,intercepts:4,iMarks:2,reb50:1,spoils:5},
-  {name:'Tom Brown',games:7,position:'Gen. Defender',contests:7,winPct:57.1,intercepts:28,iMarks:9,reb50:30,spoils:8},
-  {name:'Jayden Short',games:11,position:'Gen. Defender',contests:11,winPct:33.3,intercepts:45,iMarks:7,reb50:57,spoils:10},
-  {name:'Campbell Gray',games:9,position:'Key Defender',contests:9,winPct:37.5,intercepts:24,iMarks:8,reb50:16,spoils:45},
+  {name:'Ben Miller',games:13,position:'Key Defender',contests:45,winPct:77.8,intercepts:56,iMarks:19,reb50:64,spoils:87},
+  {name:'Noah Balta',games:12,position:'Key Defender',contests:21,winPct:81.0,intercepts:42,iMarks:21,reb50:29,spoils:22},
+  {name:'Nathan Broad',games:12,position:'Gen. Defender',contests:14,winPct:85.7,intercepts:61,iMarks:28,reb50:34,spoils:51},
+  {name:'Luke Trainor',games:7,position:'Gen. Defender',contests:11,winPct:63.6,intercepts:23,iMarks:7,reb50:27,spoils:21},
+  {name:'Nick Vlastuin',games:12,position:'Gen. Defender',contests:10,winPct:60.0,intercepts:71,iMarks:13,reb50:49,spoils:12},
+  {name:'Campbell Gray',games:9,position:'Key Defender',contests:8,winPct:37.5,intercepts:24,iMarks:8,reb50:16,spoils:45},
+  {name:'Tom Brown',games:8,position:'Gen. Defender',contests:8,winPct:62.5,intercepts:32,iMarks:11,reb50:34,spoils:10},
+  {name:'Jayden Short',games:12,position:'Gen. Defender',contests:6,winPct:33.3,intercepts:48,iMarks:8,reb50:61,spoils:11},
+  {name:'Samson Ryan',games:3,position:'Ruck',contests:5,winPct:80.0,intercepts:4,iMarks:2,reb50:1,spoils:5},
+  {name:'Hugo Ralphsmith',games:5,position:'Midfielder',contests:2,winPct:50.0,intercepts:9,iMarks:0,reb50:8,spoils:4},
+  {name:'James Trezise',games:9,position:'Gen. Defender',contests:2,winPct:50.0,intercepts:37,iMarks:9,reb50:15,spoils:8},
+  {name:'Patrick Retschko',games:8,position:'Midfielder',contests:2,winPct:100.0,intercepts:21,iMarks:6,reb50:23,spoils:2},
+  {name:'Seth Campbell',games:13,position:'Gen. Forward',contests:2,winPct:100.0,intercepts:23,iMarks:3,reb50:6,spoils:7},
   {name:'Josh Gibcus',games:1,position:'Key Defender',contests:1,winPct:100.0,intercepts:6,iMarks:1,reb50:2,spoils:4},
-  {name:'Hugo Ralphsmith',games:5,position:'Midfielder',contests:0,winPct:null,intercepts:9,iMarks:0,reb50:8,spoils:4},
-  {name:'Patrick Retschko',games:7,position:'Midfielder',contests:0,winPct:null,intercepts:20,iMarks:6,reb50:20,spoils:2},
-  {name:'Kane McAuliffe',games:6,position:'Midfielder',contests:0,winPct:null,intercepts:28,iMarks:7,reb50:11,spoils:3},
-  {name:'Tyler Sonsie',games:10,position:'Midfielder',contests:0,winPct:null,intercepts:38,iMarks:3,reb50:13,spoils:3},
+  {name:'Kane McAuliffe',games:6,position:'Midfielder',contests:1,winPct:100.0,intercepts:28,iMarks:7,reb50:11,spoils:3},
+  {name:'Kye Annand',games:1,position:'Key Defender',contests:1,winPct:0.0,intercepts:6,iMarks:1,reb50:6,spoils:6},
+  {name:'Oliver Hayes-Brown',games:7,position:'Ruck',contests:1,winPct:100.0,intercepts:8,iMarks:3,reb50:1,spoils:6},
+  {name:'Sam Banks',games:8,position:'Gen. Defender',contests:1,winPct:0.0,intercepts:26,iMarks:2,reb50:23,spoils:2},
+  {name:'Tyler Sonsie',games:11,position:'Midfielder',contests:1,winPct:100.0,intercepts:45,iMarks:5,reb50:14,spoils:3},
+  {name:'Dion Prestia',games:9,position:'Midfielder',contests:0,winPct:null,intercepts:22,iMarks:1,reb50:10,spoils:0},
+  {name:'Harry Armstrong',games:3,position:'Key Forward',contests:0,winPct:null,intercepts:1,iMarks:0,reb50:0,spoils:2},
   {name:'Jack Ross',games:12,position:'Midfielder',contests:0,winPct:null,intercepts:38,iMarks:4,reb50:11,spoils:1},
-  {name:'Jacob Hopper',games:11,position:'Midfielder',contests:0,winPct:null,intercepts:20,iMarks:1,reb50:13,spoils:3},
-  {name:'James Trezise',games:8,position:'Gen. Defender',contests:0,winPct:null,intercepts:34,iMarks:9,reb50:14,spoils:8},
-  {name:'Sam Grlj',games:11,position:'Gen. Defender',contests:0,winPct:null,intercepts:30,iMarks:4,reb50:21,spoils:4},
-  {name:'Sam Banks',games:7,position:'Gen. Defender',contests:0,winPct:null,intercepts:21,iMarks:2,reb50:17,spoils:2},
-  {name:'Seth Campbell',games:12,position:'Gen. Forward',contests:0,winPct:null,intercepts:20,iMarks:3,reb50:6,spoils:7},
-  {name:'Steely Green',games:12,position:'Gen. Forward',contests:0,winPct:null,intercepts:17,iMarks:0,reb50:6,spoils:3},
-  {name:'Mykelti Lefau',games:10,position:'Key Forward',contests:0,winPct:null,intercepts:15,iMarks:3,reb50:0,spoils:15},
-  {name:'Tim Taranto',games:10,position:'Midfielder',contests:0,winPct:null,intercepts:17,iMarks:1,reb50:10,spoils:0},
-  {name:'Dion Prestia',games:8,position:'Midfielder',contests:0,winPct:null,intercepts:17,iMarks:1,reb50:9,spoils:0},
+  {name:'Jacob Hopper',games:12,position:'Midfielder',contests:0,winPct:null,intercepts:20,iMarks:1,reb50:14,spoils:3},
+  {name:'Jasper Alger',games:4,position:'Gen. Forward',contests:0,winPct:null,intercepts:3,iMarks:0,reb50:0,spoils:5},
   {name:'Jonty Faull',games:10,position:'Key Forward',contests:0,winPct:null,intercepts:6,iMarks:2,reb50:1,spoils:15},
-  {name:'Maurice Rioli',games:6,position:'Gen. Forward',contests:0,winPct:null,intercepts:10,iMarks:1,reb50:2,spoils:3},
+  {name:'Liam Fawcett',games:6,position:'Key Forward',contests:0,winPct:null,intercepts:4,iMarks:1,reb50:0,spoils:6},
+  {name:'Maurice Rioli',games:7,position:'Gen. Forward',contests:0,winPct:null,intercepts:12,iMarks:1,reb50:2,spoils:3},
+  {name:'Mykelti Lefau',games:11,position:'Key Forward',contests:0,winPct:null,intercepts:16,iMarks:3,reb50:0,spoils:16},
+  {name:'Noah Roberts-Thomson',games:3,position:'Gen. Forward',contests:0,winPct:null,intercepts:0,iMarks:0,reb50:2,spoils:1},
+  {name:'Sam Cumming',games:7,position:'Mid-Forward',contests:0,winPct:null,intercepts:9,iMarks:1,reb50:6,spoils:4},
+  {name:'Sam Grlj',games:12,position:'Gen. Defender',contests:0,winPct:null,intercepts:32,iMarks:4,reb50:21,spoils:4},
   {name:'Sam Lalor',games:7,position:'Midfielder',contests:0,winPct:null,intercepts:12,iMarks:1,reb50:9,spoils:1},
-  {name:'Sam Cumming',games:6,position:'Mid-Forward',contests:0,winPct:null,intercepts:8,iMarks:0,reb50:6,spoils:4},
-  {name:'Oliver Hayes-Brown',games:6,position:'Ruck',contests:0,winPct:null,intercepts:6,iMarks:2,reb50:1,spoils:6},
-  {name:'Tom Burton',games:5,position:'Gen. Forward',contests:0,winPct:null,intercepts:6,iMarks:0,reb50:1,spoils:0},
+  {name:'Steely Green',games:13,position:'Gen. Forward',contests:0,winPct:null,intercepts:17,iMarks:0,reb50:6,spoils:3},
+  {name:'Tim Taranto',games:11,position:'Midfielder',contests:0,winPct:null,intercepts:22,iMarks:1,reb50:10,spoils:0},
   {name:'Toby Nankervis',games:2,position:'Ruck',contests:0,winPct:null,intercepts:5,iMarks:2,reb50:4,spoils:2},
+  {name:'Tom Burton',games:5,position:'Gen. Forward',contests:0,winPct:null,intercepts:6,iMarks:0,reb50:1,spoils:0},
+  {name:'Tom Lynch',games:7,position:'Key Forward',contests:0,winPct:null,intercepts:3,iMarks:0,reb50:1,spoils:10},
 ];
 
 let atkSortKey='xTotal', atkAsc=false;
@@ -1089,68 +1008,6 @@ function renderDef(){
 
 renderAtk();
 renderDef();
-
-// ─── CHART PERMALINKS (?chart=KEY) ───────────────────────────────────────────
-// Single-chart mode for linking from Substack posts. Append ?chart=KEY to the URL.
-// Metric keys:  d50, xct, cts, xsr, ptt, ci, pccp, hbm, pts, ptcb
-// View keys:    radar, cards, tr (kick threat), atk, def, cmp (rebuild), ov
-// Unknown keys fall back to the normal dashboard. No effect without the parameter.
-(function() {
-  const key = (new URLSearchParams(location.search).get('chart') || '').toLowerCase().trim();
-  if (!key) return;
-
-  const FIELDKEYS = { d50:'D50', xct:'xCT', cts:'CTS', xsr:'xSR', ptt:'ptT',
-                      ci:'CI', pccp:'pcCP', hbm:'hbm', pts:'ptS', ptcb:'ptCB' };
-  const VIEWKEYS  = { radar:'ov', cards:'ov', ov:'ov', overview:'ov',
-                      tr:'tr', threat:'tr', atk:'atk', attacking:'atk',
-                      def:'def', defensive:'def', cmp:'cmp', rebuild:'cmp' };
-
-  const field = FIELDKEYS[key] || null;
-  let view = field ? null : (VIEWKEYS[key] || null);
-  let soloTitle = null;
-
-  if (field) {
-    for (const t in TABS) {
-      const cfg = TABS[t].find(c => c.field === field);
-      if (cfg) { view = t; soloTitle = cfg.title; break; }
-    }
-  } else if (view) {
-    soloTitle = { ov:'Overview', tr:'ThreatRating', atk:'Attacking scoreboard',
-                  def:'Defensive scoreboard', cmp:'Rebuild comparison' }[view];
-    if (key === 'radar') soloTitle = 'Season at a glance';
-    if (key === 'cards') soloTitle = 'Season summary';
-  }
-  if (!view) return; // unrecognised key — show the full dashboard as normal
-
-  document.body.classList.add('chart-solo');
-  sv(view);
-
-  // Narrow to a single block where the key targets one chart
-  if (field) {
-    const host = document.getElementById(view + '-c');
-    if (host) Array.from(host.children).forEach(el => {
-      const keep = el.id === 'blk-' + field || el.id === 'pt-' + field;
-      el.style.display = keep ? '' : 'none';
-    });
-  } else if (key === 'radar' || key === 'cards') {
-    const cards = document.getElementById('ov-cards');
-    const radarCanvas = document.getElementById('radar');
-    const radarBlk = radarCanvas ? radarCanvas.closest('.blk') : null;
-    if (key === 'radar' && cards) cards.style.display = 'none';
-    if (key === 'cards' && radarBlk) radarBlk.style.display = 'none';
-  }
-
-  // Slim header bar: back-link to the full dashboard
-  const cont = document.querySelector('.container');
-  if (cont) {
-    const bar = document.createElement('div');
-    bar.className = 'solo-bar';
-    bar.innerHTML = '<a href="' + location.pathname + '">&larr; Full dashboard</a>' +
-                    '<span>The Handbrake &middot; Richmond 2026</span>';
-    cont.insertBefore(bar, cont.firstChild);
-  }
-  if (soloTitle) document.title = soloTitle + ' — The Handbrake';
-})();
 
 </script>
 </body>
