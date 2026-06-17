@@ -488,9 +488,9 @@ const G26 = [
   {r:6,  o:'NM',   t:'Bad',  D50:18.80, xCT:37.70, CTS:22.20, ptT:21, CI:22.0,  pcCP:53, xSR:-11.40, ptS:34, ptCB:19, tr:2.596,  sl:7.14,  hbm:195},
   {r:7,  o:'Melb', t:'OK',   D50:21.40, xCT:38.00, CTS:16.70, ptT:24, CI:-24.0, pcCP:86, xSR:8.50,   ptS:42, ptCB:12, tr:3.998,  sl:4.96,  hbm:50},
   {r:8,  o:'WC',   t:'Bad',  D50:24.50, xCT:43.50, CTS:21.60, ptT:43, CI:0.0,   pcCP:83, xSR:6.20,   ptS:50, ptCB:19, tr:2.950,  sl:6.90,  hbm:296},
-  {r:9,  o:'Adel', t:'Good', D50:34.20, xCT:38.80, CTS:16.10, ptT:27, CI:3.0,   pcCP:85, xSR:-4.70,  ptS:33, ptCB:7,  tr:null,   sl:null, hbm:397},
-  {r:10, o:'St K', t:'OK',   D50:12.80, xCT:29.90, CTS:18.30, ptT:40, CI:43.0,  pcCP:86, xSR:13.50,  ptS:33, ptCB:24, tr:null,   sl:null, hbm:342},
-  {r:11, o:'Ess',  t:'Bad',  D50:29.70, xCT:42.20, CTS:23.50, ptT:30, CI:34.0,  pcCP:76, xSR:10.50,  ptS:40, ptCB:7,  tr:null,   sl:null, hbm:145},
+  {r:9,  o:'Adel', t:'Good', D50:34.20, xCT:38.80, CTS:16.10, ptT:27, CI:3.0,   pcCP:85, xSR:-4.70,  ptS:33, ptCB:7,  tr:-1.566, sl:null, hbm:397},
+  {r:10, o:'St K', t:'OK',   D50:12.80, xCT:29.90, CTS:18.30, ptT:40, CI:43.0,  pcCP:86, xSR:13.50,  ptS:33, ptCB:24, tr:0.052,  sl:null, hbm:342},
+  {r:11, o:'Ess',  t:'Bad',  D50:29.70, xCT:42.20, CTS:23.50, ptT:30, CI:34.0,  pcCP:76, xSR:10.50,  ptS:40, ptCB:7,  tr:7.404,  sl:null, hbm:145},
   {r:12, o:'Syd',  t:'OK',   D50:13.50, xCT:38.00, CTS:14.70, ptT:29, CI:-19.0, pcCP:null,xSR:-1.10, ptS:27, ptCB:12, tr:-7.378, sl:4.94, hbm:92},
   {r:14, o:'Bris', t:'Good', D50:25.00, xCT:56.60, CTS:17.20, ptT:54, CI:5.0,   pcCP:null,xSR:-13.90, ptS:25, ptCB:18, tr:2.548,  sl:5.67, hbm:195},
 ];
@@ -637,7 +637,7 @@ function buildTr() {
     <div class="stat-card"><div class="stat-card-label">2026 league avg</div><div class="stat-card-value pos">+2.09</div></div>
     <div class="stat-card"><div class="stat-card-label">vs 2026 league</div><div class="stat-card-value ${a>=2.09?'pos':'neg'}">${fm(a-2.09,2)}</div></div>`;
   document.getElementById('tr-note').textContent =
-    'R1 vs Carlton (Bad): +8.62. R2 vs Gold Coast (Good): \u22127.31. R3 vs Fremantle (OK): \u22126.34. R4 vs Port Adelaide (Bad): +2.92. R5 vs GWS (OK): \u22126.57. R6 vs North Melbourne (Bad): +2.60. R7 vs Melbourne (OK): +4.00. R8 vs West Coast (Bad): +2.95. R12 vs Sydney (OK): \u22127.38 \u2014 the worst single-game reading of the season, matching the Gold Coast result. R14 vs Brisbane (Good): +2.55, back-calculated from the 12-game and 13-game season snapshots \u2014 the first positive reading against a Good side all year. The tier split: +4.27 avg vs Bad sides (4g), \u22124.07 vs OK (4g), \u22122.38 vs Good (2g). Ten-game average: \u22120.40. League avg through R14: +2.09. (R9\u2013R11 remain blank \u2014 no season-snapshot pair was captured for those rounds.)';
+    'R1 vs Carlton (Bad): +8.62. R2 vs Gold Coast (Good): \u22127.31. R3 vs Fremantle (OK): \u22126.34. R4 vs Port Adelaide (Bad): +2.92. R5 vs GWS (OK): \u22126.57. R6 vs North Melbourne (Bad): +2.60. R7 vs Melbourne (OK): +4.00. R8 vs West Coast (Bad): +2.95. R9 vs Adelaide (Good): \u22121.57, back-calculated from the R8 and R9 season snapshots. R10 vs St Kilda (OK): +0.05, back-calculated from the R9 and R10 snapshots. R11 vs Essendon (Bad): +7.40, derived from the R10 and R12 snapshots \u2014 no R11 snapshot was captured, but the R12 game value allowed the implied R11 average to be recovered. R12 vs Sydney (OK): \u22127.38 \u2014 the worst single-game reading of the season. R14 vs Brisbane (Good): +2.55. Tier averages across all 13 games: +4.90 vs Bad sides (5g), \u22123.25 vs OK (5g), \u22122.11 vs Good (3g). Season average: +0.15. League avg through R14: +2.09.';
   const tc2 = document.getElementById('tr-tiers');
   [['Good','good'],['OK','ok'],['Bad','bad']].forEach(([t,cl]) => {
     const cur=ta26('tr',t), n=G26.filter(g=>g.t===t&&g.tr!=null).length;
