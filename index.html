@@ -217,21 +217,21 @@
   /* TIER CARDS */
   .tier-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1rem; }
   .tier-card { border-radius: var(--radius-lg); padding: 0.75rem 0.9rem; }
-  .tier-card.good { background: var(--green-light); }
-  .tier-card.ok   { background: var(--gold-light); }
-  .tier-card.bad  { background: var(--red-light); }
+  .tier-card.d1 { background: var(--blue-light); }
+  .tier-card.d2 { background: var(--gold-light); }
+  .tier-card.d3 { background: var(--green-light); }
   .tier-label { font-size: 0.68rem; font-weight: 600; margin-bottom: 2px; font-family: 'IBM Plex Mono', monospace; }
-  .tier-card.good .tier-label { color: var(--green); }
-  .tier-card.ok   .tier-label { color: var(--gold); }
-  .tier-card.bad  .tier-label { color: var(--red); }
+  .tier-card.d1 .tier-label { color: var(--blue); }
+  .tier-card.d2 .tier-label { color: var(--gold); }
+  .tier-card.d3 .tier-label { color: var(--green); }
   .tier-value { font-size: 1.45rem; font-weight: 600; line-height: 1.1; }
-  .tier-card.good .tier-value { color: var(--green); }
-  .tier-card.ok   .tier-value { color: var(--gold); }
-  .tier-card.bad  .tier-value { color: var(--red); }
+  .tier-card.d1 .tier-value { color: var(--blue); }
+  .tier-card.d2 .tier-value { color: var(--gold); }
+  .tier-card.d3 .tier-value { color: var(--green); }
   .tier-sub { font-size: 0.64rem; margin-top: 2px; }
-  .tier-card.good .tier-sub { color: var(--green); }
-  .tier-card.ok   .tier-sub { color: var(--gold); }
-  .tier-card.bad  .tier-sub { color: var(--red); }
+  .tier-card.d1 .tier-sub { color: var(--blue); }
+  .tier-card.d2 .tier-sub { color: var(--gold); }
+  .tier-card.d3 .tier-sub { color: var(--green); }
 
   /* SUMMARY NOTE */
   .note {
@@ -281,7 +281,7 @@
       <span class="logo-sub">Richmond FC · data-informed · fan media · sjhross</span>
     </div>
     <div class="header-right">
-      <span class="meta">2026 season tracker · 15 games played · updated R16</span>
+      <span class="meta">2026 season tracker · 16 games played · updated R16</span>
       <div class="header-links">
         <a href="https://sjhross.substack.com/">substack</a>
         <a href="https://wheeloratings.com">wheelo</a>
@@ -294,8 +294,10 @@
 
   <div class="section-header">
     <span class="section-title">Richmond gameplan tracker — 2026</span>
-    <span class="section-sub">15 games played · R1 Carlton (Bad) · R2 Gold Coast (Good) · R3 Fremantle (OK) · R4 Port Adelaide (Bad) · R5 GWS (OK) · R6 North Melbourne (Bad) · R7 Melbourne (OK) · R8 West Coast (Bad) · R9 Adelaide (Good) · R10 St Kilda (OK) · R11 Essendon (Bad) · R12 Sydney (OK) · R13 Bye · R14 Brisbane (Good) · R15 North Melbourne (Bad) · R16 Collingwood (OK) ✓</span>
+    <span class="section-sub">16 games played · R1 Carlton (D2) · R2 Gold Coast (D2) · R3 Fremantle (D1) · R4 Port Adelaide (D3) · R5 GWS (D2) · R6 North Melbourne (D2) · R7 Melbourne (D2) · R8 West Coast (D3) · R9 Adelaide (D2) · R10 St Kilda (D2) · R11 Essendon (D3) · R12 Sydney (D1) · R13 Bye · R14 Brisbane (D1) · R15 North Melbourne (D2) · R16 Collingwood (D2) ✓</span>
   </div>
+
+  <div class="note">Opponent groups regrouped after R15 from the preseason Good/OK/Bad model into three divisions that better fit how 2026 has actually shaped up: <strong>D1</strong> (pointy end) — Brisbane, Geelong, Hawthorn, Sydney, Fremantle · <strong>D2</strong> (the mix) — GWS, Melbourne, Collingwood, Carlton, North Melbourne, St Kilda, Adelaide, Western Bulldogs, Gold Coast · <strong>D3</strong> (cellar dwellers, alongside Richmond) — Essendon, West Coast, Port Adelaide. All 2025 and 2026 games below have been retagged under the new groups; the old tier labels are retired.</div>
 
   <!-- TABS -->
   <div class="tabs">
@@ -315,7 +317,7 @@
     <div class="cards" id="ov-cards"></div>
     <div class="blk">
       <div class="blk-title">Season at a glance</div>
-      <div class="blk-sub">Green = 2026 Richmond avg (15g) · Red dashed = 2025 Richmond season avg · Grey dashed = 2026 league avg (live)</div>
+      <div class="blk-sub">Green = 2026 Richmond avg (16g) · Red dashed = 2025 Richmond season avg · Grey dashed = 2026 league avg (live)</div>
       <div class="chart-wrap-radar"><canvas id="radar"></canvas></div>
     </div>
   </div>
@@ -326,7 +328,7 @@
     <div class="blk">
       <div class="blk-title">Attacking scoreboard — 2026</div>
       <div class="blk-sub">Season totals. xTotal = expected points from shot positions (xScore per shot × shots). Diff = actual minus expected. xRating = shot quality vs expectation per shot. Launch% = score launches as % of disposals. Click any column to re-sort.</div>
-      <div class="note" style="margin-bottom:0.85rem;">Fifteen games. Steely Green leads on expected points (106.4) but his accuracy has slipped to 48% on 27 shots — differential out to −19.4. Tom Lynch's numbers are unchanged (7 games, +20.8 ThreatRating still the squad's highest by distance), with no games since R8. Tim Taranto climbs to 4th on expected points (78.8) after a solid Collingwood performance. Mykelti Lefau remains the most reliable forward outperforming expectation (+5.6, 63% accuracy). Sam Cumming (+12.2 from 9 games, 75% accuracy) and Sam Lalor (+11.9) continue to punch above their shot volume. Rhyan Mansell's two-game stint (+12.4, 71% accuracy on 7 shots) is quietly impressive.</div>
+      <div class="note" style="margin-bottom:0.85rem;">Fifteen games. Steely Green leads on shot volume with 27 but his deficit has blown out to −19.4 (48% accuracy) — a shot-taking problem as much as a conversion one. Tim Taranto enters the top four by expected points (78.8 from 23 shots) as he moves further forward; his −9.8 differential is the headline concern. Tom Lynch remains the worst miss-rate on the board (−17.4) but his TR/gm of +20.8 is still the highest in the squad by a distance. Bright spots: Sam Cumming (+12.2, 75% accuracy from 9 games), Sam Lalor (+11.9, 67%), and Rhyan Mansell's two-game cameo (+12.4, 71%) are the three biggest outperformers on the board. Jasper Alger had a strong run in his 6 games (+6.2, 63%). Seth Campbell is drifting negative (−4.8 from 31 shots, 39% accuracy) — the volume is there, the finishing isn't.</div>
       <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:0.76rem;font-family:'IBM Plex Sans',sans-serif;">
           <thead>
@@ -362,7 +364,7 @@
     <div class="blk">
       <div class="blk-title">Defensive scoreboard — 2026</div>
       <div class="blk-sub">Season totals. Win% = defensive one-on-one contests won (higher is better). Sorted by contest volume. Players with fewer than 3 defensive contests show win% as — but are included for intercept and pressure data. Click any column to re-sort.</div>
-      <div class="note" style="margin-bottom:0.85rem;">Fifteen games. Nick Vlastuin's intercept tally has climbed to 84 — comfortably the squad's highest — with a 53.8% contest win rate that continues to look underwhelming for a key position. Nathan Broad adds to his case as the most underrated defender in the side: 74 intercepts, 32 intercept marks, 87.5% contest win rate across 14 games. Ben Miller remains the defensive anchor by volume — 50 contests at 80% win rate, 65 intercepts, 97 spoils. Jayden Short's rebound 50 tally is now at 71 but his contest win rate (33.3%) remains the structural problem it has been all year.</div>
+      <div class="note" style="margin-bottom:0.85rem;">Fifteen games. Ben Miller sits at 50 defensive contests at 80.0% — as dominant a one-on-one record as anyone in the competition. Nick Vlastuin's intercept tally is now 84, the squad's highest, though his 53.8% contest win rate continues to flag a structural mismatch between where he's positioned and what he's asked to do. Nathan Broad has quietly put together 74 intercepts and 32 intercept marks at an 87.5% contest win rate across 14 games — the most underrated number on this entire dashboard. Jayden Short: 71 rebound 50s (easily the team's highest) but a 33.3% contest win rate — the same problem it's been all season. Kye Annand's three-game sample (5 contests, 80%) is too small to read anything into, but it's noted.</div>
       <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:0.76rem;font-family:'IBM Plex Sans',sans-serif;">
           <thead>
@@ -397,7 +399,7 @@
       <div class="tier-row" id="tr-tiers"></div>
       <div class="blk" style="margin:0;border:1px solid var(--border);">
         <div class="blk-title">ThreatRating — 2026 cumulative by tier</div>
-        <div class="blk-sub">Red dashed = Richmond 2025 avg (−0.63) · Grey dashed = 2026 league avg (+2.08)</div>
+        <div class="blk-sub">Red dashed = Richmond 2025 avg (−0.63) · Grey dashed = 2026 league avg (+2.04)</div>
         <div class="chart-wrap"><canvas id="tr-chart"></canvas></div>
       </div>
     </div>
@@ -448,73 +450,77 @@ const C = {
   green:  '#1D7A5F',
   gc:     'rgba(0,0,0,0.06)',
   tc:     '#8A8580',
+  // Division colours (post-R15 regrouping). d1=pointy end, d2=the mix, d3=cellar dwellers.
+  d1:     '#2A5FA8',
+  d2:     '#8A6A1A',
+  d3:     '#1D7A5F',
 };
 
 // ─── 2025 PER-GAME DATA ──────────────────────────────────────────────────────
 const G25 = [
-  {r:1, o:'Carl', t:'OK',   D50:13.1, xCT:47.4, CTS:13.2, ptT:55,  CI:-40, pcCP:84, xSR:20.8,  ptS:21, ptCB:7},
-  {r:2, o:'Port', t:'Bad',  D50:24.3, xCT:31.3, CTS:23.0, ptT:32,  CI:-10, pcCP:65, xSR:-3.4,  ptS:35, ptCB:4},
-  {r:3, o:'St K', t:'OK',   D50:18.4, xCT:29.7, CTS:19.6, ptT:27,  CI:53,  pcCP:63, xSR:-3.2,  ptS:25, ptCB:16},
-  {r:4, o:'Bris', t:'Good', D50:20.9, xCT:30.7, CTS:25.0, ptT:55,  CI:4,   pcCP:67, xSR:7.6,   ptS:29, ptCB:1},
-  {r:5, o:'Frem', t:'OK',   D50:17.3, xCT:31.9, CTS:12.2, ptT:20,  CI:32,  pcCP:58, xSR:5.1,   ptS:21, ptCB:19},
-  {r:6, o:'GC',   t:'Good', D50:20.8, xCT:46.1, CTS:18.3, ptT:52,  CI:0,   pcCP:84, xSR:14.9,  ptS:28, ptCB:13},
-  {r:7, o:'Melb', t:'Bad',  D50:12.5, xCT:42.6, CTS:16.8, ptT:28,  CI:24,  pcCP:59, xSR:-7.6,  ptS:35, ptCB:1},
-  {r:8, o:'Haw',  t:'Good', D50:24.2, xCT:37.8, CTS:16.5, ptT:25,  CI:34,  pcCP:55, xSR:-17.0, ptS:19, ptCB:13},
-  {r:9, o:'WC',   t:'Bad',  D50:33.3, xCT:49.9, CTS:21.8, ptT:64,  CI:-26, pcCP:89, xSR:-6.1,  ptS:11, ptCB:6},
-  {r:10,o:'NM',   t:'Bad',  D50:15.4, xCT:42.9, CTS:19.2, ptT:32,  CI:-21, pcCP:82, xSR:3.8,   ptS:36, ptCB:0},
-  {r:11,o:'Ess',  t:'Bad',  D50:28.9, xCT:49.2, CTS:16.1, ptT:31,  CI:-1,  pcCP:82, xSR:8.1,   ptS:14, ptCB:6},
-  {r:12,o:'GWS',  t:'OK',   D50:17.9, xCT:45.8, CTS:22.0, ptT:44,  CI:-14, pcCP:92, xSR:-6.1,  ptS:33, ptCB:14},
-  {r:13,o:'Syd',  t:'OK',   D50:17.0, xCT:36.3, CTS:15.2, ptT:14,  CI:9,   pcCP:65, xSR:-21.0, ptS:22, ptCB:6},
-  {r:15,o:'WB',   t:'OK',   D50:8.1,  xCT:42.0, CTS:16.3, ptT:29,  CI:3,   pcCP:73, xSR:-14.9, ptS:21, ptCB:7},
-  {r:16,o:'Adel', t:'Good', D50:9.8,  xCT:31.6, CTS:13.1, ptT:27,  CI:-6,  pcCP:61, xSR:14.1,  ptS:15, ptCB:7},
-  {r:17,o:'Geel', t:'Good', D50:30.6, xCT:30.1, CTS:17.3, ptT:21,  CI:8,   pcCP:66, xSR:-1.9,  ptS:13, ptCB:0},
-  {r:18,o:'Ess',  t:'Bad',  D50:26.1, xCT:43.3, CTS:14.7, ptT:14,  CI:28,  pcCP:76, xSR:5.7,   ptS:26, ptCB:6},
-  {r:19,o:'WC',   t:'Bad',  D50:32.6, xCT:38.5, CTS:25.3, ptT:76,  CI:25,  pcCP:78, xSR:8.8,   ptS:28, ptCB:1},
-  {r:20,o:'Coll', t:'Good', D50:25.0, xCT:40.2, CTS:15.7, ptT:30,  CI:0,   pcCP:91, xSR:-4.4,  ptS:25, ptCB:6},
-  {r:21,o:'GC',   t:'Good', D50:23.8, xCT:36.7, CTS:13.0, ptT:16,  CI:22,  pcCP:61, xSR:-26.2, ptS:6,  ptCB:1},
-  {r:22,o:'St K', t:'OK',   D50:28.6, xCT:37.9, CTS:16.0, ptT:29,  CI:18,  pcCP:73, xSR:8.6,   ptS:21, ptCB:0},
-  {r:23,o:'NM',   t:'Bad',  D50:5.3,  xCT:43.1, CTS:19.8, ptT:40,  CI:-15, pcCP:68, xSR:6.2,   ptS:47, ptCB:25},
-  {r:24,o:'Geel', t:'Good', D50:31.0, xCT:37.4, CTS:18.8, ptT:35,  CI:10,  pcCP:80, xSR:-6.8,  ptS:22, ptCB:7},
+  {r:1, o:'Carl', D50:13.1, xCT:47.4, CTS:13.2, ptT:55,  CI:-40, pcCP:84, xSR:20.8,  ptS:21, ptCB:7},
+  {r:2, o:'Port', D50:24.3, xCT:31.3, CTS:23.0, ptT:32,  CI:-10, pcCP:65, xSR:-3.4,  ptS:35, ptCB:4},
+  {r:3, o:'St K', D50:18.4, xCT:29.7, CTS:19.6, ptT:27,  CI:53,  pcCP:63, xSR:-3.2,  ptS:25, ptCB:16},
+  {r:4, o:'Bris', D50:20.9, xCT:30.7, CTS:25.0, ptT:55,  CI:4,   pcCP:67, xSR:7.6,   ptS:29, ptCB:1},
+  {r:5, o:'Frem', D50:17.3, xCT:31.9, CTS:12.2, ptT:20,  CI:32,  pcCP:58, xSR:5.1,   ptS:21, ptCB:19},
+  {r:6, o:'GC',   D50:20.8, xCT:46.1, CTS:18.3, ptT:52,  CI:0,   pcCP:84, xSR:14.9,  ptS:28, ptCB:13},
+  {r:7, o:'Melb', D50:12.5, xCT:42.6, CTS:16.8, ptT:28,  CI:24,  pcCP:59, xSR:-7.6,  ptS:35, ptCB:1},
+  {r:8, o:'Haw',  D50:24.2, xCT:37.8, CTS:16.5, ptT:25,  CI:34,  pcCP:55, xSR:-17.0, ptS:19, ptCB:13},
+  {r:9, o:'WC',   D50:33.3, xCT:49.9, CTS:21.8, ptT:64,  CI:-26, pcCP:89, xSR:-6.1,  ptS:11, ptCB:6},
+  {r:10,o:'NM',   D50:15.4, xCT:42.9, CTS:19.2, ptT:32,  CI:-21, pcCP:82, xSR:3.8,   ptS:36, ptCB:0},
+  {r:11,o:'Ess',  D50:28.9, xCT:49.2, CTS:16.1, ptT:31,  CI:-1,  pcCP:82, xSR:8.1,   ptS:14, ptCB:6},
+  {r:12,o:'GWS',  D50:17.9, xCT:45.8, CTS:22.0, ptT:44,  CI:-14, pcCP:92, xSR:-6.1,  ptS:33, ptCB:14},
+  {r:13,o:'Syd',  D50:17.0, xCT:36.3, CTS:15.2, ptT:14,  CI:9,   pcCP:65, xSR:-21.0, ptS:22, ptCB:6},
+  {r:15,o:'WB',   D50:8.1,  xCT:42.0, CTS:16.3, ptT:29,  CI:3,   pcCP:73, xSR:-14.9, ptS:21, ptCB:7},
+  {r:16,o:'Adel', D50:9.8,  xCT:31.6, CTS:13.1, ptT:27,  CI:-6,  pcCP:61, xSR:14.1,  ptS:15, ptCB:7},
+  {r:17,o:'Geel', D50:30.6, xCT:30.1, CTS:17.3, ptT:21,  CI:8,   pcCP:66, xSR:-1.9,  ptS:13, ptCB:0},
+  {r:18,o:'Ess',  D50:26.1, xCT:43.3, CTS:14.7, ptT:14,  CI:28,  pcCP:76, xSR:5.7,   ptS:26, ptCB:6},
+  {r:19,o:'WC',   D50:32.6, xCT:38.5, CTS:25.3, ptT:76,  CI:25,  pcCP:78, xSR:8.8,   ptS:28, ptCB:1},
+  {r:20,o:'Coll', D50:25.0, xCT:40.2, CTS:15.7, ptT:30,  CI:0,   pcCP:91, xSR:-4.4,  ptS:25, ptCB:6},
+  {r:21,o:'GC',   D50:23.8, xCT:36.7, CTS:13.0, ptT:16,  CI:22,  pcCP:61, xSR:-26.2, ptS:6,  ptCB:1},
+  {r:22,o:'St K', D50:28.6, xCT:37.9, CTS:16.0, ptT:29,  CI:18,  pcCP:73, xSR:8.6,   ptS:21, ptCB:0},
+  {r:23,o:'NM',   D50:5.3,  xCT:43.1, CTS:19.8, ptT:40,  CI:-15, pcCP:68, xSR:6.2,   ptS:47, ptCB:25},
+  {r:24,o:'Geel', D50:31.0, xCT:37.4, CTS:18.8, ptT:35,  CI:10,  pcCP:80, xSR:-6.8,  ptS:22, ptCB:7},
 ];
 
 // ─── 2026 PER-GAME DATA ──────────────────────────────────────────────────────
 // UPDATE THIS ARRAY EACH ROUND — add one object per game
 const G26 = [
-  {r:1,  o:'Carl', t:'Bad',  D50:31.20, xCT:51.30, CTS:23.20, ptT:54, CI:12.0,  pcCP:84, xSR:-13.40, ptS:8,  ptCB:6,  tr:8.624,  sl:7.32,  hbm:156},
-  {r:2,  o:'GC',   t:'Good', D50:6.40,  xCT:35.90, CTS:14.20, ptT:44, CI:7.0,   pcCP:60, xSR:7.50,   ptS:10, ptCB:1,  tr:-7.312, sl:4.55,  hbm:160},
-  {r:3,  o:'Frem', t:'OK',   D50:14.00, xCT:34.80, CTS:12.50, ptT:28, CI:-25.0, pcCP:83, xSR:-6.50,  ptS:15, ptCB:6,  tr:-6.340, sl:4.14,  hbm:201},
-  {r:4,  o:'Port', t:'Bad',  D50:22.90, xCT:57.30, CTS:15.30, ptT:33, CI:22.0,  pcCP:84, xSR:-19.80, ptS:15, ptCB:2,  tr:2.916,  sl:5.18,  hbm:212},
-  {r:5,  o:'GWS',  t:'OK',   D50:15.20, xCT:45.40, CTS:17.70, ptT:48, CI:-17.0, pcCP:79, xSR:-6.30,  ptS:21, ptCB:12, tr:-6.568, sl:6.01,  hbm:169},
-  {r:6,  o:'NM',   t:'Bad',  D50:18.80, xCT:37.70, CTS:22.20, ptT:21, CI:22.0,  pcCP:53, xSR:-11.40, ptS:34, ptCB:19, tr:2.596,  sl:7.14,  hbm:195},
-  {r:7,  o:'Melb', t:'OK',   D50:21.40, xCT:38.00, CTS:16.70, ptT:24, CI:-24.0, pcCP:86, xSR:8.50,   ptS:42, ptCB:12, tr:3.998,  sl:4.96,  hbm:50},
-  {r:8,  o:'WC',   t:'Bad',  D50:24.50, xCT:43.50, CTS:21.60, ptT:43, CI:0.0,   pcCP:83, xSR:6.20,   ptS:50, ptCB:19, tr:2.950,  sl:6.90,  hbm:296},
-  {r:9,  o:'Adel', t:'Good', D50:34.20, xCT:38.80, CTS:16.10, ptT:27, CI:3.0,   pcCP:85, xSR:-4.70,  ptS:33, ptCB:7,  tr:-1.566, sl:null, hbm:397},
-  {r:10, o:'St K', t:'OK',   D50:12.80, xCT:29.90, CTS:18.30, ptT:40, CI:43.0,  pcCP:86, xSR:13.50,  ptS:33, ptCB:24, tr:0.052,  sl:null, hbm:342},
-  {r:11, o:'Ess',  t:'Bad',  D50:29.70, xCT:42.20, CTS:23.50, ptT:30, CI:34.0,  pcCP:76, xSR:10.50,  ptS:40, ptCB:7,  tr:7.404,  sl:null, hbm:145},
-  {r:12, o:'Syd',  t:'OK',   D50:13.50, xCT:38.00, CTS:14.70, ptT:29, CI:-19.0, pcCP:null,xSR:-1.10, ptS:27, ptCB:12, tr:-7.378, sl:4.94, hbm:92},
-  {r:14, o:'Bris', t:'Good', D50:25.00, xCT:56.60, CTS:17.20, ptT:54, CI:5.0,   pcCP:null,xSR:-13.90, ptS:25, ptCB:18, tr:2.548,  sl:5.67, hbm:195},
-  {r:15, o:'NM',   t:'Bad',  D50:27.00, xCT:44.70, CTS:16.00, ptT:26, CI:10.0,  pcCP:null,xSR:-9.50,  ptS:15, ptCB:6,  tr:-3.169, sl:4.52, hbm:326},
-  {r:16, o:'Coll', t:'OK',   D50:16.30, xCT:36.50, CTS:16.30, ptT:33, CI:17.0,  pcCP:null,xSR:4.20,   ptS:26, ptCB:13, tr:-2.950, sl:4.47, hbm:189},
+  {r:1,  o:'Carl', t:'D2', D50:31.20, xCT:51.30, CTS:23.20, ptT:54, CI:12.0,  pcCP:84, xSR:-13.40, ptS:8,  ptCB:6,  tr:8.624,  sl:7.32,  hbm:156},
+  {r:2,  o:'GC',   t:'D2', D50:6.40,  xCT:35.90, CTS:14.20, ptT:44, CI:7.0,   pcCP:60, xSR:7.50,   ptS:10, ptCB:1,  tr:-7.312, sl:4.55,  hbm:160},
+  {r:3,  o:'Frem', t:'D1', D50:14.00, xCT:34.80, CTS:12.50, ptT:28, CI:-25.0, pcCP:83, xSR:-6.50,  ptS:15, ptCB:6,  tr:-6.340, sl:4.14,  hbm:201},
+  {r:4,  o:'Port', t:'D3', D50:22.90, xCT:57.30, CTS:15.30, ptT:33, CI:22.0,  pcCP:84, xSR:-19.80, ptS:15, ptCB:2,  tr:2.916,  sl:5.18,  hbm:212},
+  {r:5,  o:'GWS',  t:'D2', D50:15.20, xCT:45.40, CTS:17.70, ptT:48, CI:-17.0, pcCP:79, xSR:-6.30,  ptS:21, ptCB:12, tr:-6.568, sl:6.01,  hbm:169},
+  {r:6,  o:'NM',   t:'D2', D50:18.80, xCT:37.70, CTS:22.20, ptT:21, CI:22.0,  pcCP:53, xSR:-11.40, ptS:34, ptCB:19, tr:2.596,  sl:7.14,  hbm:195},
+  {r:7,  o:'Melb', t:'D2', D50:21.40, xCT:38.00, CTS:16.70, ptT:24, CI:-24.0, pcCP:86, xSR:8.50,   ptS:42, ptCB:12, tr:3.998,  sl:4.96,  hbm:50},
+  {r:8,  o:'WC',   t:'D3', D50:24.50, xCT:43.50, CTS:21.60, ptT:43, CI:0.0,   pcCP:83, xSR:6.20,   ptS:50, ptCB:19, tr:2.950,  sl:6.90,  hbm:296},
+  {r:9,  o:'Adel', t:'D2', D50:34.20, xCT:38.80, CTS:16.10, ptT:27, CI:3.0,   pcCP:85, xSR:-4.70,  ptS:33, ptCB:7,  tr:-1.566, sl:null, hbm:397},
+  {r:10, o:'St K', t:'D2', D50:12.80, xCT:29.90, CTS:18.30, ptT:40, CI:43.0,  pcCP:86, xSR:13.50,  ptS:33, ptCB:24, tr:0.052,  sl:null, hbm:342},
+  {r:11, o:'Ess',  t:'D3', D50:29.70, xCT:42.20, CTS:23.50, ptT:30, CI:34.0,  pcCP:76, xSR:10.50,  ptS:40, ptCB:7,  tr:7.404,  sl:null, hbm:145},
+  {r:12, o:'Syd',  t:'D1', D50:13.50, xCT:38.00, CTS:14.70, ptT:29, CI:-19.0, pcCP:null,xSR:-1.10, ptS:27, ptCB:12, tr:-7.378, sl:4.94, hbm:92},
+  {r:14, o:'Bris', t:'D1', D50:25.00, xCT:56.60, CTS:17.20, ptT:54, CI:5.0,   pcCP:null,xSR:-13.90, ptS:25, ptCB:18, tr:2.548,  sl:5.67, hbm:195},
+  {r:15, o:'NM',   t:'D2', D50:27.00, xCT:44.70, CTS:16.00, ptT:26, CI:10.0,  pcCP:null,xSR:-9.50,  ptS:15, ptCB:6,  tr:-3.170, sl:4.52, hbm:326},
+  {r:16, o:'Coll', t:'D2', D50:26.20, xCT:36.50, CTS:16.30, ptT:33, CI:17.0,  pcCP:null,xSR:4.20,   ptS:26, ptCB:13, tr:-2.954, sl:4.47, hbm:189},
 ];
 
 // ─── 2026 QUARTER-BY-QUARTER MARGINS ─────────────────────────────────────────
 // q = [Q1, Q2, Q3, Q4] margin for that quarter (Richmond points minus opponent points)
 const Q26 = [
-  {r:1,  o:'Carl', t:'Bad',  q:[-19,-8,14,9]},
-  {r:2,  o:'GC',   t:'Good', q:[0,-31,-9,-28]},
-  {r:3,  o:'Frem', t:'OK',   q:[-8,2,-38,-16]},
-  {r:4,  o:'Port', t:'Bad',  q:[-11,-4,-12,-15]},
-  {r:5,  o:'GWS',  t:'OK',   q:[-38,5,-4,-19]},
-  {r:6,  o:'NM',   t:'Bad',  q:[-20,-19,-17,-19]},
-  {r:7,  o:'Melb', t:'OK',   q:[-9,-12,-1,-32]},
-  {r:8,  o:'WC',   t:'Bad',  q:[7,3,-6,7]},
-  {r:9,  o:'Adel', t:'Good', q:[0,10,-33,-14]},
-  {r:10, o:'St K', t:'OK',   q:[-21,-5,-7,-3]},
-  {r:11, o:'Ess',  t:'Bad',  q:[15,0,-3,6]},
-  {r:12, o:'Syd',  t:'OK',   q:[-20,-31,-46,-17]},
-  {r:14, o:'Bris', t:'Good', q:[-3,0,-27,-5]},
-  {r:15, o:'NM',   t:'Bad',  q:[0,-8,-18,1]},
-  {r:16, o:'Coll', t:'OK',   q:[0,-33,5,-6]},
+  {r:1,  o:'Carl', t:'D2', q:[-19,-8,14,9]},
+  {r:2,  o:'GC',   t:'D2', q:[0,-31,-9,-28]},
+  {r:3,  o:'Frem', t:'D1', q:[-8,2,-38,-16]},
+  {r:4,  o:'Port', t:'D3', q:[-11,-4,-12,-15]},
+  {r:5,  o:'GWS',  t:'D2', q:[-38,5,-4,-19]},
+  {r:6,  o:'NM',   t:'D2', q:[-20,-19,-17,-19]},
+  {r:7,  o:'Melb', t:'D2', q:[-9,-12,-1,-32]},
+  {r:8,  o:'WC',   t:'D3', q:[7,3,-6,7]},
+  {r:9,  o:'Adel', t:'D2', q:[0,10,-33,-14]},
+  {r:10, o:'St K', t:'D2', q:[-21,-5,-7,-3]},
+  {r:11, o:'Ess',  t:'D3', q:[15,0,-3,6]},
+  {r:12, o:'Syd',  t:'D1', q:[-20,-31,-46,-17]},
+  {r:14, o:'Bris', t:'D1', q:[-3,0,-27,-5]},
+  {r:15, o:'NM',   t:'D2', q:[0,-8,-18,1]},
+  {r:16, o:'Coll', t:'D2', q:[0,-33,5,-6]},
 ];
 
 // ─── REFERENCE VALUES ────────────────────────────────────────────────────────
@@ -528,7 +534,7 @@ const REF = {
   ptT:  { r25rich:34.61, r25lg:46.60, r26lg:50.19 },
   CI:   { r25rich:5.96,  r25lg:1.20,  r26lg:7.82  },
 
-  xSR:  { r25rich:-0.65, r25lg:0.08,  r26lg:0.69  },
+  xSR:  { r25rich:-0.65, r25lg:0.08,  r26lg:0.70  },
   ptS:  { r25rich:24.04, r25lg:33.80, r26lg:33.97 },
   ptCB: { r25rich:7.22,  r25lg:11.40, r26lg:13.16 },
   tr:   { r25rich:-0.63, r25lg:-0.63, r26lg:2.04  },
@@ -543,7 +549,7 @@ const oa26 = f => { const v=G26.filter(g=>g[f]!=null).map(g=>g[f]); return v.len
 const ta26 = (f,t) => { const v=G26.filter(g=>g.t===t&&g[f]!=null).map(g=>g[f]); return v.length?avg(v):null; };
 const r26avg = f => oa26(f);
 
-const TC = { Good: C.good, OK: C.ok, Bad: C.bad };
+const TC = { D1: C.d1, D2: C.d2, D3: C.d3 };
 
 function sv(v) {
   ['ov','tr','ch','sc','co','st','atk','def','qt'].forEach(n => {
@@ -622,7 +628,7 @@ function buildRadar() {
     data: { labels: ls, datasets: [
       { label:'2025 Richmond season avg', data:dR25,  borderColor:C.red+'90',   backgroundColor:C.red+'10',   borderWidth:1.5, pointRadius:2, pointBackgroundColor:C.red },
       { label:'2026 league avg (live)',   data:dLg26, borderColor:C.grey+'80',  backgroundColor:C.grey+'10',  borderWidth:1.5, pointRadius:2, pointBackgroundColor:C.grey },
-      { label:'2026 Richmond avg (14g)',  data:d26,   borderColor:C.green,      backgroundColor:C.green+'20', borderWidth:2,   pointRadius:3, pointBackgroundColor:C.green },
+      { label:'2026 Richmond avg (16g)',  data:d26,   borderColor:C.green,      backgroundColor:C.green+'20', borderWidth:2,   pointRadius:3, pointBackgroundColor:C.green },
     ]},
     options: { responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{ display:true, position:'bottom', labels:{ color:C.tc, font:{size:10}, boxWidth:10, padding:12 }}},
@@ -637,16 +643,16 @@ function buildTr() {
   document.getElementById('tr-cards').innerHTML = `
     <div class="stat-card"><div class="stat-card-label">2026 avg (${G26.filter(g=>g.tr!=null).length}g)</div><div class="stat-card-value ${a>=0?'pos':'neg'}">${fm(a,2)}</div></div>
     <div class="stat-card"><div class="stat-card-label">2025 Richmond avg</div><div class="stat-card-value neg">−0.63</div></div>
-    <div class="stat-card"><div class="stat-card-label">2026 league avg</div><div class="stat-card-value pos">+2.08</div></div>
-    <div class="stat-card"><div class="stat-card-label">vs 2026 league</div><div class="stat-card-value ${a>=2.08?'pos':'neg'}">${fm(a-2.08,2)}</div></div>`;
+    <div class="stat-card"><div class="stat-card-label">2026 league avg</div><div class="stat-card-value pos">+2.04</div></div>
+    <div class="stat-card"><div class="stat-card-label">vs 2026 league</div><div class="stat-card-value ${a>=2.04?'pos':'neg'}">${fm(a-2.04,2)}</div></div>`;
   document.getElementById('tr-note').textContent =
-    'R1 vs Carlton (Bad): +8.62. R2 vs Gold Coast (Good): \u22127.31. R3 vs Fremantle (OK): \u22126.34. R4 vs Port Adelaide (Bad): +2.92. R5 vs GWS (OK): \u22126.57. R6 vs North Melbourne (Bad): +2.60. R7 vs Melbourne (OK): +4.00. R8 vs West Coast (Bad): +2.95. R9 vs Adelaide (Good): \u22121.57, back-calculated from the R8 and R9 season snapshots. R10 vs St Kilda (OK): +0.05, back-calculated from the R9 and R10 snapshots. R11 vs Essendon (Bad): +7.40, derived from the R10 and R12 snapshots \u2014 no R11 snapshot was captured, but the R12 game value allowed the implied R11 average to be recovered. R12 vs Sydney (OK): \u22127.38 \u2014 the worst single-game reading of the season. R14 vs Brisbane (Good): +2.55. R15 vs North Melbourne (Bad): \u22123.17, back-calculated from the R14 and R15 season snapshots. Tier averages across all 14 games: +3.55 vs Bad sides (6g), \u22123.25 vs OK (5g), \u22122.11 vs Good (3g). Season average: \u22120.09 \u2014 the first negative season reading of 2026, dragged below zero by this game. League avg through R15: +2.08.';
+    'R1 vs Carlton (D2): +8.62. R2 vs Gold Coast (D2): \u22127.31. R3 vs Fremantle (D1): \u22126.34. R4 vs Port Adelaide (D3): +2.92. R5 vs GWS (D2): \u22126.57. R6 vs North Melbourne (D2): +2.60. R7 vs Melbourne (D2): +4.00. R8 vs West Coast (D3): +2.95. R9 vs Adelaide (D2): \u22121.57, back-calculated from the R8 and R9 season snapshots. R10 vs St Kilda (D2): +0.05, back-calculated from the R9 and R10 snapshots. R11 vs Essendon (D3): +7.40, derived from the R10 and R12 snapshots \u2014 no R11 snapshot was captured, but the R12 game value allowed the implied R11 average to be recovered. R12 vs Sydney (D1): \u22127.38 \u2014 the worst single-game reading of the season. R14 vs Brisbane (D1): +2.55, back-calculated from the post-R12 and post-R14 snapshots. R15 vs North Melbourne (D2): \u22123.17, back-calculated from the post-R14 and post-R15 snapshots. R16 vs Collingwood (D2): \u22122.95, back-calculated from the post-R15 and post-R16 snapshots. Division averages across all 15 games: +4.42 vs D3 (3g), \u22120.70 vs D2 (9g), \u22123.72 vs D1 (3g). Season average: \u22120.28. League avg through R16: +2.04.';
   const tc2 = document.getElementById('tr-tiers');
-  [['Good','good'],['OK','ok'],['Bad','bad']].forEach(([t,cl]) => {
+  [['D1','d1'],['D2','d2'],['D3','d3']].forEach(([t,cl]) => {
     const cur=ta26('tr',t), n=G26.filter(g=>g.t===t&&g.tr!=null).length;
-    tc2.innerHTML += `<div class="tier-card ${cl}"><div class="tier-label">vs ${t} — 2026</div><div class="tier-value">${cur!=null?fm(cur,2):'—'}</div><div class="tier-sub">${n}g · Rich25: −0.63 · lg26: +2.08</div></div>`;
+    tc2.innerHTML += `<div class="tier-card ${cl}"><div class="tier-label">vs ${t} — 2026</div><div class="tier-value">${cur!=null?fm(cur,2):'—'}</div><div class="tier-sub">${n}g · Rich25: −0.63 · lg26: +2.04</div></div>`;
   });
-  const trs=[['Good',C.good],['OK',C.ok],['Bad',C.bad]];
+  const trs=[['D1',C.d1],['D2',C.d2],['D3',C.d3]];
   const ds = trs.map(([t,col]) => {
     const gs=G26.filter(g=>g.t===t&&g.tr!=null);
     let s=0;
@@ -655,7 +661,7 @@ function buildTr() {
   });
   ds.push({ label:'Richmond 2025 avg', data:G26.map(g=>({x:`R${g.r}`,y:-0.63})),
     borderColor:C.red+'90', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false });
-  ds.push({ label:'League 2026 avg',   data:G26.map(g=>({x:`R${g.r}`,y:2.08})),
+  ds.push({ label:'League 2026 avg',   data:G26.map(g=>({x:`R${g.r}`,y:2.04})),
     borderColor:C.grey+'80', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false });
   new Chart(document.getElementById('tr-chart'), {
     type:'line', data:{datasets:ds},
@@ -733,11 +739,7 @@ function makePair(cont, cfg) {
   const top2025 = no2025
     ? `<div class="note" style="margin-bottom:0.5rem;">2025 per-game data not available for this metric. 2025 Richmond season average: ${REF[field]?.r25rich ?? '—'}.</div>`
     : `<div class="blk-eyebrow">2025 — full season</div>
-    <div class="leg">
-      <span class="leg-item"><span class="leg-swatch" style="background:${C.good};"></span>Good</span>
-      <span class="leg-item"><span class="leg-swatch" style="background:${C.ok};"></span>OK</span>
-      <span class="leg-item"><span class="leg-swatch" style="background:${C.bad};"></span>Bad</span>
-    </div>
+
     ${refLeg25}
     <div class="chart-wrap"><canvas id="p25-${field}"></canvas></div>
     <hr class="blk-divider">`;
@@ -759,8 +761,8 @@ function renderPair(field, dec, isCI) {
   // 2025 chart
   const c25 = document.getElementById('p25-'+field);
   if (c25) {
-    const bgC = isCI ? G25.map(g=>g[field]>=0?C.bad+'55':C.red+'55') : G25.map(g=>(TC[g.t]||C.grey)+'55');
-    const bdC = isCI ? G25.map(g=>g[field]>=0?C.bad:C.red)            : G25.map(g=>TC[g.t]||C.grey);
+    const bgC = isCI ? G25.map(g=>g[field]>=0?C.bad+'55':C.red+'55') : G25.map(g=>C.grey+'55');
+    const bdC = isCI ? G25.map(g=>g[field]>=0?C.bad:C.red)            : G25.map(g=>C.grey);
     new Chart(c25, { type:'bar',
       data:{ labels:G25.map(g=>`R${g.r}`), datasets:[
         { data:G25.map(g=>g[field]), backgroundColor:bgC, borderColor:bdC, borderWidth:1, borderRadius:2, barPercentage:0.75 },
@@ -768,7 +770,7 @@ function renderPair(field, dec, isCI) {
         { type:'line', data:G25.map(()=>ref.r25lg),   borderColor:C.grey+'70', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false },
       ]},
       options:{ responsive:true, maintainAspectRatio:false,
-        plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` R${G25[c.dataIndex]?.r} vs ${G25[c.dataIndex]?.o} (${G25[c.dataIndex]?.t}): ${c.parsed.y.toFixed(dec)}`}}},
+        plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>` R${G25[c.dataIndex]?.r} vs ${G25[c.dataIndex]?.o}: ${c.parsed.y.toFixed(dec)}`}}},
         scales:{ x:{ticks:{color:C.tc,font:{size:10},maxRotation:0},grid:{color:C.gc}},
                  y:{ticks:{color:C.tc,font:{size:10},callback:isCI?v=>(v>=0?'+':'')+v:v=>v},grid:{color:C.gc}}}
       }
@@ -796,7 +798,7 @@ function renderPair(field, dec, isCI) {
   // tier cards
   const te = document.getElementById('pt-'+field);
   if (te) {
-    [['Good','good'],['OK','ok'],['Bad','bad']].forEach(([t,cl]) => {
+    [['D1','d1'],['D2','d2'],['D3','d3']].forEach(([t,cl]) => {
       const cur=ta26(field,t), n=G26.filter(g=>g.t===t).length;
       const diff=cur!=null?cur-ref.r25rich:null;
       te.innerHTML += `<div class="tier-card ${cl}">
@@ -846,80 +848,86 @@ buildQtr();
 // UPDATE each round from afl-player-stats-YYYY.csv
 // UPDATE each round from afl-player-stats-YYYY.csv
 const ATK = [
-  {name:'Steely Green',games:15,shots:27,goals:13,beh:9,launches:8,launchPct:4.8,xPerShot:3.94,xRating:-0.72,actual:87,xTotal:106.4,diff:-19.4,acc:48,siAvg:4.5,tr:1.72},
-  {name:'Tom Lynch',games:7,shots:28,goals:11,beh:13,launches:5,launchPct:7.5,xPerShot:3.44,xRating:-0.62,actual:79,xTotal:96.4,diff:-17.4,acc:39,siAvg:6.3,tr:20.81},
-  {name:'Seth Campbell',games:15,shots:31,goals:12,beh:11,launches:15,launchPct:6.4,xPerShot:2.83,xRating:-0.15,actual:83,xTotal:87.8,diff:-4.8,acc:39,siAvg:4.9,tr:6.47},
-  {name:'Tim Taranto',games:13,shots:23,goals:10,beh:9,launches:17,launchPct:5.5,xPerShot:3.42,xRating:-0.42,actual:69,xTotal:78.8,diff:-9.8,acc:43,siAvg:5.2,tr:2.36},
-  {name:'Mykelti Lefau',games:13,shots:19,goals:12,beh:6,launches:6,launchPct:6.1,xPerShot:3.81,xRating:0.3,actual:78,xTotal:72.4,diff:5.6,acc:63,siAvg:3.2,tr:0.67},
-  {name:'Noah Balta',games:14,shots:19,goals:9,beh:7,launches:13,launchPct:7.1,xPerShot:3.58,xRating:-0.24,actual:61,xTotal:68.0,diff:-7.0,acc:47,siAvg:3.3,tr:-5.26},
-  {name:'Liam Fawcett',games:7,shots:19,goals:11,beh:3,launches:4,launchPct:10.5,xPerShot:3.42,xRating:0.21,actual:69,xTotal:64.9,diff:4.1,acc:58,siAvg:2.9,tr:3.63},
-  {name:'Jasper Alger',games:6,shots:16,goals:10,beh:5,launches:1,launchPct:2.1,xPerShot:3.68,xRating:0.38,actual:65,xTotal:58.8,diff:6.2,acc:62,siAvg:4.0,tr:-10.3},
-  {name:'Jonty Faull',games:10,shots:17,goals:7,beh:7,launches:1,launchPct:1.4,xPerShot:2.69,xRating:0.19,actual:49,xTotal:45.8,diff:3.2,acc:41,siAvg:3.2,tr:13.11},
-  {name:'Sam Lalor',games:7,shots:12,goals:8,beh:4,launches:5,launchPct:4.3,xPerShot:3.34,xRating:0.99,actual:52,xTotal:40.1,diff:11.9,acc:67,siAvg:4.9,tr:1.58},
-  {name:'Tyler Sonsie',games:12,shots:10,goals:4,beh:5,launches:10,launchPct:5.0,xPerShot:3.63,xRating:-0.73,actual:29,xTotal:36.3,diff:-7.3,acc:40,siAvg:3.8,tr:2.88},
-  {name:'Jack Ross',games:13,shots:11,goals:4,beh:7,launches:21,launchPct:7.0,xPerShot:2.78,xRating:0.04,actual:31,xTotal:30.6,diff:0.4,acc:36,siAvg:5.4,tr:2.23},
-  {name:'Sam Cumming',games:9,shots:8,goals:6,beh:1,launches:7,launchPct:4.9,xPerShot:3.1,xRating:1.52,actual:37,xTotal:24.8,diff:12.2,acc:75,siAvg:3.3,tr:-5.03},
-  {name:'Jayden Short',games:14,shots:8,goals:2,beh:4,launches:15,launchPct:4.3,xPerShot:2.4,xRating:-0.4,actual:16,xTotal:19.2,diff:-3.2,acc:25,siAvg:3.8,tr:-0.71},
-  {name:'Rhyan Mansell',games:2,shots:7,goals:5,beh:1,launches:0,launchPct:0.0,xPerShot:2.65,xRating:1.78,actual:31,xTotal:18.6,diff:12.4,acc:71,siAvg:6.0,tr:7.02},
-  {name:'Dion Prestia',games:11,shots:6,goals:1,beh:1,launches:18,launchPct:8.5,xPerShot:2.97,xRating:-1.81,actual:7,xTotal:17.8,diff:-10.8,acc:17,siAvg:4.2,tr:-2.85},
-  {name:'Maurice Rioli',games:9,shots:5,goals:1,beh:3,launches:7,launchPct:11.5,xPerShot:3.48,xRating:-1.68,actual:9,xTotal:17.4,diff:-8.4,acc:20,siAvg:2.3,tr:6.71},
-  {name:'James Trezise',games:11,shots:4,goals:1,beh:1,launches:13,launchPct:7.0,xPerShot:3.81,xRating:-2.06,actual:7,xTotal:15.3,diff:-8.3,acc:25,siAvg:3.1,tr:-0.99},
-  {name:'Jacob Hopper',games:12,shots:5,goals:0,beh:3,launches:13,launchPct:5.1,xPerShot:2.63,xRating:-2.03,actual:3,xTotal:13.2,diff:-10.2,acc:0,siAvg:3.6,tr:0.34},
-  {name:'Noah Roberts-Thomson',games:3,shots:4,goals:4,beh:0,launches:0,launchPct:0.0,xPerShot:3.17,xRating:2.83,actual:24,xTotal:12.7,diff:11.3,acc:100,siAvg:1.7,tr:-13.54},
-  {name:'Kane McAuliffe',games:6,shots:4,goals:2,beh:2,launches:8,launchPct:7.0,xPerShot:2.93,xRating:0.57,actual:14,xTotal:11.7,diff:2.3,acc:50,siAvg:4.2,tr:-2.17},
-  {name:'Nick Vlastuin',games:14,shots:3,goals:1,beh:2,launches:12,launchPct:5.6,xPerShot:3.88,xRating:-1.21,actual:8,xTotal:11.6,diff:-3.6,acc:33,siAvg:2.4,tr:-0.39},
-  {name:'Sam Grlj',games:14,shots:5,goals:1,beh:2,launches:5,launchPct:2.4,xPerShot:2.23,xRating:-0.63,actual:8,xTotal:11.2,diff:-3.2,acc:20,siAvg:2.2,tr:0.22},
-  {name:'Sam Banks',games:10,shots:2,goals:1,beh:0,launches:6,launchPct:3.4,xPerShot:4.16,xRating:-1.16,actual:6,xTotal:8.3,diff:-2.3,acc:50,siAvg:1.9,tr:-9.02},
-  {name:'Tom Burton',games:5,shots:2,goals:0,beh:2,launches:4,launchPct:7.5,xPerShot:3.77,xRating:-2.77,actual:2,xTotal:7.5,diff:-5.5,acc:0,siAvg:2.6,tr:-1.09},
-  {name:'Harry Armstrong',games:3,shots:2,goals:1,beh:1,launches:0,launchPct:0.0,xPerShot:3.63,xRating:-0.13,actual:7,xTotal:7.3,diff:-0.3,acc:50,siAvg:1.3,tr:-31.46},
-  {name:'Hugo Ralphsmith',games:5,shots:4,goals:2,beh:1,launches:1,launchPct:1.4,xPerShot:1.77,xRating:1.48,actual:13,xTotal:7.1,diff:5.9,acc:50,siAvg:2.6,tr:2.59},
-  {name:'Campbell Gray',games:9,shots:1,goals:1,beh:0,launches:3,launchPct:5.1,xPerShot:5.4,xRating:0.6,actual:6,xTotal:5.4,diff:0.6,acc:100,siAvg:1.2,tr:8.02},
-  {name:'Patrick Retschko',games:10,shots:2,goals:0,beh:1,launches:5,launchPct:2.8,xPerShot:2.6,xRating:-2.1,actual:1,xTotal:5.2,diff:-4.2,acc:0,siAvg:2.8,tr:-2.0},
-  {name:'Tom Brown',games:10,shots:2,goals:0,beh:1,launches:5,launchPct:3.3,xPerShot:2.32,xRating:-1.82,actual:1,xTotal:4.6,diff:-3.6,acc:0,siAvg:1.8,tr:-4.6},
-  {name:'Oliver Hayes-Brown',games:7,shots:1,goals:1,beh:0,launches:10,launchPct:14.5,xPerShot:2.87,xRating:3.13,actual:6,xTotal:2.9,diff:3.1,acc:100,siAvg:2.4,tr:-15.35},
-  {name:'Samson Ryan',games:3,shots:1,goals:0,beh:0,launches:4,launchPct:16.0,xPerShot:0.72,xRating:-0.72,actual:0,xTotal:0.7,diff:-0.7,acc:0,siAvg:1.7,tr:-15.07},
-  {name:'Ben Miller',games:15,shots:0,goals:0,beh:0,launches:12,launchPct:5.5,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:1.9,tr:2.0},
-  {name:'Luke Trainor',games:7,shots:0,goals:0,beh:0,launches:3,launchPct:2.8,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:1.1,tr:-5.64},
-  {name:'Nathan Broad',games:14,shots:0,goals:0,beh:0,launches:11,launchPct:5.6,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:1.9,tr:3.48},
-  {name:'Toby Nankervis',games:4,shots:0,goals:0,beh:0,launches:6,launchPct:10.2,xPerShot:0.0,xRating:0.0,actual:0,xTotal:0.0,diff:0.0,acc:0,siAvg:2.0,tr:-5.41},
+  {name:'Steely Green',games:15,shots:27,goals:13,beh:9,launches:8,launchPct:4.8,xPerShot:3.94,xRating:-19.41,actual:87,xTotal:106.4,diff:-19.4,acc:48.1,siAvg:4.5,tr:1.72},
+  {name:'Tom Lynch',games:7,shots:28,goals:11,beh:13,launches:5,launchPct:7.5,xPerShot:3.44,xRating:-17.42,actual:79,xTotal:96.4,diff:-17.4,acc:39.3,siAvg:6.3,tr:20.81},
+  {name:'Seth Campbell',games:15,shots:31,goals:12,beh:11,launches:15,launchPct:6.4,xPerShot:2.83,xRating:-4.74,actual:83,xTotal:87.8,diff:-4.8,acc:38.7,siAvg:4.9,tr:6.47},
+  {name:'Tim Taranto',games:13,shots:23,goals:10,beh:9,launches:17,launchPct:5.5,xPerShot:3.42,xRating:-9.78,actual:69,xTotal:78.8,diff:-9.8,acc:43.5,siAvg:5.2,tr:2.36},
+  {name:'Mykelti Lefau',games:13,shots:19,goals:12,beh:6,launches:6,launchPct:6.1,xPerShot:3.81,xRating:5.62,actual:78,xTotal:72.4,diff:5.6,acc:63.2,siAvg:3.2,tr:0.67},
+  {name:'Liam Fawcett',games:7,shots:19,goals:11,beh:3,launches:4,launchPct:10.5,xPerShot:3.42,xRating:4.07,actual:69,xTotal:64.9,diff:4.1,acc:57.9,siAvg:2.9,tr:3.63},
+  {name:'Noah Balta',games:14,shots:18,goals:9,beh:7,launches:13,launchPct:7.1,xPerShot:3.58,xRating:-4.41,actual:61,xTotal:64.4,diff:-3.4,acc:47.4,siAvg:3.3,tr:-5.26},
+  {name:'Jasper Alger',games:6,shots:16,goals:10,beh:5,launches:1,launchPct:2.1,xPerShot:3.68,xRating:6.14,actual:65,xTotal:58.8,diff:6.2,acc:62.5,siAvg:4.0,tr:-10.3},
+  {name:'Jonty Faull',games:10,shots:17,goals:7,beh:7,launches:1,launchPct:1.4,xPerShot:2.69,xRating:3.2,actual:49,xTotal:45.8,diff:3.2,acc:41.2,siAvg:3.2,tr:13.11},
+  {name:'Sam Lalor',games:7,shots:12,goals:8,beh:4,launches:5,launchPct:4.3,xPerShot:3.34,xRating:11.88,actual:52,xTotal:40.1,diff:11.9,acc:66.7,siAvg:4.9,tr:1.58},
+  {name:'Tyler Sonsie',games:12,shots:10,goals:4,beh:5,launches:10,launchPct:5.0,xPerShot:3.63,xRating:-7.3,actual:29,xTotal:36.3,diff:-7.3,acc:40.0,siAvg:3.8,tr:2.88},
+  {name:'Jack Ross',games:13,shots:11,goals:4,beh:7,launches:21,launchPct:7.0,xPerShot:2.78,xRating:0.4,actual:31,xTotal:30.6,diff:0.4,acc:36.4,siAvg:5.4,tr:2.23},
+  {name:'Sam Cumming',games:9,shots:8,goals:6,beh:1,launches:7,launchPct:4.9,xPerShot:3.1,xRating:12.17,actual:37,xTotal:24.8,diff:12.2,acc:75.0,siAvg:3.3,tr:-5.03},
+  {name:'Jayden Short',games:14,shots:8,goals:2,beh:4,launches:15,launchPct:4.3,xPerShot:2.4,xRating:-3.16,actual:16,xTotal:19.2,diff:-3.2,acc:25.0,siAvg:3.8,tr:-0.71},
+  {name:'Rhyan Mansell',games:2,shots:7,goals:5,beh:1,launches:0,launchPct:0.0,xPerShot:2.65,xRating:12.44,actual:31,xTotal:18.6,diff:12.4,acc:71.4,siAvg:6.0,tr:7.02},
+  {name:'Dion Prestia',games:11,shots:6,goals:1,beh:1,launches:18,launchPct:8.5,xPerShot:2.97,xRating:-10.84,actual:7,xTotal:17.8,diff:-10.8,acc:16.7,siAvg:4.2,tr:-2.85},
+  {name:'Maurice Rioli',games:9,shots:5,goals:1,beh:3,launches:7,launchPct:11.5,xPerShot:3.48,xRating:-8.42,actual:9,xTotal:17.4,diff:-8.4,acc:20.0,siAvg:2.3,tr:6.71},
+  {name:'James Trezise',games:11,shots:4,goals:1,beh:1,launches:13,launchPct:7.0,xPerShot:3.81,xRating:-8.25,actual:7,xTotal:15.3,diff:-8.3,acc:25.0,siAvg:3.1,tr:-0.99},
+  {name:'Jacob Hopper',games:12,shots:5,goals:0,beh:3,launches:13,launchPct:5.1,xPerShot:2.63,xRating:-10.17,actual:3,xTotal:13.2,diff:-10.2,acc:0.0,siAvg:3.6,tr:0.34},
+  {name:'Noah Roberts-Thomson',games:3,shots:4,goals:4,beh:0,launches:0,launchPct:0.0,xPerShot:3.17,xRating:11.34,actual:24,xTotal:12.7,diff:11.3,acc:100.0,siAvg:1.7,tr:-13.54},
+  {name:'Kane McAuliffe',games:6,shots:4,goals:2,beh:2,launches:8,launchPct:7.0,xPerShot:2.93,xRating:2.28,actual:14,xTotal:11.7,diff:2.3,acc:50.0,siAvg:4.2,tr:-2.17},
+  {name:'Nick Vlastuin',games:14,shots:3,goals:1,beh:2,launches:12,launchPct:5.6,xPerShot:3.88,xRating:-3.64,actual:8,xTotal:11.6,diff:-3.6,acc:33.3,siAvg:2.4,tr:-0.39},
+  {name:'Sam Grlj',games:14,shots:5,goals:1,beh:2,launches:5,launchPct:2.4,xPerShot:2.23,xRating:-3.16,actual:8,xTotal:11.2,diff:-3.2,acc:20.0,siAvg:2.2,tr:0.22},
+  {name:'Sam Banks',games:10,shots:2,goals:1,beh:0,launches:6,launchPct:3.4,xPerShot:4.16,xRating:-2.32,actual:6,xTotal:8.3,diff:-2.3,acc:50.0,siAvg:1.9,tr:-9.02},
+  {name:'Tom Burton',games:5,shots:2,goals:0,beh:2,launches:4,launchPct:7.5,xPerShot:3.77,xRating:-5.53,actual:2,xTotal:7.5,diff:-5.5,acc:0.0,siAvg:2.6,tr:-1.09},
+  {name:'Harry Armstrong',games:3,shots:2,goals:1,beh:1,launches:0,launchPct:0.0,xPerShot:3.63,xRating:-0.25,actual:7,xTotal:7.3,diff:-0.3,acc:50.0,siAvg:1.3,tr:-31.46},
+  {name:'Hugo Ralphsmith',games:5,shots:4,goals:2,beh:1,launches:1,launchPct:1.4,xPerShot:1.77,xRating:5.94,actual:13,xTotal:7.1,diff:5.9,acc:50.0,siAvg:2.6,tr:2.59},
+  {name:'Campbell Gray',games:9,shots:1,goals:1,beh:0,launches:3,launchPct:5.1,xPerShot:5.4,xRating:0.6,actual:6,xTotal:5.4,diff:0.6,acc:100.0,siAvg:1.2,tr:8.02},
+  {name:'Patrick Retschko',games:10,shots:2,goals:0,beh:1,launches:5,launchPct:2.8,xPerShot:2.6,xRating:-4.2,actual:1,xTotal:5.2,diff:-4.2,acc:0.0,siAvg:2.8,tr:-2.0},
+  {name:'Tom Brown',games:10,shots:2,goals:0,beh:1,launches:5,launchPct:3.3,xPerShot:2.32,xRating:-3.64,actual:1,xTotal:4.6,diff:-3.6,acc:0.0,siAvg:1.8,tr:-4.6},
+  {name:'Oliver Hayes-Brown',games:7,shots:1,goals:1,beh:0,launches:10,launchPct:14.5,xPerShot:2.87,xRating:3.13,actual:6,xTotal:2.9,diff:3.1,acc:100.0,siAvg:2.4,tr:-15.35},
+  {name:'Samson Ryan',games:3,shots:1,goals:0,beh:0,launches:4,launchPct:16.0,xPerShot:0.72,xRating:-0.72,actual:0,xTotal:0.7,diff:-0.7,acc:0.0,siAvg:1.7,tr:-15.07},
+  {name:'Ben Miller',games:15,shots:0,goals:0,beh:0,launches:12,launchPct:5.5,xPerShot:0,xRating:0,actual:0,xTotal:0,diff:0,acc:0,siAvg:1.9,tr:2.0},
+  {name:'Josh Gibcus',games:1,shots:0,goals:0,beh:0,launches:0,launchPct:0.0,xPerShot:0,xRating:0,actual:0,xTotal:0,diff:0,acc:0,siAvg:1.0,tr:7.55},
+  {name:'Kye Annand',games:3,shots:0,goals:0,beh:0,launches:2,launchPct:5.7,xPerShot:0,xRating:0,actual:0,xTotal:0,diff:0,acc:0,siAvg:1.3,tr:-1.38},
+  {name:'Luke Trainor',games:7,shots:0,goals:0,beh:0,launches:3,launchPct:2.8,xPerShot:0,xRating:0,actual:0,xTotal:0,diff:0,acc:0,siAvg:1.1,tr:-5.64},
+  {name:'Nathan Broad',games:14,shots:0,goals:0,beh:0,launches:11,launchPct:5.6,xPerShot:0,xRating:0,actual:0,xTotal:0,diff:0,acc:0,siAvg:1.9,tr:3.48},
+  {name:'Taj Hotton',games:2,shots:0,goals:0,beh:0,launches:1,launchPct:4.8,xPerShot:0,xRating:0,actual:0,xTotal:0,diff:0,acc:0,siAvg:2.0,tr:7.83},
+  {name:'Toby Nankervis',games:4,shots:0,goals:0,beh:0,launches:6,launchPct:10.2,xPerShot:0,xRating:0,actual:0,xTotal:0,diff:0,acc:0,siAvg:2.0,tr:-5.41},
 ];
 const DEF = [
-  {name:'Nick Vlastuin',games:14,position:'Gen. Defender',contests:13,winPct:53.8,intercepts:84,iMarks:17,reb50:57,spoils:15},
-  {name:'Nathan Broad',games:14,position:'Gen. Defender',contests:16,winPct:87.5,intercepts:74,iMarks:32,reb50:39,spoils:61},
   {name:'Ben Miller',games:15,position:'Key Defender',contests:50,winPct:80.0,intercepts:65,iMarks:25,reb50:75,spoils:97},
-  {name:'Jayden Short',games:14,position:'Gen. Defender',contests:6,winPct:33.3,intercepts:52,iMarks:10,reb50:71,spoils:12},
-  {name:'Tyler Sonsie',games:12,position:'Mid-Forward',contests:1,winPct:100.0,intercepts:47,iMarks:6,reb50:16,spoils:3},
   {name:'Noah Balta',games:14,position:'Key Defender',contests:21,winPct:81.0,intercepts:44,iMarks:22,reb50:29,spoils:26},
-  {name:'Tom Brown',games:10,position:'Gen. Defender',contests:9,winPct:66.7,intercepts:42,iMarks:13,reb50:38,spoils:15},
-  {name:'James Trezise',games:11,position:'Gen. Defender',contests:2,winPct:50.0,intercepts:42,iMarks:10,reb50:17,spoils:11},
-  {name:'Jack Ross',games:13,position:'Midfielder',contests:0,winPct:null,intercepts:38,iMarks:4,reb50:11,spoils:1},
-  {name:'Sam Grlj',games:14,position:'Gen. Defender',contests:0,winPct:null,intercepts:34,iMarks:4,reb50:21,spoils:4},
-  {name:'Sam Banks',games:10,position:'Gen. Defender',contests:2,winPct:0.0,intercepts:31,iMarks:2,reb50:31,spoils:2},
-  {name:'Patrick Retschko',games:10,position:'Midfielder',contests:2,winPct:100.0,intercepts:30,iMarks:7,reb50:29,spoils:3},
-  {name:'Kane McAuliffe',games:6,position:'Midfielder',contests:1,winPct:100.0,intercepts:28,iMarks:7,reb50:11,spoils:3},
-  {name:'Dion Prestia',games:11,position:'Midfielder',contests:0,winPct:null,intercepts:27,iMarks:2,reb50:11,spoils:1},
-  {name:'Seth Campbell',games:15,position:'Gen. Forward',contests:2,winPct:100.0,intercepts:26,iMarks:4,reb50:11,spoils:7},
-  {name:'Tim Taranto',games:13,position:'Midfielder',contests:0,winPct:null,intercepts:26,iMarks:1,reb50:13,spoils:0},
-  {name:'Campbell Gray',games:9,position:'Key Defender',contests:8,winPct:37.5,intercepts:24,iMarks:8,reb50:16,spoils:45},
+  {name:'Nathan Broad',games:14,position:'Gen. Defender',contests:16,winPct:87.5,intercepts:74,iMarks:32,reb50:39,spoils:61},
+  {name:'Nick Vlastuin',games:14,position:'Gen. Defender',contests:13,winPct:53.8,intercepts:84,iMarks:17,reb50:57,spoils:15},
   {name:'Luke Trainor',games:7,position:'Gen. Defender',contests:11,winPct:63.6,intercepts:23,iMarks:7,reb50:27,spoils:21},
-  {name:'Jacob Hopper',games:12,position:'Midfielder',contests:0,winPct:null,intercepts:20,iMarks:1,reb50:14,spoils:3},
+  {name:'Tom Brown',games:10,position:'Gen. Defender',contests:9,winPct:66.7,intercepts:42,iMarks:13,reb50:38,spoils:15},
+  {name:'Campbell Gray',games:9,position:'Key Defender',contests:8,winPct:37.5,intercepts:24,iMarks:8,reb50:16,spoils:45},
+  {name:'Jayden Short',games:14,position:'Gen. Defender',contests:6,winPct:33.3,intercepts:52,iMarks:10,reb50:71,spoils:12},
   {name:'Kye Annand',games:3,position:'Key Defender',contests:5,winPct:80.0,intercepts:19,iMarks:7,reb50:8,spoils:13},
-  {name:'Steely Green',games:15,position:'Gen. Forward',contests:0,winPct:null,intercepts:17,iMarks:0,reb50:10,spoils:5},
-  {name:'Sam Cumming',games:9,position:'Mid-Forward',contests:0,winPct:null,intercepts:16,iMarks:1,reb50:9,spoils:5},
-  {name:'Mykelti Lefau',games:13,position:'Key Forward',contests:0,winPct:null,intercepts:16,iMarks:3,reb50:0,spoils:19},
-  {name:'Maurice Rioli',games:9,position:'Gen. Forward',contests:0,winPct:null,intercepts:15,iMarks:1,reb50:3,spoils:3},
-  {name:'Sam Lalor',games:7,position:'Midfielder',contests:0,winPct:null,intercepts:12,iMarks:1,reb50:9,spoils:1},
-  {name:'Hugo Ralphsmith',games:5,position:'Midfielder',contests:2,winPct:50.0,intercepts:9,iMarks:0,reb50:8,spoils:4},
-  {name:'Oliver Hayes-Brown',games:7,position:'Ruck',contests:1,winPct:100.0,intercepts:8,iMarks:3,reb50:1,spoils:6},
-  {name:'Tom Burton',games:5,position:'Gen. Forward',contests:0,winPct:null,intercepts:6,iMarks:0,reb50:1,spoils:0},
-  {name:'Jonty Faull',games:10,position:'Key Forward',contests:0,winPct:null,intercepts:6,iMarks:2,reb50:1,spoils:15},
-  {name:'Toby Nankervis',games:4,position:'Ruck',contests:1,winPct:100.0,intercepts:6,iMarks:3,reb50:5,spoils:12},
-  {name:'Liam Fawcett',games:7,position:'Key Forward',contests:0,winPct:null,intercepts:5,iMarks:1,reb50:0,spoils:6},
-  {name:'Jasper Alger',games:6,position:'Gen. Forward',contests:0,winPct:null,intercepts:4,iMarks:0,reb50:0,spoils:7},
   {name:'Samson Ryan',games:3,position:'Ruck',contests:5,winPct:80.0,intercepts:4,iMarks:2,reb50:1,spoils:5},
-  {name:'Tom Lynch',games:7,position:'Key Forward',contests:0,winPct:null,intercepts:3,iMarks:0,reb50:1,spoils:10},
+  {name:'James Trezise',games:11,position:'Gen. Defender',contests:2,winPct:50.0,intercepts:42,iMarks:10,reb50:17,spoils:11},
+  {name:'Hugo Ralphsmith',games:5,position:'Midfielder',contests:2,winPct:50.0,intercepts:9,iMarks:0,reb50:8,spoils:4},
+  {name:'Patrick Retschko',games:10,position:'Midfielder',contests:2,winPct:100.0,intercepts:30,iMarks:7,reb50:29,spoils:3},
+  {name:'Sam Banks',games:10,position:'Gen. Defender',contests:2,winPct:0.0,intercepts:31,iMarks:2,reb50:31,spoils:2},
+  {name:'Seth Campbell',games:15,position:'Gen. Forward',contests:2,winPct:100.0,intercepts:26,iMarks:4,reb50:11,spoils:7},
+  {name:'Kane McAuliffe',games:6,position:'Midfielder',contests:1,winPct:100.0,intercepts:28,iMarks:7,reb50:11,spoils:3},
+  {name:'Oliver Hayes-Brown',games:7,position:'Ruck',contests:1,winPct:100.0,intercepts:8,iMarks:3,reb50:1,spoils:6},
+  {name:'Josh Gibcus',games:1,position:'Key Defender',contests:1,winPct:100.0,intercepts:6,iMarks:1,reb50:2,spoils:4},
+  {name:'Toby Nankervis',games:4,position:'Ruck',contests:1,winPct:100.0,intercepts:6,iMarks:3,reb50:5,spoils:12},
+  {name:'Tyler Sonsie',games:12,position:'Mid-Forward',contests:1,winPct:100.0,intercepts:47,iMarks:6,reb50:16,spoils:3},
+  {name:'Dion Prestia',games:11,position:'Midfielder',contests:0,winPct:null,intercepts:27,iMarks:2,reb50:11,spoils:1},
   {name:'Harry Armstrong',games:3,position:'Key Forward',contests:0,winPct:null,intercepts:1,iMarks:0,reb50:0,spoils:2},
+  {name:'Jack Ross',games:13,position:'Midfielder',contests:0,winPct:null,intercepts:38,iMarks:4,reb50:11,spoils:1},
+  {name:'Jacob Hopper',games:12,position:'Midfielder',contests:0,winPct:null,intercepts:20,iMarks:1,reb50:14,spoils:3},
+  {name:'Jasper Alger',games:6,position:'Gen. Forward',contests:0,winPct:null,intercepts:4,iMarks:0,reb50:0,spoils:7},
+  {name:'Jonty Faull',games:10,position:'Key Forward',contests:0,winPct:null,intercepts:6,iMarks:2,reb50:1,spoils:15},
+  {name:'Liam Fawcett',games:7,position:'Key Forward',contests:0,winPct:null,intercepts:5,iMarks:1,reb50:0,spoils:6},
+  {name:'Maurice Rioli',games:9,position:'Gen. Forward',contests:0,winPct:null,intercepts:15,iMarks:1,reb50:3,spoils:3},
+  {name:'Mykelti Lefau',games:13,position:'Key Forward',contests:0,winPct:null,intercepts:16,iMarks:3,reb50:0,spoils:19},
   {name:'Noah Roberts-Thomson',games:3,position:'Gen. Forward',contests:0,winPct:null,intercepts:0,iMarks:0,reb50:2,spoils:1},
+  {name:'Rhyan Mansell',games:2,position:'Gen. Forward',contests:0,winPct:null,intercepts:3,iMarks:0,reb50:0,spoils:0},
+  {name:'Sam Cumming',games:9,position:'Mid-Forward',contests:0,winPct:null,intercepts:16,iMarks:1,reb50:9,spoils:5},
+  {name:'Sam Grlj',games:14,position:'Gen. Defender',contests:0,winPct:null,intercepts:34,iMarks:4,reb50:21,spoils:4},
+  {name:'Sam Lalor',games:7,position:'Midfielder',contests:0,winPct:null,intercepts:12,iMarks:1,reb50:9,spoils:1},
+  {name:'Steely Green',games:15,position:'Gen. Forward',contests:0,winPct:null,intercepts:17,iMarks:0,reb50:10,spoils:5},
+  {name:'Taj Hotton',games:2,position:'Gen. Forward',contests:0,winPct:null,intercepts:2,iMarks:0,reb50:0,spoils:0},
+  {name:'Tim Taranto',games:13,position:'Midfielder',contests:0,winPct:null,intercepts:26,iMarks:1,reb50:13,spoils:0},
+  {name:'Tom Burton',games:5,position:'Gen. Forward',contests:0,winPct:null,intercepts:6,iMarks:0,reb50:1,spoils:0},
+  {name:'Tom Lynch',games:7,position:'Key Forward',contests:0,winPct:null,intercepts:3,iMarks:0,reb50:1,spoils:10},
 ];
 
 let atkSortKey='xTotal', atkAsc=false;
