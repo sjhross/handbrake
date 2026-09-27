@@ -281,7 +281,7 @@
       <span class="logo-sub">Richmond FC · data-informed · fan media · sjhross</span>
     </div>
     <div class="header-right">
-      <span class="meta">2026 season tracker · 23 games played · updated R24</span>
+      <span class="meta">2026 season tracker · 23 games played · updated R24 · league avgs incl. finals</span>
       <div class="header-links">
         <a href="https://sjhross.substack.com/">substack</a>
         <a href="https://wheeloratings.com">wheelo</a>
@@ -399,7 +399,7 @@
       <div class="tier-row" id="tr-tiers"></div>
       <div class="blk" style="margin:0;border:1px solid var(--border);">
         <div class="blk-title">ThreatRating — 2026 cumulative by tier</div>
-        <div class="blk-sub">Red dashed = Richmond 2025 avg (−0.63) · Grey dashed = 2026 league avg (+1.89)</div>
+        <div class="blk-sub">Red dashed = Richmond 2025 avg (−0.63) · Grey dashed = 2026 league avg, incl. finals (+2.02)</div>
         <div class="chart-wrap"><canvas id="tr-chart"></canvas></div>
       </div>
     </div>
@@ -553,7 +553,7 @@ const REF = {
   xSR:  { r25rich:-0.65, r25lg:0.08,  r26lg:0.303  },
   ptS:  { r25rich:24.04, r25lg:33.80, r26lg:34.346 },
   ptCB: { r25rich:7.22,  r25lg:11.40, r26lg:13.044 },
-  tr:   { r25rich:-0.63, r25lg:-0.63, r26lg:2.046 },
+  tr:   { r25rich:-0.63, r25lg:-0.63, r26lg:2.015 },
   hbm:  { r25rich:142.9, r25lg:177.4, r26lg:311.509 },
 };
 
@@ -659,14 +659,14 @@ function buildTr() {
   document.getElementById('tr-cards').innerHTML = `
     <div class="stat-card"><div class="stat-card-label">2026 avg (${G26.filter(g=>g.tr!=null).length}g)</div><div class="stat-card-value ${a>=0?'pos':'neg'}">${fm(a,2)}</div></div>
     <div class="stat-card"><div class="stat-card-label">2025 Richmond avg</div><div class="stat-card-value neg">−0.63</div></div>
-    <div class="stat-card"><div class="stat-card-label">2026 league avg</div><div class="stat-card-value pos">+2.05</div></div>
-    <div class="stat-card"><div class="stat-card-label">vs 2026 league</div><div class="stat-card-value ${a>=2.05?'pos':'neg'}">${fm(a-2.05,2)}</div></div>`;
+    <div class="stat-card"><div class="stat-card-label">2026 league avg (incl. finals)</div><div class="stat-card-value pos">+2.02</div></div>
+    <div class="stat-card"><div class="stat-card-label">vs 2026 league</div><div class="stat-card-value ${a>=2.015?'pos':'neg'}">${fm(a-2.015,2)}</div></div>`;
   document.getElementById('tr-note').textContent =
-    'R1 vs Carlton (D2): +8.62. R2 vs Gold Coast (D2): \u22127.31. R3 vs Fremantle (D1): \u22126.34. R4 vs Port Adelaide (D3): +2.92. R5 vs GWS (D2): \u22126.57. R6 vs North Melbourne (D2): +2.60. R7 vs Melbourne (D2): +4.00. R8 vs West Coast (D3): +2.95. R9 vs Adelaide (D2): \u22121.57. R10 vs St Kilda (D2): +0.05. R11 vs Essendon (D3): +7.40. R12 vs Sydney (D1): \u22127.38. R14 vs Brisbane (D1): +2.55. R15 vs North Melbourne (D2): \u22123.17. R16 vs Collingwood (D2): \u22122.95. R17 vs Carlton (D2): \u22122.76. R18 vs Melbourne (D2): \u22128.00. R19 vs Hawthorn (D1): \u22123.85. R20 vs Western Bulldogs (D2): \u221212.33. R21 vs West Coast (D3): +3.96 \u2014 the third-best reading of the season and a 16.3-point swing off the Bulldogs low, produced with 63 marks against 89 ground-ball gets (Control Index \u221226, the most attacking shape Richmond has taken all year). R22 vs Adelaide (D2): \u22121.93 \u2014 the rematch of the R9 meeting (also a loss, then by \u22121.57), and almost the same number back-calculated independently, which says more about the consistency of this problem than any single week does. R23 vs St Kilda (D2): \u221212.83 \u2014 the worst single-game reading of the season, half a point below the R20 Bulldogs low. The shape was not the problem: 89 marks against 76 ground-ball gets gave a Control Index of +13, the most controlled Richmond has looked since R16, and a 50-point swing off the R22 chaos. The kicks were simply harmless. Finishing was not the culprit either \u2014 xScoreRating +0.8 on 15 shots, 45 points scored against 44.2 expected. Richmond kicked what it created; it just created nothing. Points from stoppage fell to 16 and centre bounce to 7. The R10 meeting with the same opponent read +0.05, so this is a 12.9-point deterioration against the one side Richmond has now faced twice at its most and least dangerous. R24 vs Geelong (D1): \u22122.21 \u2014 the heaviest defeat of the season (\u221257) but not the heaviest ThreatRating reading, and the two tell different stories. Points from stoppage jumped to 45, the fifth-highest return of the year and nearly triple the R23 figure, and centre bounce points hit 18, level with the R14 Brisbane game. Control Index sat close to neutral at \u22125 (71 marks against 76 ground-ball gets) \u2014 no clear shape either way. What actually cost Richmond was finishing and a loss deeper than even a pessimistic model expected: xScoreRating \u22127.1 on the day (76 points scored against an xScore of 83.1), and a margin differential of \u221231.8 against an xMargin that already had this at \u221225.2. Kick retention was the sharper story off the ball \u2014 RetentionRating back-calculates to \u22123.90 for the round, the weakest single-week read since the metric started being tracked at R16. Division averages across all 23 games: +4.31 vs D3 (4g), \u22123.15 vs D2 (14g), \u22123.45 vs D1 (5g). The D1 line firms slightly with Geelong included but remains the weakest of the three \u2014 Richmond\u2019s ThreatRating against the competition\u2019s best sides is still its worst version of itself. Season average: \u22121.92 \u2014 Richmond stays 18th of 18, still behind West Coast (\u22120.86). League avg through R24: +2.05. Calculated weekly by working back through consecutive Wheelo season snapshots to isolate each game\u2019s value \u2014 Wheelo doesn\u2019t publish it per game, so this is the only way to get it.';
+    'R1 vs Carlton (D2): +8.62. R2 vs Gold Coast (D2): \u22127.31. R3 vs Fremantle (D1): \u22126.34. R4 vs Port Adelaide (D3): +2.92. R5 vs GWS (D2): \u22126.57. R6 vs North Melbourne (D2): +2.60. R7 vs Melbourne (D2): +4.00. R8 vs West Coast (D3): +2.95. R9 vs Adelaide (D2): \u22121.57. R10 vs St Kilda (D2): +0.05. R11 vs Essendon (D3): +7.40. R12 vs Sydney (D1): \u22127.38. R14 vs Brisbane (D1): +2.55. R15 vs North Melbourne (D2): \u22123.17. R16 vs Collingwood (D2): \u22122.95. R17 vs Carlton (D2): \u22122.76. R18 vs Melbourne (D2): \u22128.00. R19 vs Hawthorn (D1): \u22123.85. R20 vs Western Bulldogs (D2): \u221212.33. R21 vs West Coast (D3): +3.96 \u2014 the third-best reading of the season and a 16.3-point swing off the Bulldogs low, produced with 63 marks against 89 ground-ball gets (Control Index \u221226, the most attacking shape Richmond has taken all year). R22 vs Adelaide (D2): \u22121.93 \u2014 the rematch of the R9 meeting (also a loss, then by \u22121.57), and almost the same number back-calculated independently, which says more about the consistency of this problem than any single week does. R23 vs St Kilda (D2): \u221212.83 \u2014 the worst single-game reading of the season, half a point below the R20 Bulldogs low. The shape was not the problem: 89 marks against 76 ground-ball gets gave a Control Index of +13, the most controlled Richmond has looked since R16, and a 50-point swing off the R22 chaos. The kicks were simply harmless. Finishing was not the culprit either \u2014 xScoreRating +0.8 on 15 shots, 45 points scored against 44.2 expected. Richmond kicked what it created; it just created nothing. Points from stoppage fell to 16 and centre bounce to 7. The R10 meeting with the same opponent read +0.05, so this is a 12.9-point deterioration against the one side Richmond has now faced twice at its most and least dangerous. R24 vs Geelong (D1): \u22122.21 \u2014 the heaviest defeat of the season (\u221257) but not the heaviest ThreatRating reading, and the two tell different stories. Points from stoppage jumped to 45, the fifth-highest return of the year and nearly triple the R23 figure, and centre bounce points hit 18, level with the R14 Brisbane game. Control Index sat close to neutral at \u22125 (71 marks against 76 ground-ball gets) \u2014 no clear shape either way. What actually cost Richmond was finishing and a loss deeper than even a pessimistic model expected: xScoreRating \u22127.1 on the day (76 points scored against an xScore of 83.1), and a margin differential of \u221231.8 against an xMargin that already had this at \u221225.2. Kick retention was the sharper story off the ball \u2014 RetentionRating back-calculates to \u22123.90 for the round, the weakest single-week read since the metric started being tracked at R16. Division averages across all 23 games: +4.31 vs D3 (4g), \u22123.15 vs D2 (14g), \u22123.45 vs D1 (5g). The D1 line firms slightly with Geelong included but remains the weakest of the three \u2014 Richmond\u2019s ThreatRating against the competition\u2019s best sides is still its worst version of itself. Season average: \u22121.92 \u2014 Richmond stays 18th of 18, still behind West Coast (\u22121.31). Final 2026 league avg, home-and-away plus finals: +2.02 (down slightly from +2.05 across the home-and-away season alone \u2014 Richmond\u2019s own number is unaffected, having missed the finals series entirely). Calculated weekly by working back through consecutive Wheelo season snapshots to isolate each game\u2019s value \u2014 Wheelo doesn\u2019t publish it per game, so this is the only way to get it.';
   const tc2 = document.getElementById('tr-tiers');
   [['D1','d1'],['D2','d2'],['D3','d3']].forEach(([t,cl]) => {
     const cur=ta26('tr',t), n=G26.filter(g=>g.t===t&&g.tr!=null).length;
-    tc2.innerHTML += `<div class="tier-card ${cl}"><div class="tier-label">vs ${t} — 2026</div><div class="tier-value">${cur!=null?fm(cur,2):'—'}</div><div class="tier-sub">${n}g · Rich25: −0.63 · lg26: +2.05</div></div>`;
+    tc2.innerHTML += `<div class="tier-card ${cl}"><div class="tier-label">vs ${t} — 2026</div><div class="tier-value">${cur!=null?fm(cur,2):'—'}</div><div class="tier-sub">${n}g · Rich25: −0.63 · lg26: +2.02</div></div>`;
   });
   const trs=[['D1',C.d1],['D2',C.d2],['D3',C.d3]];
   const ds = trs.map(([t,col]) => {
@@ -677,7 +677,7 @@ function buildTr() {
   });
   ds.push({ label:'Richmond 2025 avg', data:G26.map(g=>({x:`R${g.r}`,y:-0.63})),
     borderColor:C.red+'90', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false });
-  ds.push({ label:'League 2026 avg',   data:G26.map(g=>({x:`R${g.r}`,y:2.046})),
+  ds.push({ label:'League 2026 avg (incl. finals)',   data:G26.map(g=>({x:`R${g.r}`,y:2.015})),
     borderColor:C.grey+'80', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false });
   new Chart(document.getElementById('tr-chart'), {
     type:'line', data:{datasets:ds},
